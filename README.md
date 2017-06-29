@@ -1,5 +1,18 @@
-# registry OpenAPI Specification
+# Business Registries OpenAPI Specification
+
 [![Build Status](https://travis-ci.org/ato-team/business-registries-rest-api-specification.svg?branch=master)](https://travis-ci.org/ato-team/business-registries-rest-api-specification)
+
+* [Introduction](#introduction)
+* [License](#license)
+
+## Introduction
+
+This document ...
+
+## License
+
+This work is licensed under the Creative Commons Attribution 3.0 Australia (CC BY 3.0 AU) License. To view a copy of 
+this license, visit https://creativecommons.org/licenses/by/3.0/au/.
 
 ## Steps to finish
 
@@ -26,6 +39,7 @@
 **Warning:** All above links are updated only after Travis CI finishes deployment
 
 ## Working on specification
+
 ### Install
 
 1. Install [Node JS](https://nodejs.org/)

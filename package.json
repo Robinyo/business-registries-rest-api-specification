@@ -1,15 +1,12 @@
 {
   "name": "business-registries-rest-api-specification",
   "version": "1.0.0",
+  "license": "Creative Commons Attribution 3.0 Australia (CC BY 3.0 AU) License",
   "dependencies": {
-    "bower": "^1.7.7",
-    "connect": "^3.4.1",
+    "connect": "^3.6.2",
     "cors": "^2.7.1",
     "deploy-to-gh-pages": "^1.1.0",
-    "gulp": "^3.9.1",
-    "gulp-connect": "^4.2.0",
-    "gulp-util": "^3.0.7",
-    "portfinder": "^1.0.3",
+    "portfinder": "^1.0.13",
     "shelljs": "^0.7.0",
     "swagger-repo": "^1.0.0",
     "swagger-ui": "^2.1.4"
@@ -22,5 +19,10 @@
     "test": "swagger-repo validate",
     "start": "gulp serve",
     "deploy-branch": "node ./scripts/deploy-branch.js"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^4.2.0",
+    "gulp-util": "^3.0.8"
   }
 }
