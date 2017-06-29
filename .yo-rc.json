@@ -1,0 +1,10 @@
+{
+  "generator-openapi-repo": {
+    "importExistingSpec": false,
+    "name": "registry",
+    "repo": "ato-team/business-registries-rest-api-specification",
+    "splitSpec": false,
+    "samples": true,
+    "installSwaggerUI": true
+  }
+}
