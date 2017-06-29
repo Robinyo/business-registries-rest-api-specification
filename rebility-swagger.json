@@ -1,31 +1,36 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0",
-    "title": "Business Registries REST API",
+    "version": "2.1",
+    "title": "Rebilly REST API",
+    "contact": {
+      "name": "Rebilly API Support",
+      "url": "https://www.rebilly.com/contact/",
+      "email": "integrations@rebilly.com"
+    },
     "license": {
-      "name": "Creative Commons Attribution 3.0 Australia",
-      "url": "https://creativecommons.org/licenses/by/3.0/au/"
+      "name": "Rebilly",
+      "url": "https://my.rebilly.com/api/license/"
     },
-    "termsOfService": "https://ato.gov.au/terms-of-service/",
+    "termsOfService": "https://www.rebilly.com/terms/",
     "x-logo": {
-      "url": "https://www.ato.gov.au/uploadedImages/Content/_DEM/Images/logo-ato.png",
-      "backgroundColor": "#D3D3D3"
+      "url": "https://rebilly.github.io/RebillyAPI/rb_apiLogo.svg",
+      "backgroundColor": "#0033A0"
     },
-    "description": "# Introduction\nThe Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs. It accepts JSON and returns JSON (and optionally XML).\n\n# Authentication\nWhen you sign up for an account, you are given your first API key. You can generate additional API keys, and delete API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by providing your secret key in the request header."
+    "description": "# Introduction\nThe Rebilly API is built on HTTP.  Our API is RESTful.  It has predictable\nresource URLs.  It returns HTTP response codes to indicate errors.  It also\naccepts and returns JSON in the HTTP body.  You can use your favorite\nHTTP/REST library for your programming language to use Rebilly's API, or\nyou can use one of our SDKs (currently available in [PHP](https://github.com/Rebilly/rebilly-php)\nand [C#](https://github.com/Rebilly/rebilly-dotnet-client)).\n\n# Authentication\nWhen you sign up for an account, you are given your first API key.\nYou can generate additional API keys, and delete API keys (as you may\nneed to rotate your keys in the future). You authenticate to the\nRebilly API by providing your secret key in the request header.\n\nRebilly offers three forms of authentication:  private key, JSON Web Tokens, and\npublic key.\n- private key: authenticates each request by searching for the presence\nof an HTTP header: REB-APIKEY.\n- JWT: authenticates each request by the HTTP header: Authorization.\n- public key: authenticates by the HTTP header: REB-AUTH (read more on this below).\n\nRebilly also offers JSON Web Tokens (JWT) authentication, where you can control\nthe specific granular permissions and expiration for that JWT.  We call our resource\nfor generating JWT [Sessions](#tag/Sessions).\n\nRebilly also has a client-side authentication scheme that uses an\napiUser and HMAC-SHA1 signature (only for the Tokens resource), so\nthat you may safely create tokens from the client-side without compromising\nyour secret keys.\n\nNever share your secret keys. Keep them guarded and secure.\nThe client-side authentication scheme uses one HTTP header named REB-AUTH.\n\n<!-- ReDoc-Inject: <security-definitions> -->\n\n# PHP SDK\nFor all PHP SDK examples provided in this spec you will need to configure `$client`.\nYou may do it like this:\n\n```php\n$client = new Rebilly\\Client([\n    'apiKey' => 'YourApiKeyHere',\n    'baseUrl' => 'https://api.rebilly.com',\n]);\n```\n"
   },
-  "host": "api.abr.ato.gov.au",
-  "basePath": "/",
+  "host": "api.rebilly.com",
+  "basePath": "/v2.1",
   "schemes": [
     "https"
   ],
   "x-servers": [
     {
-      "url": "//api.abr.ato.gov.au",
-      "description": "Production Server"
+      "url": "//api.rebilly.com/v2.1",
+      "description": "Live Server"
     },
     {
-      "url": "//api-sandbox.abr.ato.gov.au",
+      "url": "//api-sandbox.rebilly.com/v2.1",
       "description": "Sandbox Server"
     }
   ],
@@ -36,6 +41,10 @@
     "application/json"
   ],
   "tags": [
+    {
+      "name": "3D Secure",
+      "description": "3D Secure is a way to authenticate and protect transactions.  Typically,\nit's only possible to protect the initial transaction in a subscription\nwith 3D Secure.\n"
+    },
     {
       "name": "API Keys",
       "description": "Always keep your API Keys private.  In addition to your API Keys, you may use\nJSON Web Tokens (JWT) to authenticate to the API.  See\nour [Sessions](#tag/Sessions) resource for more information.\n"
@@ -57,6 +66,10 @@
       "description": "Contacts are Customer's address book.\nAll contact information used in Invoices, Subscriptions, Transacions, etc is enlisted here. Hovewer, changing a Contact won't change corresponding contact information in related resources\n"
     },
     {
+      "name": "Coupons",
+      "description": "Coupons allows to apply different types of discounts to Invoices, Subscriptions and Plans. Redeemed Coupons will be applied only to Invoices with the same currency.\n"
+    },
+    {
       "name": "Customers",
       "description": "Customers are your customers, sometimes known as accounts, clients,\nmembers, patrons, or players in other systems.\n"
     },
@@ -65,8 +78,24 @@
       "description": "Create authentication credentials, login, logout, and verify your customers.\n"
     },
     {
+      "name": "Custom Events",
+      "description": "If system events can't solve your problems, you are able to create a custom event\nthat can fit your requirements, and use it to solve your own business logic.\n"
+    },
+    {
+      "name": "Custom Rules",
+      "description": "\"Don't conform to the rules. Create the rules.\"\nRather than adapt your workflow and business, Rebilly can align with your business\nobjectives by giving you the power to automate certain behaviors when key events happen.\nYou can use this to your advantage to mitigate risk, maximize conversions and minimize costs.\nYou have the controls at your fingertips here. If you need more control,\nor help dialing in on a strategy, feel free to contact us.\n\nWhen an event happens, it triggers the evaluation of conditions (that you set up),\nin order from top to bottom. If the condition is met, the corresponding actions are executed.\nThe conditions continue to be checked until either all of the conditions have been executed,\nor a special \"stop\" action is executed.\n"
+    },
+    {
+      "name": "Custom Fields",
+      "description": "Create additional custom fields for particular resources.  You may name,\ndescribe, and determine the type of the schema.\n"
+    },
+    {
       "name": "Credential Hashes",
       "description": "Get and create SMTP and Webhook credential hashes.\n"
+    },
+    {
+      "name": "Disputes",
+      "description": "Handle disputes (chargebacks and retrievals).\n"
     },
     {
       "name": "Email Credentials",
@@ -75,6 +104,10 @@
     {
       "name": "Files",
       "description": "A File is an entity that can store a phyiscal file and some metadata. It also provides an easy access to\nits size, mime-type, user-defined tags and description thus allowing easy sorting and searching among stored\nfiles.\nThere are several methods of file uploading available: multipart/form-data encoded form, RAW POST (by sending\nfile contents as POST body), fetching from URL (by providing the file URL via 'url' param)\nAttachment is an entity that is used to link a File to one or multiple objects like Customer, Dispute, Payment,\nTransaction, Subscription, Plan, Product, Invoice, Note. That allows to quickly find and use files related to\nthose specific entities.\n"
+    },
+    {
+      "name": "Gateway Accounts",
+      "description": "Gateway accounts connect payment request to third party networks and platforms.\n"
     },
     {
       "name": "Invoices",
