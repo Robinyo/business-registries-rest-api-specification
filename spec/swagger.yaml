@@ -2,10 +2,6 @@ swagger: '2.0'
 info:
   version: '1.0'
   title: 'Business Registries REST API'
-  contact:
-    name: 'ATO API Support'
-    url: 'https://developer.ato.gov.au'
-    email: api@ato.gov.au
   license:
     name: 'Creative Commons Attribution 3.0 Australia'
     url: 'https://creativecommons.org/licenses/by/3.0/au/'
@@ -18,7 +14,7 @@ info:
 
     The Business Registries API is built on HTTP. The API is RESTful. It has predictable
 
-    resource URLs. It accepts JSON and returns JSON (and Optionally XML) in the HTTP body.
+    resource URLs. It accepts and returns JSON (and optionally XML) in the HTTP body.
 
     # Authentication
 
@@ -31,17 +27,17 @@ info:
     Business Registries API by providing your secret key in the request header.
 
 
-    The Business Registries API offers three forms of authentication:  private key, JSON Web Tokens,
+    The Business Registries API offers three forms of authentication: private key, JSON Web Tokens,
 
     and public key.
 
     - private key: authenticates each request by searching for the presence
 
-    of an HTTP header: REB-APIKEY.
+    of an HTTP header: ABR-APIKEY.
 
     - JWT: authenticates each request by the HTTP header: Authorization.
 
-    - public key: authenticates by the HTTP header: REB-AUTH (read more on this
+    - public key: authenticates by the HTTP header: ABR-AUTH (read more on this
     below).
 
 
@@ -54,7 +50,7 @@ info:
     for generating JWT [Sessions](#tag/Sessions).
 
 
-    Rebilly also has a client-side authentication scheme that uses an
+    The Business Registries API also has a client-side authentication scheme that uses an
 
     apiUser and HMAC-SHA1 signature (only for the Tokens resource), so
 
@@ -65,7 +61,7 @@ info:
 
     Never share your secret keys. Keep them guarded and secure.
 
-    The client-side authentication scheme uses one HTTP header named REB-AUTH.
+    The client-side authentication scheme uses one HTTP header named ABR-AUTH.
 
 
     <!-- ReDoc-Inject: <security-definitions> -->
