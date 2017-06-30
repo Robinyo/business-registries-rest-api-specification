@@ -1,0 +1,79 @@
+parameters:
+  - $ref: "#/parameters/resourceId"
+get:
+  tags:
+    - Contacts
+  summary: Retrieve a contact
+  description: |
+    Retrieve a contact with specified identifier string
+  responses:
+    200:
+      description: Contact was retrieved successfully
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/Contact"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
+put:
+  tags:
+    - Contacts
+  summary: Create or update a contact with predefined ID
+  description: |
+    Create or update a contact with predefined identifier string
+  parameters:
+    - name: body
+      in: body
+      description: Contact resource
+      required: true
+      schema:
+        $ref: "#/definitions/Contact"
+  responses:
+    201:
+      description: Contact was created
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/Contact"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
+    409:
+      description: Contact exists and cannot be updated
+    422:
+      $ref: "#/responses/InvalidDataError"
+delete:
+  tags:
+    - Contacts
+  summary: Delete a contact
+  description: |
+    Delete a contact with predefined identifier string
+  responses:
+    204:
+      description: Contact was deleted
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    402:
+      description: Contact cannot be deleted
+    404:
+      $ref: "#/responses/NotFound"

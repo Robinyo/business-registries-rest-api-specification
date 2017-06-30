@@ -1,0 +1,31 @@
+parameters:
+  - $ref: "#/parameters/resourceId"
+post:
+  tags:
+    - Invoices
+  summary: Issue an invoice
+  description: |
+    Issue an invoice with specified identifier string
+  parameters:
+    - name: body
+      in: body
+      description: InvoiceIssue resource
+      required: true
+      schema:
+        $ref: "#/definitions/InvoiceIssue"
+  responses:
+    201:
+      description: Invoice was issued successfully
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/Invoice"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"

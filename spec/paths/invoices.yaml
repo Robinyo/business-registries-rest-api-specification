@@ -1,0 +1,70 @@
+get:
+  tags:
+    - Invoices
+  summary: Retrieve a list of invoices
+  description: |
+    Retrieve a list of invoices
+  parameters:
+    - $ref: "#/parameters/collectionLimit"
+    - $ref: "#/parameters/collectionOffset"
+    - x-rebillyMerge:
+        - $ref: "#/parameters/mediaType"
+        - enum:
+          - application/json
+          - text/csv
+  produces:
+    - application/json
+    - text/csv
+  responses:
+    200:
+      description: A list of invoices was retrieved successfully
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+        Pagination-Total:
+          $ref: "#/headers/Pagination-Total"
+        Pagination-Limit:
+          $ref: "#/headers/Pagination-Limit"
+        Pagination-Offset:
+          $ref: "#/headers/Pagination-Offset"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/Invoice"
+    401:
+      $ref: "#/responses/AccessForbidden"
+post:
+  tags:
+    - Invoices
+  summary: Create an invoice
+  description: |
+    Create an invoice
+  parameters:
+    - name: body
+      in: body
+      description: Invoice resource
+      required: true
+      schema:
+        $ref: "#/definitions/Invoice"
+  responses:
+    201:
+      description: Invoice was created
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/Invoice"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    422:
+      description: Invalid data was sent
+      schema:
+        $ref: "#/definitions/InvalidError"

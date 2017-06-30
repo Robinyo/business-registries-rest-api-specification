@@ -1,0 +1,32 @@
+parameters:
+  - $ref: "#/parameters/resourceId"
+post:
+  tags:
+    - Transactions
+  summary: Refund a Transaction
+  description: |
+    Refund a Transaction with specified identifier string.
+    Note that the refund will be in the same currency as the original transaction.
+  parameters:
+    - name: body
+      in: body
+      description: Transaction resource
+      required: true
+      schema:
+       $ref: "#/definitions/TransactionRefund"
+  responses:
+    201:
+      description: Transaction was refunded successfully
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/Transaction"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"

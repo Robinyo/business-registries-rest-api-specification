@@ -1,0 +1,60 @@
+parameters:
+  - $ref: "#/parameters/resourceId"
+get:
+  tags:
+    - Invoices
+  summary: Retrieve invoice items
+  description: |
+    Retrieve an invoice items with specified invoice identifier string
+  parameters:
+    - $ref: "#/parameters/collectionLimit"
+    - $ref: "#/parameters/collectionOffset"
+  responses:
+    200:
+      description: Invoice items were retrieved successfully
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/InvoiceItem"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
+post:
+  tags:
+    - Invoices
+  summary: Create an invoice item
+  description: |
+    Create an invoice item
+  parameters:
+    - name: body
+      in: body
+      description: InvoiceItem resource
+      required: true
+      schema:
+        $ref: "#/definitions/InvoiceItem"
+  responses:
+    201:
+      description: InvoiceItem was created
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/InvoiceItem"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    422:
+      description: Invalid data was sent
+      schema:
+        $ref: "#/definitions/InvalidError"

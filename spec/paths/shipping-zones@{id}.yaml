@@ -1,0 +1,84 @@
+parameters:
+  - $ref: "#/parameters/resourceId"
+get:
+  tags:
+    - Shipping Zones
+  summary: Retrieve a shipping zone
+  description: |
+    Retrieve a shipping zone with specified identifier string
+  responses:
+    200:
+      description: Shipping zone was retrieved successfully
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/ShippingZone"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
+put:
+  tags:
+    - Shipping Zones
+  summary: Create a shipping zone with predefined ID
+  description: |
+    Create a shipping zone with predefined identifier string
+  parameters:
+    - name: body
+      in: body
+      description: Shipping zone resource
+      required: true
+      schema:
+        $ref: "#/definitions/ShippingZone"
+  responses:
+    200:
+      description: Shipping zone was updated
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/ShippingZone"
+    201:
+      description: Shipping zone was created
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/ShippingZone"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    422:
+      $ref: "#/responses/InvalidDataError"
+delete:
+  tags:
+    - Shipping Zones
+  summary: Delete a shipping zone
+  description: |
+    Delete a shipping zone with predefined identifier string
+  responses:
+    204:
+      description: Shipping zone was deleted
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"

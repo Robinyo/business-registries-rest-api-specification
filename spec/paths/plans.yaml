@@ -1,0 +1,55 @@
+get:
+  tags:
+    - Plans
+  summary: Retrieve a list of plans
+  description: |
+    Retrieve a list of plans
+  parameters:
+    - $ref: "#/parameters/collectionLimit"
+    - $ref: "#/parameters/collectionOffset"
+  responses:
+    200:
+      description: A list of Plans was retrieved successfully
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+        Pagination-Total:
+          $ref: "#/headers/Pagination-Total"
+        Pagination-Limit:
+          $ref: "#/headers/Pagination-Limit"
+        Pagination-Offset:
+          $ref: "#/headers/Pagination-Offset"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/Plan"
+    401:
+      $ref: "#/responses/AccessForbidden"
+post:
+  tags:
+    - Plans
+  summary: Create a plan
+  description: |
+    Create a plan
+  parameters:
+    - name: body
+      in: body
+      description: Plan resource
+      required: true
+      schema:
+        $ref: "#/definitions/Plan"
+  responses:
+    201:
+      description: Plan was created
+      schema:
+        $ref: "#/definitions/Plan"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    422:
+      description: Invalid data was sent
+      schema:
+        $ref: "#/definitions/InvalidError"

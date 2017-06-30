@@ -1,0 +1,23 @@
+parameters:
+  - $ref: "#/parameters/resourceId"
+post:
+  tags:
+    - Transactions
+  summary: Cancel a pending or suspended transaction
+  description: Cancel a scheduled transaction. Once handled a transaction cannot be canceled
+  responses:
+    201:
+      description: Successful cancel the payment
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/Transaction"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"

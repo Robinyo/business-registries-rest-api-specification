@@ -1,0 +1,36 @@
+parameters:
+  - $ref: "#/parameters/resourceId"
+  -
+    name: extension
+    in: path
+    description: File extension which also indicates the desired file format
+    type: string
+    required: true
+    enum:
+      - .png
+      - .jpg
+get:
+  tags:
+    - Files
+  summary: Used for converting images server-side
+  description: |
+    Used for converting images server-side
+  responses:
+    200:
+      description: The file was retrieved successfully
+      headers:
+        Content-Length:
+          description: The number of bytes in the file
+          type: integer
+        Content-Type:
+          description: The MIME type of the file
+          type: string
+      schema:
+        type: string
+        readOnly: true
+    404:
+      $ref: "#/responses/NotFound"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    422:
+      $ref: "#/responses/InvalidDataError"

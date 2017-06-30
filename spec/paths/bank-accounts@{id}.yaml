@@ -1,0 +1,68 @@
+parameters:
+  - $ref: "#/parameters/resourceId"
+get:
+  tags:
+    - Bank Accounts
+  summary: Retrieve a Bank Account
+  description: |
+    Retrieve a Bank Account with specified identifier string
+  responses:
+    200:
+      description: BankAccount was retrieved successfully
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/BankAccount"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
+put:
+  tags:
+    - Bank Accounts
+  summary: Create a BankAccount with predefined ID
+  description: |
+    Create or update a BankAccount with predefined identifier string
+  parameters:
+    - name: body
+      in: body
+      description: BankAccount resource
+      required: true
+      schema:
+        $ref: "#/definitions/BankAccount"
+  responses:
+    200:
+      description: BankAccount was updated
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/BankAccount"
+    201:
+      description: BankAccount was created
+      headers:
+        Rate-Limit-Limit:
+          $ref: "#/headers/Rate-Limit-Limit"
+        Rate-Limit-Remaining:
+          $ref: "#/headers/Rate-Limit-Remaining"
+        Rate-Limit-Reset:
+          $ref: "#/headers/Rate-Limit-Reset"
+      schema:
+        $ref: "#/definitions/BankAccount"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
+    422:
+      description: Invalid data was sent
+      schema:
+        $ref: "#/definitions/InvalidError"

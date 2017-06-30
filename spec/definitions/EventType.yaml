@@ -1,0 +1,16 @@
+type: string
+description: Rebilly event type
+readOnly: true
+enum:
+  - dispute-created
+  - gateway-account-requested
+  - transaction-processed
+  - subscription-canceled
+  - subscription-renewed
+  # - subscription-ended
+  # - subscription-trial-ended
+  - payment-card-expired
+  # - invoice-past-due
+  - payment-declined
+  - transaction-process-requested
+  - risk-score-changed
