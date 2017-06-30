@@ -27,9 +27,9 @@ Government Information Mangement Office's [A Guide to Open Source Software for A
 ### Usage
 
 1. Run `npm start`
-2. Checkout console output to see where local server is started. `Server started <url>`
-3. Make changes using your favorite editor or `swagger-editor` (look for URL in console output)
-4. All changes are immediately propagated to your local server, moreover all documentation pages will be automagically refreshed in a browser after each change
+2. Check the console output to see where the local server was started. For example: `Server started http://localhost:3000`
+3. Make changes using your favorite editor (in the `/spec` folder) or use the bundled `swagger-editor` (look for the URL in console output)
+4. All changes are immediately propagated to your local server, moreover all documentation pages will be automagically refreshed in the browser after each change
 **Note:** you can open `swagger-editor`, documentation and `swagger-ui` in parallel
 5. Once you finish with the changes you can run tests using: `npm test`
 

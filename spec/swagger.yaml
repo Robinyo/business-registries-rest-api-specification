@@ -14,7 +14,7 @@ info:
 
     The Business Registries API is built on HTTP. The API is RESTful. It has predictable
 
-    resource URLs. It accepts and returns JSON (and optionally XML) in the HTTP body.
+    resource URIs. It accepts and returns JSON (and optionally XML) in the HTTP body.
 
     # Authentication
 
