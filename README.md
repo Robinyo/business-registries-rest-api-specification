@@ -36,6 +36,9 @@ Government Information Mangement Office's [A Guide to Open Source Software for A
 ## Additional Resources
 * [ReDoc](https://github.com/Rebilly/ReDoc)
 * [Rebilly's REST API Specification](https://github.com/Rebilly/RebillyAPI)
+* [json-server](https://github.com/typicode/json-server) - Get a full fake REST API with zero coding in less than 30 seconds (seriously).
+* [faker.js](https://github.com/marak/Faker.js/) - Generate massive amounts of fake data in Node.js and the browser.
+* [Postman](https://www.getpostman.com/) - Developing APIs is hard. Postman makes it easy.
 * [Sahat's Excellent Hackathon Starter](https://github.com/sahat/hackathon-starter) - A kickstarter for Node.js applications.
 * [Microsoft's TypeScript-Node-Starter](https://github.com/Microsoft/TypeScript-Node-Starter) - A starter template for TypeScript and Node with a detailed README describing how to use the two together.
 * [Gery Hirschfeld's Express-TypeScript-Starter](https://github.com/w3tecch/express-typescript-boilerplate) - A starter template for Express and TypeScript.
