@@ -1,0 +1,40 @@
+get:
+  tags:
+    - Individuals
+  summary: Retrieve a list of individuals
+  description: |
+    Retrieve a list of individuals
+  parameters:
+    - $ref: "#/parameters/dateOfBirth"
+    - $ref: "#/parameters/placeOfBirth"
+  responses:
+    200:
+      description: A list of individuals was retrieved successfully
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/individual"
+    401:
+      $ref: "#/responses/AccessForbidden"
+post:
+  tags:
+    - Individuals
+  summary: Create an individual
+  description: |
+    Create an individual
+  parameters:
+    - name: body
+      in: body
+      description: Individual resource
+      required: true
+      schema:
+        $ref: "#/definitions/individual"
+  responses:
+    201:
+      description: Individual was created
+      schema:
+        $ref: "#/definitions/individual"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    422:
+      $ref: "#/responses/InvalidDataError"

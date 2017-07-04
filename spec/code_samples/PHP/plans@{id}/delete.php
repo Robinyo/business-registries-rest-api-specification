@@ -1,1 +1,0 @@
-$client->plans()->delete('planId');

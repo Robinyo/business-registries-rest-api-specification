@@ -1,1 +1,0 @@
-$authenticationOptions = $client->authenticationOptions()->load();
