@@ -1,51 +1,38 @@
 type: object
 properties:
   id:
-    description: The contact identifier string
+    description: The Individual identifier string
     readOnly: true
     allOf:
-      - $ref: "#/definitions/ResourceId"
-  customerId:
-    description: The contact customer ID
-    allOf:
-      - $ref: "#/definitions/ResourceId"
-  firstName:
-    description: The contact first name
+      - $ref: "#/definitions/resource-id"
+  namePrefix:
+    description: The individual's name prefix (e.g., Mr, Ms, Mrs)
     type: string
-  lastName:
-    description: The contact last name
+  givenName:
+    description: The individual's given name
     type: string
-  organization:
-    description: The contact organization
+  middleName:
+    description: The individual's middle name
     type: string
-  address:
-    description: The contact street address
+  familyName:
+    description: The individual's family name
     type: string
-    maxLength: 60
-  address2:
-    description: The contact street address (second line)
+  nameSuffix:
+    description: The individual's name suffix (e.g., Jr, Sr)
     type: string
-    maxLength: 60
-  city:
-    description: The contact city
+  direction:
+    description: E.g., right-to-left or left-to-right
     type: string
-    maxLength: 45
-  region:
-    description: The contact region (state)
+  formalSalutation:
+    description: E.g., Mr William Smith
     type: string
-    maxLength: 45
-  country:
-    description: The contact country ISO Alpha-2 code
+  informalSalutation:
+    description: E.g., Bill
     type: string
-    pattern: "^[A-Z]{2}$"
-  postalCode:
-    description: The contact postal code
-    type: string
-    maxLength: 10
-  phoneNumbers:
-    $ref: "#/definitions/ContactPhoneNumbers"
-  emails:
-    $ref: "#/definitions/ContactEmails"
+  addresses:
+    $ref: "#/definitions/address"
+  electronicAddresses:
+    $ref: "#/definitions/electronic-address"
   createdTime:
     description: The contact created time
     allOf:
@@ -54,8 +41,6 @@ properties:
     description: The contact updated time
     allOf:
       - $ref: "#/definitions/ServerTimestamp"
-  customFields:
-    $ref: "#/definitions/ResourceCustomFields"
   _links:
     type: array
     description: The links related to resource

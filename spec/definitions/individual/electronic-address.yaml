@@ -1,0 +1,12 @@
+description: The Electronic Address details
+type: array
+items:
+  type: object
+  required:
+    - label
+    - value
+  properties:
+    address:
+      description: The contact street address
+      type: string
+      maxLength: 60

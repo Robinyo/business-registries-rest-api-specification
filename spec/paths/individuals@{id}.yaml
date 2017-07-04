@@ -1,0 +1,56 @@
+parameters:
+  - $ref: "#/parameters/resourceId"
+get:
+  tags:
+    - Individuals
+  summary: Retrieve an individual
+  description: |
+    Retrieve an individual with the specified identifier
+  responses:
+    200:
+      description: Individual was retrieved successfully
+      schema:
+        $ref: "#/definitions/individual"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
+put:
+  tags:
+    - Individuals
+  summary: Update an individual
+  description: |
+    Update an individual
+  parameters:
+    - name: body
+      in: body
+      description: Individual resource
+      required: true
+      schema:
+        $ref: "#/definitions/individual"
+  responses:
+    200:
+      description: Individual was updated
+      schema:
+        $ref: "#/definitions/individual"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    422:
+      $ref: "#/responses/InvalidDataError"
+delete:
+  tags:
+    - Individuals
+  summary: Delete an individual
+  description: |
+    Delete an individual with specified identifier
+  responses:
+    204:
+      description: Individual was deleted
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
+    409:
+      description: Individual has related resources and cannot be deleted
+      schema:
+        $ref: "#/definitions/Error"
