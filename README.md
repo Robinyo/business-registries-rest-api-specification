@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This is the repositor for the Business Registries REST API.
+This is the repository for the Business Registries REST API.
 
 ## License
 
@@ -22,7 +22,7 @@ Government Information Mangement Office's [A Guide to Open Source Software for A
 ### Install
 
 1. Install [Node JS](https://nodejs.org/)
-2. Clone the repo, `cd` then run `npm install` (or `yarn add`)
+2. Clone the repo, `cd` then run `npm install` (or `yarn install`)
 
 ### Usage
 
