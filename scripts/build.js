@@ -19,4 +19,4 @@ exec('npm run swagger bundle -- --yaml -o web_deploy/swagger.yaml');
  cp('-R', SWAGGER_UI_DIST, 'web_deploy/swagger-ui/');
  sed('-i', 'http://petstore.swagger.io/v2/swagger.json', '../swagger.json', 'web_deploy/swagger-ui/index.html');
 
- */
+*/
