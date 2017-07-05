@@ -48,56 +48,6 @@ tags:
 
       For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity,
       Partnership or Joint Venture).
-securityDefinitions:
-  ApiKey:
-    description: |
-      When you sign up for an account, you are given your first API key.
-      To do so please follow this link: https://www.rebilly.com/site/signup/
-      Also you can generate additional API keys, and delete API keys (as you may
-      need to rotate your keys in the future).
-    name: REB-APIKEY
-    type: apiKey
-    in: header
-  JWT:
-    description: |
-      You can create a JSON Web Token (JWT) via our Sessions resource.
-    type: basic
-  RebAuth:
-    description: >
-      Only for the Tokens resource.
-
-      The REB-AUTH value is created in this way
-
-      Generate a Nonce (random string), and a Timestamp (unix timestamp)
-
-      Concatenate the values of ApiUser, Nonce, and Timestamp (in that order).
-
-      Use that value as the input data when you calculate the <a
-      href="http://tools.ietf.org/html/rfc2104">HMAC-SHA1</a> with your secret
-      key, called the signature.
-
-      Forming the four data points into a JSON object.
-
-
-      ```json
-
-      {
-        "REB-APIUSER": "abcdefg",
-        "REB-NONCE": "adfsjtreitou345fgkdafgj",
-        "REB-TIMESTAMP": "1382591345",
-        "REB-SIGNATURE": "a234fc95460401cfg09c9d09"
-      }
-
-      ```
-
-
-      Then base64 encode that JSON object. This is the final value of the
-      REB-AUTH HTTP header
-    name: REB-AUTH
-    type: apiKey
-    in: header
-security:
-  - ApiKey: []
 responses:
   AccessForbidden:
     description: 'Access forbidden, an invalid API-KEY was used'
@@ -107,25 +57,27 @@ responses:
     description: Resource was not found
     schema:
       $ref: '#/definitions/Error'
-  Conflict:
-    description: Conflict
-    schema:
-      $ref: '#/definitions/Error'
   InvalidDataError:
     description: Invalid data was sent
     schema:
       $ref: '#/definitions/InvalidError'
 parameters:
+  resourceId:
+    name: id
+    in: path
+    description: The resource identifier string
+    type: string
+    required: true
   dateOfBirth:
     name: dateOfBirth
     in: path
-    description: The individual's date of birth in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).
+    description: The individual's date of birth
     type: string
     required: true
   placeOfBirth:
     name: placeOfBirth
     in: path
-    description: The individual's place of birth.
+    description: The individual's place of birth
     type: string
     required: true
   registeredIdentifier:
@@ -140,96 +92,6 @@ parameters:
     description: The identifier.
     type: string
     required: true
-  resourceId:
-    name: id
-    in: path
-    description: The resource identifier string
-    type: string
-    required: true
-  collectionLimit:
-    name: limit
-    in: query
-    description: The collection items limit
-    type: integer
-    minimum: 0
-    maximum: 1000
-  collectionOffset:
-    name: offset
-    in: query
-    description: The collection items offset
-    type: integer
-    minimum: 0
-  collectionFilter:
-    name: filter
-    in: query
-    type: string
-    description: |
-      The collection items filter requires a special format.
-      Use "," for multiple allowed values.  Use ";" for multiple fields.
-      See the filter guide for more options and examples about this format.
-  collectionQuery:
-    name: q
-    in: query
-    type: string
-    description: The partial search of the text fields.
-  collectionCriteria:
-    name: criteria
-    in: query
-    type: string
-    description: The json criteria for collection
-  collectionSort:
-    name: sort
-    in: query
-    type: array
-    collectionFormat: csv
-    description: >-
-      The collection items sort field and order (prefix with "-" for descending
-      sort).
-    items:
-      type: string
-  collectionFields:
-    name: fields
-    in: query
-    type: string
-    description: >-
-      Limit the returned fields to the list specified, separated by comma.  Note
-      that id is always returned.
-  collectionExpand:
-    name: expand
-    in: query
-    type: string
-    description: >-
-      Expand response to get full related object intead of ID.  See the expand
-      guide for more info.
-  systemEventType:
-    name: eventType
-    in: path
-    description: The event type
-    type: string
-    required: true
-  rulesVersion:
-    name: version
-    in: path
-    type: integer
-    required: true
-    minimum: 1
-    description: >-
-      The rule set version. Expand response to get full related object instead
-      of ID.  See the expand guide for more info.
-  hash:
-    name: hash
-    in: path
-    description: The token identifier string
-    type: string
-    required: true
-  mediaType:
-    name: Accept
-    in: header
-    type: string
-    enum:
-      - application/json
-    default: application/json
-    description: The response media type
 headers:
   Rate-Limit-Limit:
     description: The number of allowed requests in the current period
