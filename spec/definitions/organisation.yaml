@@ -9,3 +9,9 @@ properties:
   establishmentDate:
     description: The organisation's establishment date, for example, "01-07-2016".
     type: string
+  registeredIdentifiers:
+    $ref: "#/definitions/registered-identifier"
+  addresses:
+    $ref: "#/definitions/address"
+  electronicAddresses:
+    $ref: "#/definitions/electronic-address"

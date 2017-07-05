@@ -16,7 +16,7 @@ properties:
     description: The individual's gender, for example, "Female", "Male", "Not Applicable" or "Not Known".
     type: string
   names:
-    $ref: "#/definitions/name"
+    $ref: "#/definitions/individual-name"
   addresses:
     $ref: "#/definitions/address"
   electronicAddresses:
