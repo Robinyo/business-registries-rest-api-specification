@@ -1,12 +1,37 @@
-description: The Address details
+description: The Address details.
 type: array
 items:
   type: object
-  required:
-    - label
-    - value
   properties:
-    address:
-      description: The contact street address
+    id:
+      description: The resource's unique identifier.
+      readOnly: true
+      allOf:
+        - $ref: "#/definitions/resourceId"
+    name:
+      description: The address name.
       type: string
-      maxLength: 60
+    line1:
+      description: The address line 1.
+      type: string
+    line2:
+      description: The address line 2.
+      type: string
+    line3:
+      description: The address line 3.
+      type: string
+    suburb:
+      description: The suburb.
+      type: string
+    city:
+      description: The city.
+      type: string
+    postalCode:
+      description: The postal code.
+      type: string
+    country:
+      description: The country.
+      type: string
+    type:
+      description: The address type, for example, "Mailing", "Principal Place of Business" or "Principal Place of Residence".
+      type: string

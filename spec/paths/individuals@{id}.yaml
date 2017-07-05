@@ -42,7 +42,7 @@ delete:
     - Individuals
   summary: Delete an individual
   description: |
-    Delete an individual with specified identifier
+    Delete an individual with the specified identifier
   responses:
     204:
       description: Individual was deleted

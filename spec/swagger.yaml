@@ -41,6 +41,13 @@ tags:
 
       For example, the individual's date and place of birth (for the purposes of identification) and the individual's
       residential address (which is used for administrative or law enforcement purposes only).
+  - name: Organisations
+    description: >
+      An organisation usually consists of a number of individuals or groups bound by a common purpose about whom the
+      registry wishes to maintain information.
+
+      For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity,
+      Partnership or Joint Venture).
 securityDefinitions:
   ApiKey:
     description: |
@@ -119,6 +126,18 @@ parameters:
     name: placeOfBirth
     in: path
     description: The individual's place of birth
+    type: string
+    required: true
+  registeredIdentifier:
+    name: registeredIdentifier
+    in: path
+    description: The registered identifier, for example, "ACN" or "ABN".
+    type: string
+    required: true
+  id:
+    name: id
+    in: path
+    description: The identifier.
     type: string
     required: true
   resourceId:

@@ -1,12 +1,31 @@
-description: The Electronic Address details
+description: The Electronic Address details.
 type: array
 items:
   type: object
-  required:
-    - label
-    - value
   properties:
-    address:
-      description: The contact street address
+    id:
+      description: The resource's unique identifier.
+      readOnly: true
+      allOf:
+        - $ref: "#/definitions/resourceId"
+    countryPrefix:
+      description: The country prefix, for example, "61".
       type: string
-      maxLength: 60
+    areaCode:
+      description: The area code, for example, "02".
+      type: string
+    number:
+      description: The number, for example, "62164453".
+      type: string
+    extension:
+      description: The extension number, for example, "4453".
+      type: string
+    email:
+      description: The email address, for example, "robert.ferguson@ato.gov.au".
+      type: string
+    url:
+      description: The website address, for example, "https://ato.gov.au".
+      type: string
+    type:
+      description: The electronic address type, for example, "Email", "Fax", "Landline", "Mobile" or "Website".
+      type: string

@@ -1,52 +1,23 @@
+description: The Individual details.
 type: object
 properties:
   id:
-    description: The Individual identifier string
+    description: The resource's unique identifier.
     readOnly: true
     allOf:
-      - $ref: "#/definitions/resource-id"
-  namePrefix:
-    description: The individual's name prefix (e.g., Mr, Ms, Mrs)
+      - $ref: "#/definitions/resourceId"
+  dateOfBirth:
+    description: The individual's date of birth, for example, "13-01-1979".
     type: string
-  givenName:
-    description: The individual's given name
+  placeOfBirth:
+    description: The individual's palce of birth, for example, "Tamworth".
     type: string
-  middleName:
-    description: The individual's middle name
+  gender:
+    description: The individual's gender, for example, "Female", "Male", "Not Applicable" or "Not Known".
     type: string
-  familyName:
-    description: The individual's family name
-    type: string
-  nameSuffix:
-    description: The individual's name suffix (e.g., Jr, Sr)
-    type: string
-  direction:
-    description: E.g., right-to-left or left-to-right
-    type: string
-  formalSalutation:
-    description: E.g., Mr William Smith
-    type: string
-  informalSalutation:
-    description: E.g., Bill
-    type: string
+  names:
+    $ref: "#/definitions/name"
   addresses:
     $ref: "#/definitions/address"
   electronicAddresses:
     $ref: "#/definitions/electronic-address"
-  createdTime:
-    description: The contact created time
-    allOf:
-      - $ref: "#/definitions/ServerTimestamp"
-  updatedTime:
-    description: The contact updated time
-    allOf:
-      - $ref: "#/definitions/ServerTimestamp"
-  _links:
-    type: array
-    description: The links related to resource
-    readOnly: true
-    minItems: 1
-    maxItems: 2
-    items:
-      - $ref: "#/definitions/SelfLink"
-      - $ref: "#/definitions/CustomerLink"

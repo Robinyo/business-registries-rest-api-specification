@@ -1,0 +1,11 @@
+description: The Organisation details.
+type: object
+properties:
+  id:
+    description: The resource's unique identifier.
+    readOnly: true
+    allOf:
+      - $ref: "#/definitions/resourceId"
+  establishmentDate:
+    description: The organisation's establishment date, for example, "01-07-2016".
+    type: string

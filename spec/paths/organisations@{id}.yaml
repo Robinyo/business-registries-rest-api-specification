@@ -3,21 +3,14 @@ parameters:
 get:
   tags:
     - Organisations
-  summary: Retrieve a organization
+  summary: Retrieve an organisation
   description: |
-    Retrieve a organization with specified identifier string
+    Retrieve an organisation with the specified identifier
   responses:
     200:
-      description: Organization was retrieved successfully
-      headers:
-        Rate-Limit-Limit:
-          $ref: "#/headers/Rate-Limit-Limit"
-        Rate-Limit-Remaining:
-          $ref: "#/headers/Rate-Limit-Remaining"
-        Rate-Limit-Reset:
-          $ref: "#/headers/Rate-Limit-Reset"
+      description: Individual was retrieved successfully
       schema:
-        $ref: "#/definitions/Organization"
+        $ref: "#/definitions/organisation"
     401:
       $ref: "#/responses/AccessForbidden"
     404:
@@ -25,39 +18,21 @@ get:
 put:
   tags:
     - Organisations
-  summary: Create or update a organization with predefined ID
+  summary: Update an organisation
   description: |
-    Create or update a organization with predefined identifier string
+    Update an organisation
   parameters:
     - name: body
       in: body
-      description: Organization resource
+      description: Organisation resource
       required: true
       schema:
-        $ref: "#/definitions/Organization"
+        $ref: "#/definitions/organisation"
   responses:
     200:
-      description: Organization was updated
-      headers:
-        Rate-Limit-Limit:
-          $ref: "#/headers/Rate-Limit-Limit"
-        Rate-Limit-Remaining:
-          $ref: "#/headers/Rate-Limit-Remaining"
-        Rate-Limit-Reset:
-          $ref: "#/headers/Rate-Limit-Reset"
+      description: Organisation was updated
       schema:
-        $ref: "#/definitions/Organization"
-    201:
-      description: Organization was created
-      headers:
-        Rate-Limit-Limit:
-          $ref: "#/headers/Rate-Limit-Limit"
-        Rate-Limit-Remaining:
-          $ref: "#/headers/Rate-Limit-Remaining"
-        Rate-Limit-Reset:
-          $ref: "#/headers/Rate-Limit-Reset"
-      schema:
-        $ref: "#/definitions/Organization"
+        $ref: "#/definitions/organisation"
     401:
       $ref: "#/responses/AccessForbidden"
     422:
@@ -65,24 +40,17 @@ put:
 delete:
   tags:
     - Organisations
-  summary: Delete a organization
+  summary: Delete an organisation
   description: |
-    Delete a organization with predefined identifier string
+    Delete an organisation with the specified identifier
   responses:
     204:
-      description: Organization was deleted
-      headers:
-        Rate-Limit-Limit:
-          $ref: "#/headers/Rate-Limit-Limit"
-        Rate-Limit-Remaining:
-          $ref: "#/headers/Rate-Limit-Remaining"
-        Rate-Limit-Reset:
-          $ref: "#/headers/Rate-Limit-Reset"
+      description: Organisation was deleted
     401:
       $ref: "#/responses/AccessForbidden"
     404:
       $ref: "#/responses/NotFound"
     409:
-      description: Organization has related resources and cannot be deleted
+      description: Organisation has related resources and cannot be deleted
       schema:
         $ref: "#/definitions/Error"

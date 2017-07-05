@@ -1,3 +1,0 @@
-description: RebillyProcessor Gateway config
-allOf:
-  - $ref: "#/definitions/GatewayAccount"
