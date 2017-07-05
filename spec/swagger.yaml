@@ -70,25 +70,25 @@ parameters:
     required: true
   dateOfBirth:
     name: dateOfBirth
-    in: path
+    in: query
     description: The individual's date of birth
     type: string
     required: true
   placeOfBirth:
     name: placeOfBirth
-    in: path
+    in: query
     description: The individual's place of birth
     type: string
     required: true
   registeredIdentifier:
     name: registeredIdentifier
-    in: path
+    in: query
     description: The registered identifier, for example, "ACN" or "ABN".
     type: string
     required: true
   identifier:
     name: identifier
-    in: path
+    in: query
     description: The identifier.
     type: string
     required: true
