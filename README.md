@@ -25,14 +25,11 @@ Government Information Mangement Office's [A Guide to Open Source Software for A
 
 ## Links
 
-- Documentation(ReDoc): https://ato-team.github.io/business-registries-rest-api-specification/
-- SwaggerUI: https://ato-team.github.io/business-registries-rest-api-specification/swagger-ui/
-- Look full spec:
+- Documentation: https://ato-team.github.io/business-registries-rest-api-specification/
+
+- The OpenAPI Specification:
     + JSON https://ato-team.github.io/business-registries-rest-api-specification/swagger.json
     + YAML https://ato-team.github.io/business-registries-rest-api-specification/swagger.yaml
-- Preview spec version for branch `[branch]`: https://ato-team.github.io/business-registries-rest-api-specification/preview/[branch]
-
-**Warning:** All above links are updated only after Travis CI finishes deployment
 
 ## To work on the API specification
 

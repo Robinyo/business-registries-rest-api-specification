@@ -33,7 +33,8 @@
 *.log
 
 # Dir for API portal deploy
-web_deploy
+# https://gist.github.com/cobyism/4730490
+# web_deploy
 
 # Logs
 logs
