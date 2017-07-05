@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/ato-team/business-registries-rest-api-specification.svg?branch=master)](https://travis-ci.org/ato-team/business-registries-rest-api-specification)
 
-![screenshot](https://github.com/ato-team/business-registries-rest-api-specification/blob/master/registry-rest-api.png)
-
 * [Introduction](#introduction)
 * [License](#license)
 * [Links](#links)
@@ -14,6 +12,8 @@
 ## Introduction
 
 This is the repository for the Business Registries REST API.
+
+![screenshot](https://github.com/ato-team/business-registries-rest-api-specification/blob/master/registry-rest-api.png)
 
 ## License
 
