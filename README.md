@@ -1,5 +1,7 @@
 # Business Registries REST API
 
+[![Build Status](https://travis-ci.org/ato-team/business-registries-rest-api-specification.svg?branch=master)](https://travis-ci.org/ato-team/business-registries-rest-api-specification)
+
 ![screenshot](https://github.com/ato-team/business-registries-rest-api-specification/blob/master/registry-rest-api.png)
 
 * [Introduction](#introduction)
