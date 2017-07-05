@@ -6,6 +6,10 @@
 
 * [Introduction](#introduction)
 * [License](#license)
+* [Links](#links)
+* [Install](#install)
+* [Usage](#usage)
+* [Additional Resources](#additional-resources)
 
 ## Introduction
 
@@ -18,6 +22,17 @@ this license, visit https://creativecommons.org/licenses/by/3.0/au/.
 
 See: The Digital Transformation Agency's [Digital Service Standard](https://www.dta.gov.au/standard/) and the Australian 
 Government Information Mangement Office's [A Guide to Open Source Software for Australian Government Agencies](http://www.finance.gov.au/files/2012/04/AGuidetoOpenSourceSoftware.pdf).
+
+## Links
+
+- Documentation(ReDoc): https://ato-team.github.io/business-registries-rest-api-specification/
+- SwaggerUI: https://ato-team.github.io/business-registries-rest-api-specification/swagger-ui/
+- Look full spec:
+    + JSON https://ato-team.github.io/business-registries-rest-api-specification/swagger.json
+    + YAML https://ato-team.github.io/business-registries-rest-api-specification/swagger.yaml
+- Preview spec version for branch `[branch]`: https://ato-team.github.io/business-registries-rest-api-specification/preview/[branch]
+
+**Warning:** All above links are updated only after Travis CI finishes deployment
 
 ## To work on the API specification
 
