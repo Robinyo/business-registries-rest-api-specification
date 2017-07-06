@@ -292,36 +292,47 @@ definitions:
         name:
           description: The address name.
           type: string
+          example: Kembery Building
         line1:
           description: The address line 1.
           type: string
+          example: Level 7
         line2:
           description: The address line 2.
           type: string
+          example: 21 Genge Street
         line3:
           description: The address line 3.
           type: string
+          example: ''
         suburb:
           description: The suburb.
           type: string
+          example: Civic
         city:
           description: The city.
           type: string
+          example: Canberra
         postalCode:
           description: The postal code.
           type: string
+          example: '2601'
         country:
           description: The country.
           type: string
+          example: Australia
         fromDate:
           description: 'The date the address became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
           type: string
+          example: 01-01-2001
         toDate:
           description: 'The date the address became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
           type: string
+          example: ''
         type:
           description: 'The address type, for example, "Mailing", "Principal Place of Business" or "Principal Place of Residence".'
           type: string
+          example: Principal Place of Business
   electronic-address:
     description: The Electronic Address details.
     type: array
@@ -336,30 +347,39 @@ definitions:
         countryPrefix:
           description: 'The country prefix, for example, "61".'
           type: string
+          example: '61'
         areaCode:
           description: 'The area code, for example, "02".'
           type: string
+          example: '02'
         number:
           description: 'The number, for example, "62164453".'
           type: string
+          example: '62164453'
         extension:
           description: 'The extension number, for example, "4453".'
           type: string
+          example: ''
         email:
           description: 'The email address, for example, "robert.ferguson@ato.gov.au".'
           type: string
+          example: ''
         url:
           description: 'The website address, for example, "https://ato.gov.au".'
           type: string
+          example: ''
         fromDate:
           description: 'The date the electronic address became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
           type: string
+          example: 01-01-2017
         toDate:
           description: 'The date the electronic address became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
           type: string
+          example: ''
         type:
           description: 'The electronic address type, for example, "Email", "Fax", "Landline", "Mobile" or "Website".'
           type: string
+          example: Landline
   Error:
     type: object
     properties:
@@ -381,12 +401,15 @@ definitions:
       dateOfBirth:
         description: 'The individual''s date of birth, for example, "13-01-1979".'
         type: string
+        example: 13-01-1979
       placeOfBirth:
         description: 'The individual''s palce of birth, for example, "Tamworth".'
         type: string
+        example: Tamworth
       gender:
         description: 'The individual''s gender, for example, "Female", "Male", "Not Applicable" or "Not Known".'
         type: string
+        example: Male
       names:
         $ref: '#/definitions/individual-name'
       addresses:
@@ -407,36 +430,47 @@ definitions:
         namePrefix:
           description: 'The individual''s name prefix, for example, "Mr" or "Ms".'
           type: string
+          example: Mr
         givenName:
           description: The individual's given name.
           type: string
+          example: Robert
         middleName:
           description: The individual's middle name.
           type: string
+          example: James
         familyName:
           description: The individual's family name.
           type: string
+          example: Ferguson
         nameSuffix:
           description: 'The individual''s name suffix, for example, "Jr" or "Sr".'
           type: string
+          example: ''
         direction:
           description: 'The direction used to render the individual''s name, for example, "right-to-left" or "left-to-right".'
           type: string
+          example: right-to-left
         formalSalutation:
           description: 'The individual''s formal salutation, for example, "Mr William Smith".'
           type: string
+          example: Mr Robert Ferguson
         informalSalutation:
           description: 'The individual''s informal salutation, for example, "Bill".'
           type: string
+          example: Rob
         fromDate:
           description: 'The date the name became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
           type: string
+          example: 13-01-1979
         toDate:
           description: 'The date the name became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
           type: string
+          example: ''
         type:
           description: 'The name type, for example, "Alias" or "Principal Name".'
           type: string
+          example: Principal Name
   InvalidError:
     allOf:
       - $ref: '#/definitions/Error'
@@ -455,15 +489,40 @@ definitions:
         readOnly: true
         allOf:
           - $ref: '#/definitions/resourceId'
+      legalEntityType:
+        description: 'The organisation''s legal entity type, for example, Company, Trust, Partnership or Joint Venture.'
+        type: string
       establishmentDate:
         description: 'The organisation''s establishment date, for example, "01-07-2016".'
         type: string
       registeredIdentifiers:
         $ref: '#/definitions/registered-identifier'
+      names:
+        $ref: '#/definitions/organisation-name'
       addresses:
         $ref: '#/definitions/address'
       electronicAddresses:
         $ref: '#/definitions/electronic-address'
+  organisation-name:
+    description: The Organisation Name details.
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          description: The resource's unique identifier.
+          readOnly: true
+          allOf:
+            - $ref: '#/definitions/resourceId'
+        name:
+          description: The organisation's name.
+          type: string
+        fromDate:
+          description: 'The date the name became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+          type: string
+        toDate:
+          description: 'The date the name became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+          type: string
   registered-identifier:
     description: The Registered Identifier details.
     type: array

@@ -6,6 +6,9 @@ properties:
     readOnly: true
     allOf:
       - $ref: "#/definitions/resourceId"
+  legalEntityType:
+    description: The organisation's legal entity type, for example, Company, Trust, Partnership or Joint Venture.
+    type: string
   establishmentDate:
     description: The organisation's establishment date, for example, "01-07-2016".
     type: string

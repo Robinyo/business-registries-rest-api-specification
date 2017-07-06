@@ -9,12 +9,15 @@ properties:
   dateOfBirth:
     description: The individual's date of birth, for example, "13-01-1979".
     type: string
+    example: "13-01-1979"
   placeOfBirth:
     description: The individual's palce of birth, for example, "Tamworth".
     type: string
+    example: "Tamworth"
   gender:
     description: The individual's gender, for example, "Female", "Male", "Not Applicable" or "Not Known".
     type: string
+    example: "Male"
   names:
     $ref: "#/definitions/individual-name"
   addresses:
