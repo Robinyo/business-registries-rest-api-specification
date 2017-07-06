@@ -11,6 +11,8 @@ properties:
     type: string
   registeredIdentifiers:
     $ref: "#/definitions/registered-identifier"
+  names:
+    $ref: "#/definitions/organisation-name"
   addresses:
     $ref: "#/definitions/address"
   electronicAddresses:

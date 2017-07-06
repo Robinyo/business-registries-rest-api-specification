@@ -3,6 +3,22 @@
   "version": "1.0.0",
   "license": "Creative Commons Attribution 3.0 Australia (CC BY 3.0 AU) License",
   "private": true,
+  "contributors": [
+    {
+      "name": "Rob Ferguson",
+      "email": "rob.ferguson@robferguson.org",
+      "url": "http://robferguson.org"
+    }
+  ],
+  "homepage": "https://ato-team.github.io/business-registries-rest-api-specification",
+  "keywords": [
+    "ATO",
+    "ReDoc"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ato-team/business-registries-rest-api-specification.git"
+  },
   "dependencies": {
     "bower": "^1.7.7",
     "connect": "^3.4.1",

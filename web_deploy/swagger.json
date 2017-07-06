@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0",
+    "version": "0.0.2",
     "title": "Business Registries REST API",
     "license": {
       "name": "Creative Commons Attribution 3.0 Australia",
