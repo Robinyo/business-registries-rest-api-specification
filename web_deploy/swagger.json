@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "0.0.2",
+    "version": "0.0.3",
     "title": "Business Registries REST API",
     "license": {
       "name": "Creative Commons Attribution 3.0 Australia",
@@ -69,7 +69,21 @@
     "resourceId": {
       "name": "id",
       "in": "path",
-      "description": "The resource identifier string",
+      "description": "The resource identifier",
+      "type": "string",
+      "required": true
+    },
+    "partyId": {
+      "name": "partyId",
+      "in": "path",
+      "description": "The party identifier",
+      "type": "string",
+      "required": true
+    },
+    "addressId": {
+      "name": "addressId",
+      "in": "path",
+      "description": "The address identifier",
       "type": "string",
       "required": true
     },
@@ -166,10 +180,10 @@
         }
       }
     },
-    "/individuals/{id}": {
+    "/individuals/{partyId}": {
       "parameters": [
         {
-          "$ref": "#/parameters/resourceId"
+          "$ref": "#/parameters/partyId"
         }
       ],
       "get": {
@@ -250,6 +264,146 @@
         }
       }
     },
+    "/individuals/{partyId}/addresses": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/partyId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Individuals"
+        ],
+        "summary": "Retrieve a list of addresses",
+        "responses": {
+          "200": {
+            "description": "Addresses were retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Individuals"
+        ],
+        "summary": "Create an address",
+        "description": "Create an address\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Address resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Address was created",
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "422": {
+            "$ref": "#/responses/InvalidDataError"
+          }
+        }
+      }
+    },
+    "/individuals/{partyId}/addresses{addressId}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/partyId"
+        },
+        {
+          "$ref": "#/parameters/addressId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Individuals"
+        ],
+        "summary": "Retrieve an address",
+        "description": "Retrieve an address\n",
+        "responses": {
+          "200": {
+            "description": "Address was retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Individuals"
+        ],
+        "summary": "Update an address",
+        "description": "Update an address\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Address resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Address was updated",
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "422": {
+            "$ref": "#/responses/InvalidDataError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Individuals"
+        ],
+        "summary": "Delete an address",
+        "description": "Delete an address\n",
+        "responses": {
+          "204": {
+            "description": "Address was deleted"
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      }
+    },
     "/organisations": {
       "get": {
         "tags": [
@@ -313,10 +467,10 @@
         }
       }
     },
-    "/organisations/{id}": {
+    "/organisations/{partyId}": {
       "parameters": [
         {
-          "$ref": "#/parameters/resourceId"
+          "$ref": "#/parameters/partyId"
         }
       ],
       "get": {
@@ -393,6 +547,146 @@
             "schema": {
               "$ref": "#/definitions/Error"
             }
+          }
+        }
+      }
+    },
+    "/organisations/{partyId}/addresses": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/partyId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Organisations"
+        ],
+        "summary": "Retrieve a list of addresses",
+        "responses": {
+          "200": {
+            "description": "Addresses were retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Organisations"
+        ],
+        "summary": "Create an address",
+        "description": "Create an address\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Address resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Address was created",
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "422": {
+            "$ref": "#/responses/InvalidDataError"
+          }
+        }
+      }
+    },
+    "/organisations/{partyId}/addresses{addressId}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/partyId"
+        },
+        {
+          "$ref": "#/parameters/addressId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Organisations"
+        ],
+        "summary": "Retrieve an address",
+        "description": "Retrieve an address\n",
+        "responses": {
+          "200": {
+            "description": "Address was retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Organisations"
+        ],
+        "summary": "Update an address",
+        "description": "Update an address\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Address resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Address was updated",
+            "schema": {
+              "$ref": "#/definitions/address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "422": {
+            "$ref": "#/responses/InvalidDataError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Organisations"
+        ],
+        "summary": "Delete an address",
+        "description": "Delete an address\n",
+        "responses": {
+          "204": {
+            "description": "Address was deleted"
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
           }
         }
       }
@@ -548,44 +842,23 @@
         }
       }
     },
-    "individual": {
-      "description": "The Individual details.",
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "The resource's unique identifier.",
-          "readOnly": true,
-          "allOf": [
-            {
-              "$ref": "#/definitions/resourceId"
+    "InvalidError": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Error"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "details": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
-          ]
-        },
-        "dateOfBirth": {
-          "description": "The individual's date of birth, for example, \"13-01-1979\".",
-          "type": "string",
-          "example": "13-01-1979"
-        },
-        "placeOfBirth": {
-          "description": "The individual's palce of birth, for example, \"Tamworth\".",
-          "type": "string",
-          "example": "Tamworth"
-        },
-        "gender": {
-          "description": "The individual's gender, for example, \"Female\", \"Male\", \"Not Applicable\" or \"Not Known\".",
-          "type": "string",
-          "example": "Male"
-        },
-        "names": {
-          "$ref": "#/definitions/individual-name"
-        },
-        "addresses": {
-          "$ref": "#/definitions/address"
-        },
-        "electronicAddresses": {
-          "$ref": "#/definitions/electronic-address"
+          }
         }
-      }
+      ]
     },
     "individual-name": {
       "description": "The Individual Name details.",
@@ -660,26 +933,8 @@
         }
       }
     },
-    "InvalidError": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/Error"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "details": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "organisation": {
-      "description": "The Organisation details.",
+    "individual": {
+      "description": "The Individual details.",
       "type": "object",
       "properties": {
         "id": {
@@ -687,23 +942,27 @@
           "readOnly": true,
           "allOf": [
             {
-              "$ref": "#/definitions/resourceId"
+              "$ref": "#/definitions/partyId"
             }
           ]
         },
-        "legalEntityType": {
-          "description": "The organisation's legal entity type, for example, Company, Trust, Partnership or Joint Venture.",
-          "type": "string"
+        "dateOfBirth": {
+          "description": "The individual's date of birth, for example, \"13-01-1979\".",
+          "type": "string",
+          "example": "13-01-1979"
         },
-        "establishmentDate": {
-          "description": "The organisation's establishment date, for example, \"01-07-2016\".",
-          "type": "string"
+        "placeOfBirth": {
+          "description": "The individual's palce of birth, for example, \"Tamworth\".",
+          "type": "string",
+          "example": "Tamworth"
         },
-        "registeredIdentifiers": {
-          "$ref": "#/definitions/registered-identifier"
+        "gender": {
+          "description": "The individual's gender, for example, \"Female\", \"Male\", \"Not Applicable\" or \"Not Known\".",
+          "type": "string",
+          "example": "Male"
         },
         "names": {
-          "$ref": "#/definitions/organisation-name"
+          "$ref": "#/definitions/individual-name"
         },
         "addresses": {
           "$ref": "#/definitions/address"
@@ -730,18 +989,64 @@
           },
           "name": {
             "description": "The organisation's name.",
-            "type": "string"
+            "type": "string",
+            "example": "Australian Taxation Office"
           },
           "fromDate": {
             "description": "The date the name became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).",
-            "type": "string"
+            "type": "string",
+            "example": ""
           },
           "toDate": {
             "description": "The date the name became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).",
-            "type": "string"
+            "type": "string",
+            "example": "13-01-1979"
           }
         }
       }
+    },
+    "organisation": {
+      "description": "The Organisation details.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The resource's unique identifier.",
+          "readOnly": true,
+          "allOf": [
+            {
+              "$ref": "#/definitions/partyId"
+            }
+          ]
+        },
+        "legalEntityType": {
+          "description": "The organisation's legal entity type, for example, Company, Trust, Partnership or Joint Venture.",
+          "type": "string",
+          "example": "Company"
+        },
+        "establishmentDate": {
+          "description": "The organisation's establishment date, for example, \"01-07-2016\".",
+          "type": "string",
+          "example": "03-03-1928"
+        },
+        "registeredIdentifiers": {
+          "$ref": "#/definitions/registered-identifier"
+        },
+        "names": {
+          "$ref": "#/definitions/organisation-name"
+        },
+        "addresses": {
+          "$ref": "#/definitions/address"
+        },
+        "electronicAddresses": {
+          "$ref": "#/definitions/electronic-address"
+        }
+      }
+    },
+    "partyId": {
+      "type": "string",
+      "description": "The party ID. Defaults to UUID v4",
+      "maxLength": 36,
+      "example": "123e4567-e89b-12d3-a456-426655440000"
     },
     "registered-identifier": {
       "description": "The Registered Identifier details.",
@@ -760,19 +1065,23 @@
           },
           "identifier": {
             "description": "The registered identifier.",
-            "type": "string"
+            "type": "string",
+            "example": "123456789"
           },
           "fromDate": {
             "description": "The date the registered identifier became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).",
-            "type": "string"
+            "type": "string",
+            "example": "01-07-2016"
           },
           "toDate": {
             "description": "The date the registered identifier became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).",
-            "type": "string"
+            "type": "string",
+            "example": ""
           },
           "type": {
             "description": "The registered identifier type, for example, \"ACN\" or \"ABN\".",
-            "type": "string"
+            "type": "string",
+            "example": "ACN"
           }
         }
       }

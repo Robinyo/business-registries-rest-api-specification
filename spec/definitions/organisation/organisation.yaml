@@ -5,13 +5,15 @@ properties:
     description: The resource's unique identifier.
     readOnly: true
     allOf:
-      - $ref: "#/definitions/resourceId"
+      - $ref: "#/definitions/partyId"
   legalEntityType:
     description: The organisation's legal entity type, for example, Company, Trust, Partnership or Joint Venture.
     type: string
+    example: "Company"
   establishmentDate:
     description: The organisation's establishment date, for example, "01-07-2016".
     type: string
+    example: "03-03-1928"
   registeredIdentifiers:
     $ref: "#/definitions/registered-identifier"
   names:

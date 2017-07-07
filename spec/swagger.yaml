@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '0.0.2'
+  version: '0.0.3'
   title: 'Business Registries REST API'
   license:
     name: 'Creative Commons Attribution 3.0 Australia'
@@ -65,7 +65,19 @@ parameters:
   resourceId:
     name: id
     in: path
-    description: The resource identifier string
+    description: The resource identifier
+    type: string
+    required: true
+  partyId:
+    name: partyId
+    in: path
+    description: The party identifier
+    type: string
+    required: true
+  addressId:
+    name: addressId
+    in: path
+    description: The address identifier
     type: string
     required: true
   dateOfBirth:

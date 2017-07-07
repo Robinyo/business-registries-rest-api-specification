@@ -11,12 +11,16 @@ items:
     identifier:
       description: The registered identifier.
       type: string
+      example: "123456789"
     fromDate:
       description: The date the registered identifier became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).
       type: string
+      example: "01-07-2016"
     toDate:
       description: The date the registered identifier became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).
       type: string
+      example: ""
     type:
       description: The registered identifier type, for example, "ACN" or "ABN".
       type: string
+      example: "ACN"

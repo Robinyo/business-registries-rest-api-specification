@@ -1,0 +1,53 @@
+parameters:
+  - $ref: "#/parameters/partyId"
+  - $ref: "#/parameters/addressId"
+get:
+  tags:
+    - Organisations
+  summary: Retrieve an address
+  description: |
+    Retrieve an address
+  responses:
+    200:
+      description: Address was retrieved successfully
+      schema:
+        $ref: "#/definitions/address"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
+put:
+  tags:
+    - Organisations
+  summary: Update an address
+  description: |
+    Update an address
+  parameters:
+    - name: body
+      in: body
+      description: Address resource
+      required: true
+      schema:
+        $ref: "#/definitions/address"
+  responses:
+    200:
+      description: Address was updated
+      schema:
+        $ref: "#/definitions/address"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    422:
+      $ref: "#/responses/InvalidDataError"
+delete:
+  tags:
+    - Organisations
+  summary: Delete an address
+  description: |
+    Delete an address
+  responses:
+    204:
+      description: Address was deleted
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
