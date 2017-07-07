@@ -1,0 +1,16 @@
+type: object
+properties:
+  code:
+    description: The error code.
+    type: string
+    example: "401"
+  message:
+    description: The error message.
+    type: string
+    example: "Request not authenticated due to missing, invalid, or expired token"
+  status:
+    description: The error status.
+    type: string
+    example: "UNAUTHENTICATED"
+  details:
+    $ref: "#/definitions/error-details"

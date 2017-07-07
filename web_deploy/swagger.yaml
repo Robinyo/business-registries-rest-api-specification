@@ -37,6 +37,14 @@ tags:
       An organisation usually consists of a number of individuals or groups bound by a common purpose about whom the registry wishes to maintain information.
       For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity, Partnership or Joint Venture).
 responses:
+  InvalidArgument:
+    description: Client specified an invalid argument
+    schema:
+      $ref: '#/definitions/invalid-argument'
+  Unauthenticated:
+    description: Request not authenticated
+    schema:
+      $ref: '#/definitions/unauthenticated'
   AccessForbidden:
     description: 'Access forbidden, an invalid API-KEY was used'
     schema:
@@ -50,34 +58,28 @@ responses:
     schema:
       $ref: '#/definitions/InvalidError'
 parameters:
-  resourceId:
-    name: id
-    in: path
-    description: The resource identifier
-    type: string
-    required: true
   partyId:
     name: partyId
     in: path
-    description: The party identifier
+    description: The party identifier.
     type: string
     required: true
   addressId:
     name: addressId
     in: path
-    description: The address identifier
+    description: The address identifier.
     type: string
     required: true
   dateOfBirth:
     name: dateOfBirth
     in: query
-    description: The individual's date of birth
+    description: The individual's date of birth.
     type: string
     required: true
   placeOfBirth:
     name: placeOfBirth
     in: query
-    description: The individual's place of birth
+    description: The individual's place of birth.
     type: string
     required: true
   registeredIdentifier:
@@ -111,7 +113,7 @@ paths:
             items:
               $ref: '#/definitions/individual'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
     post:
       tags:
         - Individuals
@@ -128,12 +130,17 @@ paths:
       responses:
         '201':
           description: Individual was created
+          headers:
+            Location:
+              description: |
+                A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.
+              type: string
           schema:
             $ref: '#/definitions/individual'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
   '/individuals/{partyId}':
     parameters:
       - $ref: '#/parameters/partyId'
@@ -318,12 +325,15 @@ paths:
       responses:
         '201':
           description: Organisation was created
+          headers:
+            Location:
+              description: |
+                A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.
+              type: string
           schema:
             $ref: '#/definitions/organisation'
-        '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+        '400':
+          $ref: '#/responses/InvalidArgument'
   '/organisations/{partyId}':
     parameters:
       - $ref: '#/parameters/partyId'
@@ -576,6 +586,23 @@ definitions:
           description: 'The electronic address type, for example, "Email", "Fax", "Landline", "Mobile" or "Website".'
           type: string
           example: Landline
+  error-details:
+    type: array
+    items:
+      type: object
+      properties:
+        code:
+          description: The error code.
+          type: string
+          example: NullValue
+        target:
+          description: The error target.
+          type: string
+          example: familyName
+        message:
+          description: The error message.
+          type: string
+          example: Family name must not be null
   Error:
     type: object
     properties:
@@ -585,6 +612,23 @@ definitions:
         maximum: 600
       error:
         type: string
+  invalid-argument:
+    type: object
+    properties:
+      code:
+        description: The error code.
+        type: string
+        example: '400'
+      message:
+        description: The error message.
+        type: string
+        example: The client specified an invalid argument
+      status:
+        description: The error status.
+        type: string
+        example: INVALID_ARGUMENT
+      details:
+        $ref: '#/definitions/error-details'
   InvalidError:
     allOf:
       - $ref: '#/definitions/Error'
@@ -594,6 +638,23 @@ definitions:
             type: array
             items:
               type: string
+  unauthenticated:
+    type: object
+    properties:
+      code:
+        description: The error code.
+        type: string
+        example: '401'
+      message:
+        description: The error message.
+        type: string
+        example: 'Request not authenticated due to missing, invalid, or expired token'
+      status:
+        description: The error status.
+        type: string
+        example: UNAUTHENTICATED
+      details:
+        $ref: '#/definitions/error-details'
   individual-name:
     description: The Individual Name details.
     type: array

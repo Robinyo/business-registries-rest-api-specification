@@ -1,0 +1,16 @@
+type: array
+items:
+  type: object
+  properties:
+    code:
+      description: The error code.
+      type: string
+      example: "NullValue"
+    target:
+      description: The error target.
+      type: string
+      example: "familyName"
+    message:
+      description: The error message.
+      type: string
+      example: "Family name must not be null"

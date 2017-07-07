@@ -32,9 +32,10 @@ post:
   responses:
     201:
       description: Organisation was created
+      headers:
+        Location:
+          $ref: "#/headers/Location"
       schema:
         $ref: "#/definitions/organisation"
-    401:
-      $ref: "#/responses/AccessForbidden"
-    422:
-      $ref: "#/responses/InvalidDataError"
+    400:
+      $ref: "#/responses/InvalidArgument"
