@@ -2,7 +2,7 @@ parameters:
   - $ref: "#/parameters/partyId"
 get:
   tags:
-    - Organisations
+    - Organisations Addresses
   summary: Retrieve a list of addresses
   responses:
     200:
@@ -15,7 +15,7 @@ get:
       $ref: "#/responses/NotFound"
 post:
   tags:
-    - Organisations
+    - Organisations Addresses
   summary: Create an address
   description: |
     Create an address

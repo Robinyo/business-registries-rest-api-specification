@@ -283,7 +283,7 @@
       ],
       "get": {
         "tags": [
-          "Individuals"
+          "Individuals Addresses"
         ],
         "summary": "Retrieve a list of addresses",
         "responses": {
@@ -303,7 +303,7 @@
       },
       "post": {
         "tags": [
-          "Individuals"
+          "Individuals Addresses"
         ],
         "summary": "Create an address",
         "description": "Create an address\n",
@@ -334,7 +334,7 @@
         }
       }
     },
-    "/individuals/{partyId}/addresses{addressId}": {
+    "/individuals/{partyId}/addresses/{addressId}": {
       "parameters": [
         {
           "$ref": "#/parameters/partyId"
@@ -345,7 +345,7 @@
       ],
       "get": {
         "tags": [
-          "Individuals"
+          "Individuals Addresses"
         ],
         "summary": "Retrieve an address",
         "description": "Retrieve an address\n",
@@ -366,7 +366,7 @@
       },
       "put": {
         "tags": [
-          "Individuals"
+          "Individuals Addresses"
         ],
         "summary": "Update an address",
         "description": "Update an address\n",
@@ -398,13 +398,153 @@
       },
       "delete": {
         "tags": [
-          "Individuals"
+          "Individuals Addresses"
         ],
         "summary": "Delete an address",
         "description": "Delete an address\n",
         "responses": {
           "204": {
             "description": "Address was deleted"
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/individuals/{partyId}/electronic-addresses": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/partyId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Individuals Electronic Addresses"
+        ],
+        "summary": "Retrieve a list of electronic addresses",
+        "responses": {
+          "200": {
+            "description": "Electronic addresses were retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/electronic-address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Individuals Electronic Addresses"
+        ],
+        "summary": "Create an electronic address",
+        "description": "Create an electronic address\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Electronic Address resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/electronic-address"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Electronic Address was created",
+            "schema": {
+              "$ref": "#/definitions/electronic-address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "422": {
+            "$ref": "#/responses/InvalidDataError"
+          }
+        }
+      }
+    },
+    "/individuals/{partyId}/electronic-addresses/{addressId}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/partyId"
+        },
+        {
+          "$ref": "#/parameters/addressId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Individuals Electronic Addresses"
+        ],
+        "summary": "Retrieve an electronic address",
+        "description": "Retrieve an electronic address\n",
+        "responses": {
+          "200": {
+            "description": "Electronic address was retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/electronic-address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Individuals Electronic Addresses"
+        ],
+        "summary": "Update an electronic address",
+        "description": "Update an electronic address\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Electronic Address resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/electronic-address"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Electronic Address was updated",
+            "schema": {
+              "$ref": "#/definitions/electronic-address"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/AccessForbidden"
+          },
+          "422": {
+            "$ref": "#/responses/InvalidDataError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Individuals Electronic Addresses"
+        ],
+        "summary": "Delete an electronic address",
+        "description": "Delete an electronic address\n",
+        "responses": {
+          "204": {
+            "description": "Electronic Address was deleted"
           },
           "401": {
             "$ref": "#/responses/AccessForbidden"
@@ -573,7 +713,7 @@
       ],
       "get": {
         "tags": [
-          "Organisations"
+          "Organisations Addresses"
         ],
         "summary": "Retrieve a list of addresses",
         "responses": {
@@ -593,7 +733,7 @@
       },
       "post": {
         "tags": [
-          "Organisations"
+          "Organisations Addresses"
         ],
         "summary": "Create an address",
         "description": "Create an address\n",
@@ -624,7 +764,7 @@
         }
       }
     },
-    "/organisations/{partyId}/addresses{addressId}": {
+    "/organisations/{partyId}/addresses/{addressId}": {
       "parameters": [
         {
           "$ref": "#/parameters/partyId"
@@ -635,7 +775,7 @@
       ],
       "get": {
         "tags": [
-          "Organisations"
+          "Organisations Addresses"
         ],
         "summary": "Retrieve an address",
         "description": "Retrieve an address\n",
@@ -656,7 +796,7 @@
       },
       "put": {
         "tags": [
-          "Organisations"
+          "Organisations Addresses"
         ],
         "summary": "Update an address",
         "description": "Update an address\n",
@@ -688,7 +828,7 @@
       },
       "delete": {
         "tags": [
-          "Organisations"
+          "Organisations Addresses"
         ],
         "summary": "Delete an address",
         "description": "Delete an address\n",

@@ -3,7 +3,7 @@ parameters:
   - $ref: "#/parameters/addressId"
 get:
   tags:
-    - Individuals
+    - Organisations Addresses
   summary: Retrieve an address
   description: |
     Retrieve an address
@@ -18,7 +18,7 @@ get:
       $ref: "#/responses/NotFound"
 put:
   tags:
-    - Individuals
+    - Organisations Addresses
   summary: Update an address
   description: |
     Update an address
@@ -40,7 +40,7 @@ put:
       $ref: "#/responses/InvalidDataError"
 delete:
   tags:
-    - Individuals
+    - Organisations Addresses
   summary: Delete an address
   description: |
     Delete an address

@@ -14,6 +14,10 @@
       @import url(//fonts.googleapis.com/css?family=Roboto:300,400,700);
       @import url(//fonts.googleapis.com/css?family=Montserrat:400,700);
 
+      redoc api-logo img {
+        padding: 10px 20px 14px 20px;
+      }
+
       body {
         margin: 0;
         padding: 0;
@@ -22,9 +26,24 @@
         color: #333;
       }
 
-      redoc api-logo img {
-        padding: 10px 20px 14px 20px;
+      [_nghost-c2] {
+        display: block;
+        text-align: center;
+        background-color: rgb(211, 211, 211);
       }
+
+      [sticky-sidebar][_ngcontent-c0] {
+        width: 340px !important;
+      }
+
+      .api-content {
+        margin-left: 340px !important;
+      }
+
+      .background {
+        left: 340px !important;
+      }
+
     </style>
 
     <!-- favicons -->
