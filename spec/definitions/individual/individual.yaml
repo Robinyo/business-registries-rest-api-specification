@@ -1,5 +1,9 @@
 description: The Individual details.
 type: object
+required:
+  - dateOfBirth
+  - placeOfBirth
+discriminator: gender
 properties:
   id:
     description: The resource's unique identifier.
@@ -15,12 +19,23 @@ properties:
     type: string
     example: "Tamworth"
   gender:
-    description: The individual's gender, for example, "Female", "Male", "Not Applicable" or "Not Known".
+    description: The individual's gender.
     type: string
-    example: "Male"
+    default: "Not Known"
+    enum:
+      - "Female"
+      - "Male"
+      - "Not Applicable"
+      - "Not Known"
   names:
-    $ref: "#/definitions/individual-name"
+    type: array
+    items:
+      $ref: "#/definitions/individual-name"
   addresses:
-    $ref: "#/definitions/address"
+    type: array
+    items:
+      $ref: "#/definitions/address"
   electronicAddresses:
-    $ref: "#/definitions/electronic-address"
+    type: array
+    items:
+      $ref: "#/definitions/electronic-address"

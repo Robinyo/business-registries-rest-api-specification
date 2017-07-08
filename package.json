@@ -1,5 +1,6 @@
 {
   "name": "business-registries-rest-api-specification",
+  "description": "Business Registries REST API Specification",
   "version": "1.0.0",
   "license": "Creative Commons Attribution 3.0 Australia (CC BY 3.0 AU) License",
   "private": true,
@@ -12,8 +13,15 @@
   ],
   "homepage": "https://ato-team.github.io/business-registries-rest-api-specification",
   "keywords": [
-    "ATO",
-    "ReDoc"
+    "OpenAPI",
+    "OpenAPI Specification",
+    "Swagger",
+    "ReDoc",
+    "JSON-Schema",
+    "API",
+    "REST",
+    "documentation",
+    "Angular"
   ],
   "repository": {
     "type": "git",

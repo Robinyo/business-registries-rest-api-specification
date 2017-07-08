@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '0.0.3'
+  version: '0.0.4'
   title: 'Business Registries REST API'
   license:
     name: 'Creative Commons Attribution 3.0 Australia'
@@ -15,16 +15,28 @@ info:
     The Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs. It accepts and
     returns JSON (and optionally XML) in the HTTP body.
 
+    # OpenAPI Specification
+
+    This API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format.
+    In addition to the standard OpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
+
     # Authentication
+
+    The Business Registries API supports:
+      - API Key authentication
 
     When you sign up for an account, you are given your first API key. You can generate additional API keys, and delete
     API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by
     providing your secret key in the request header.
-
 host: api.abr.ato.gov.au
 basePath: /
 schemes:
   - https
+securityDefinitions:
+  apiKey:
+    type: apiKey
+    name: apiKey
+    in: header
 x-servers:
   - url: //api.abr.ato.gov.au/
     description: Production API Server
@@ -40,7 +52,23 @@ tags:
       An individual is a person about whom the registry wishes to maintain information.
 
       For example, the individual's date and place of birth (for the purposes of identification) and the individual's
-      residential address (which is used for administrative or law enforcement purposes only).
+      residential address (which is used for administrative or law enforcement purposes).
+  - name: Individuals Addresses
+    description: |
+      The registry maintains information about an individuals contact details for administrative purposes.
+
+        Including:
+        - an address for the service of documents
+        - a principal place of business address
+
+  - name: Individuals Electronic Addresses
+    description: |
+      The registry maintains information about an individuals contact details for administrative purposes.
+
+        Including:
+        - an email address
+        - a mobile number
+
   - name: Organisations
     description: >
       An organisation usually consists of a number of individuals or groups bound by a common purpose about whom the
@@ -48,6 +76,33 @@ tags:
 
       For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity,
       Partnership or Joint Venture).
+  - name: Organisations Addresses
+    description: |
+      The registry maintains information about an organisations contact details for administrative purposes.
+
+        Including:
+        - an address for the service of documents
+        - a principal place of business address
+
+  - name: Organisations Electronic Addresses
+    description: |
+      The registry maintains information about an organisations contact details for administrative purposes.
+
+        Including:
+        - an email address
+        - a mobile number
+
+x-tagGroups:
+  - name: Individuals
+    tags:
+      - Individuals
+      - Individuals Addresses
+      - Individuals Electronic Addresses
+  - name: Organisations
+    tags:
+      - Organisations
+      - Organisations Addresses
+      - Organisations Electronic Addresses
 responses:
 
   InvalidArgument:
@@ -73,6 +128,12 @@ responses:
       $ref: '#/definitions/InvalidError'
 
 parameters:
+  apiKey:
+    name: apiKey
+    in: header
+    description: The API key.
+    type: string
+    required: true
   partyId:
     name: partyId
     in: path
@@ -90,25 +151,25 @@ parameters:
     in: query
     description: The individual's date of birth.
     type: string
-    required: true
+    required: false
   placeOfBirth:
     name: placeOfBirth
     in: query
     description: The individual's place of birth.
     type: string
-    required: true
+    required: false
   registeredIdentifier:
     name: registeredIdentifier
     in: query
     description: The registered identifier, for example, "ACN" or "ABN".
     type: string
-    required: true
+    required: false
   identifier:
     name: identifier
     in: query
     description: The identifier.
     type: string
-    required: true
+    required: false
 headers:
   Link:
     description: The Link header introduced by [RFC 5988](https://tools.ietf.org/html/rfc5988#page-6).

@@ -15,10 +15,18 @@ properties:
     type: string
     example: "03-03-1928"
   registeredIdentifiers:
-    $ref: "#/definitions/registered-identifier"
+    type: array
+    items:
+      $ref: "#/definitions/registered-identifier"
   names:
-    $ref: "#/definitions/organisation-name"
+    type: array
+    items:
+      $ref: "#/definitions/organisation-name"
   addresses:
-    $ref: "#/definitions/address"
+    type: array
+    items:
+      $ref: "#/definitions/address"
   electronicAddresses:
-    $ref: "#/definitions/electronic-address"
+    type: array
+    items:
+      $ref: "#/definitions/electronic-address"

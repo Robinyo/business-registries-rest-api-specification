@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.0.3
+  version: 0.0.4
   title: Business Registries REST API
   license:
     name: Creative Commons Attribution 3.0 Australia
@@ -12,12 +12,22 @@ info:
   description: |
     # Introduction
     The Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs. It accepts and returns JSON (and optionally XML) in the HTTP body.
+    # OpenAPI Specification
+    This API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format. In addition to the standard OpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
     # Authentication
+    The Business Registries API supports:
+      - API Key authentication
+
     When you sign up for an account, you are given your first API key. You can generate additional API keys, and delete API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by providing your secret key in the request header.
 host: api.abr.ato.gov.au
 basePath: /
 schemes:
   - https
+securityDefinitions:
+  apiKey:
+    type: apiKey
+    name: apiKey
+    in: header
 x-servers:
   - url: //api.abr.ato.gov.au/
     description: Production API Server
@@ -31,11 +41,50 @@ tags:
   - name: Individuals
     description: |
       An individual is a person about whom the registry wishes to maintain information.
-      For example, the individual's date and place of birth (for the purposes of identification) and the individual's residential address (which is used for administrative or law enforcement purposes only).
+      For example, the individual's date and place of birth (for the purposes of identification) and the individual's residential address (which is used for administrative or law enforcement purposes).
+  - name: Individuals Addresses
+    description: |
+      The registry maintains information about an individuals contact details for administrative purposes.
+
+        Including:
+        - an address for the service of documents
+        - a principal place of business address
+  - name: Individuals Electronic Addresses
+    description: |
+      The registry maintains information about an individuals contact details for administrative purposes.
+
+        Including:
+        - an email address
+        - a mobile number
   - name: Organisations
     description: |
       An organisation usually consists of a number of individuals or groups bound by a common purpose about whom the registry wishes to maintain information.
       For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity, Partnership or Joint Venture).
+  - name: Organisations Addresses
+    description: |
+      The registry maintains information about an organisations contact details for administrative purposes.
+
+        Including:
+        - an address for the service of documents
+        - a principal place of business address
+  - name: Organisations Electronic Addresses
+    description: |
+      The registry maintains information about an organisations contact details for administrative purposes.
+
+        Including:
+        - an email address
+        - a mobile number
+x-tagGroups:
+  - name: Individuals
+    tags:
+      - Individuals
+      - Individuals Addresses
+      - Individuals Electronic Addresses
+  - name: Organisations
+    tags:
+      - Organisations
+      - Organisations Addresses
+      - Organisations Electronic Addresses
 responses:
   InvalidArgument:
     description: Client specified an invalid argument
@@ -58,6 +107,12 @@ responses:
     schema:
       $ref: '#/definitions/InvalidError'
 parameters:
+  apiKey:
+    name: apiKey
+    in: header
+    description: The API key.
+    type: string
+    required: true
   partyId:
     name: partyId
     in: path
@@ -75,25 +130,25 @@ parameters:
     in: query
     description: The individual's date of birth.
     type: string
-    required: true
+    required: false
   placeOfBirth:
     name: placeOfBirth
     in: query
     description: The individual's place of birth.
     type: string
-    required: true
+    required: false
   registeredIdentifier:
     name: registeredIdentifier
     in: query
     description: 'The registered identifier, for example, "ACN" or "ABN".'
     type: string
-    required: true
+    required: false
   identifier:
     name: identifier
     in: query
     description: The identifier.
     type: string
-    required: true
+    required: false
 paths:
   /individuals:
     get:
@@ -103,6 +158,7 @@ paths:
       description: |
         Retrieve a list of individuals
       parameters:
+        - $ref: '#/parameters/apiKey'
         - $ref: '#/parameters/dateOfBirth'
         - $ref: '#/parameters/placeOfBirth'
       responses:
@@ -575,109 +631,197 @@ paths:
           $ref: '#/responses/AccessForbidden'
         '404':
           $ref: '#/responses/NotFound'
+  '/organisations/{partyId}/electronic-addresses':
+    parameters:
+      - $ref: '#/parameters/partyId'
+    get:
+      tags:
+        - Organisations Electronic Addresses
+      summary: Retrieve a list of electronic addresses
+      responses:
+        '200':
+          description: Electronic addresses were retrieved successfully
+          schema:
+            $ref: '#/definitions/electronic-address'
+        '401':
+          $ref: '#/responses/AccessForbidden'
+        '404':
+          $ref: '#/responses/NotFound'
+    post:
+      tags:
+        - Organisations Electronic Addresses
+      summary: Create an electronic address
+      description: |
+        Create an electronic address
+      parameters:
+        - name: body
+          in: body
+          description: Electronic Address resource
+          required: true
+          schema:
+            $ref: '#/definitions/electronic-address'
+      responses:
+        '201':
+          description: Electronic Address was created
+          schema:
+            $ref: '#/definitions/electronic-address'
+        '401':
+          $ref: '#/responses/AccessForbidden'
+        '422':
+          $ref: '#/responses/InvalidDataError'
+  '/organisations/{partyId}/electronic-addresses/{addressId}':
+    parameters:
+      - $ref: '#/parameters/partyId'
+      - $ref: '#/parameters/addressId'
+    get:
+      tags:
+        - Organisations Electronic Addresses
+      summary: Retrieve an electronic address
+      description: |
+        Retrieve an electronic address
+      responses:
+        '200':
+          description: Electronic address was retrieved successfully
+          schema:
+            $ref: '#/definitions/electronic-address'
+        '401':
+          $ref: '#/responses/AccessForbidden'
+        '404':
+          $ref: '#/responses/NotFound'
+    put:
+      tags:
+        - Organisations Electronic Addresses
+      summary: Update an electronic address
+      description: |
+        Update an electronic address
+      parameters:
+        - name: body
+          in: body
+          description: Electronic Address resource
+          required: true
+          schema:
+            $ref: '#/definitions/electronic-address'
+      responses:
+        '200':
+          description: Electronic Address was updated
+          schema:
+            $ref: '#/definitions/electronic-address'
+        '401':
+          $ref: '#/responses/AccessForbidden'
+        '422':
+          $ref: '#/responses/InvalidDataError'
+    delete:
+      tags:
+        - Organisations Electronic Addresses
+      summary: Delete an electronic address
+      description: |
+        Delete an electronic address
+      responses:
+        '204':
+          description: Electronic Address was deleted
+        '401':
+          $ref: '#/responses/AccessForbidden'
+        '404':
+          $ref: '#/responses/NotFound'
 definitions:
   address:
     description: The Address details.
-    type: array
-    items:
-      type: object
-      properties:
-        id:
-          description: The resource's unique identifier.
-          readOnly: true
-          allOf:
-            - $ref: '#/definitions/resourceId'
-        name:
-          description: The address name.
-          type: string
-          example: Kembery Building
-        line1:
-          description: The address line 1.
-          type: string
-          example: Level 7
-        line2:
-          description: The address line 2.
-          type: string
-          example: 21 Genge Street
-        line3:
-          description: The address line 3.
-          type: string
-          example: ''
-        suburb:
-          description: The suburb.
-          type: string
-          example: Civic
-        city:
-          description: The city.
-          type: string
-          example: Canberra
-        postalCode:
-          description: The postal code.
-          type: string
-          example: '2601'
-        country:
-          description: The country.
-          type: string
-          example: Australia
-        fromDate:
-          description: 'The date the address became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-          type: string
-          example: 01-01-2001
-        toDate:
-          description: 'The date the address became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-          type: string
-          example: ''
-        type:
-          description: 'The address type, for example, "Mailing", "Principal Place of Business" or "Principal Place of Residence".'
-          type: string
-          example: Principal Place of Business
+    type: object
+    properties:
+      id:
+        description: The resource's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/resourceId'
+      name:
+        description: The address name.
+        type: string
+        example: Kembery Building
+      line1:
+        description: The address line 1.
+        type: string
+        example: Level 7
+      line2:
+        description: The address line 2.
+        type: string
+        example: 21 Genge Street
+      line3:
+        description: The address line 3.
+        type: string
+        example: ''
+      suburb:
+        description: The suburb.
+        type: string
+        example: Civic
+      city:
+        description: The city.
+        type: string
+        example: Canberra
+      postalCode:
+        description: The postal code.
+        type: string
+        example: '2601'
+      country:
+        description: The country.
+        type: string
+        example: Australia
+      fromDate:
+        description: 'The date the address became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+        type: string
+        example: 01-01-2001
+      toDate:
+        description: 'The date the address became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+        type: string
+        example: ''
+      type:
+        description: 'The address type, for example, "Mailing", "Principal Place of Business" or "Principal Place of Residence".'
+        type: string
+        example: Principal Place of Business
   electronic-address:
     description: The Electronic Address details.
-    type: array
-    items:
-      type: object
-      properties:
-        id:
-          description: The resource's unique identifier.
-          readOnly: true
-          allOf:
-            - $ref: '#/definitions/resourceId'
-        countryPrefix:
-          description: 'The country prefix, for example, "61".'
-          type: string
-          example: '61'
-        areaCode:
-          description: 'The area code, for example, "02".'
-          type: string
-          example: '02'
-        number:
-          description: 'The number, for example, "62164453".'
-          type: string
-          example: '62164453'
-        extension:
-          description: 'The extension number, for example, "4453".'
-          type: string
-          example: ''
-        email:
-          description: 'The email address, for example, "robert.ferguson@ato.gov.au".'
-          type: string
-          example: ''
-        url:
-          description: 'The website address, for example, "https://ato.gov.au".'
-          type: string
-          example: ''
-        fromDate:
-          description: 'The date the electronic address became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-          type: string
-          example: 01-01-2017
-        toDate:
-          description: 'The date the electronic address became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-          type: string
-          example: ''
-        type:
-          description: 'The electronic address type, for example, "Email", "Fax", "Landline", "Mobile" or "Website".'
-          type: string
-          example: Landline
+    type: object
+    properties:
+      id:
+        description: The resource's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/resourceId'
+      countryPrefix:
+        description: 'The country prefix, for example, "61".'
+        type: string
+        example: '61'
+      areaCode:
+        description: 'The area code, for example, "02".'
+        type: string
+        example: '02'
+      number:
+        description: 'The number, for example, "62164453".'
+        type: string
+        example: '62164453'
+      extension:
+        description: 'The extension number, for example, "4453".'
+        type: string
+        example: ''
+      email:
+        description: 'The email address, for example, "robert.ferguson@ato.gov.au".'
+        type: string
+        example: ''
+      url:
+        description: 'The website address, for example, "https://ato.gov.au".'
+        type: string
+        example: ''
+      fromDate:
+        description: 'The date the electronic address became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+        type: string
+        example: 01-01-2017
+      toDate:
+        description: 'The date the electronic address became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+        type: string
+        example: ''
+      type:
+        description: 'The electronic address type, for example, "Email", "Fax", "Landline", "Mobile" or "Website".'
+        type: string
+        example: Landline
   error-details:
     type: array
     items:
@@ -749,62 +893,64 @@ definitions:
         $ref: '#/definitions/error-details'
   individual-name:
     description: The Individual Name details.
-    type: array
-    items:
-      type: object
-      properties:
-        id:
-          description: The resource's unique identifier.
-          readOnly: true
-          allOf:
-            - $ref: '#/definitions/resourceId'
-        namePrefix:
-          description: 'The individual''s name prefix, for example, "Mr" or "Ms".'
-          type: string
-          example: Mr
-        givenName:
-          description: The individual's given name.
-          type: string
-          example: Robert
-        middleName:
-          description: The individual's middle name.
-          type: string
-          example: James
-        familyName:
-          description: The individual's family name.
-          type: string
-          example: Ferguson
-        nameSuffix:
-          description: 'The individual''s name suffix, for example, "Jr" or "Sr".'
-          type: string
-          example: ''
-        direction:
-          description: 'The direction used to render the individual''s name, for example, "right-to-left" or "left-to-right".'
-          type: string
-          example: right-to-left
-        formalSalutation:
-          description: 'The individual''s formal salutation, for example, "Mr William Smith".'
-          type: string
-          example: Mr Robert Ferguson
-        informalSalutation:
-          description: 'The individual''s informal salutation, for example, "Bill".'
-          type: string
-          example: Rob
-        fromDate:
-          description: 'The date the name became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-          type: string
-          example: 13-01-1979
-        toDate:
-          description: 'The date the name became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-          type: string
-          example: ''
-        type:
-          description: 'The name type, for example, "Alias" or "Principal Name".'
-          type: string
-          example: Principal Name
+    type: object
+    properties:
+      id:
+        description: The resource's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/resourceId'
+      namePrefix:
+        description: 'The individual''s name prefix, for example, "Mr" or "Ms".'
+        type: string
+        example: Mr
+      givenName:
+        description: The individual's given name.
+        type: string
+        example: Robert
+      middleName:
+        description: The individual's middle name.
+        type: string
+        example: James
+      familyName:
+        description: The individual's family name.
+        type: string
+        example: Ferguson
+      nameSuffix:
+        description: 'The individual''s name suffix, for example, "Jr" or "Sr".'
+        type: string
+        example: ''
+      direction:
+        description: 'The direction used to render the individual''s name, for example, "right-to-left" or "left-to-right".'
+        type: string
+        example: right-to-left
+      formalSalutation:
+        description: 'The individual''s formal salutation, for example, "Mr William Smith".'
+        type: string
+        example: Mr Robert Ferguson
+      informalSalutation:
+        description: 'The individual''s informal salutation, for example, "Bill".'
+        type: string
+        example: Rob
+      fromDate:
+        description: 'The date the name became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+        type: string
+        example: 13-01-1979
+      toDate:
+        description: 'The date the name became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+        type: string
+        example: ''
+      type:
+        description: 'The name type, for example, "Alias" or "Principal Name".'
+        type: string
+        example: Principal Name
   individual:
     description: The Individual details.
     type: object
+    required:
+      - dateOfBirth
+      - placeOfBirth
+    discriminator: gender
     properties:
       id:
         description: The resource's unique identifier.
@@ -820,15 +966,26 @@ definitions:
         type: string
         example: Tamworth
       gender:
-        description: 'The individual''s gender, for example, "Female", "Male", "Not Applicable" or "Not Known".'
+        description: The individual's gender.
         type: string
-        example: Male
+        default: Not Known
+        enum:
+          - Female
+          - Male
+          - Not Applicable
+          - Not Known
       names:
-        $ref: '#/definitions/individual-name'
+        type: array
+        items:
+          $ref: '#/definitions/individual-name'
       addresses:
-        $ref: '#/definitions/address'
+        type: array
+        items:
+          $ref: '#/definitions/address'
       electronicAddresses:
-        $ref: '#/definitions/electronic-address'
+        type: array
+        items:
+          $ref: '#/definitions/electronic-address'
   organisation-name:
     description: The Organisation Name details.
     type: array
@@ -870,13 +1027,21 @@ definitions:
         type: string
         example: 03-03-1928
       registeredIdentifiers:
-        $ref: '#/definitions/registered-identifier'
+        type: array
+        items:
+          $ref: '#/definitions/registered-identifier'
       names:
-        $ref: '#/definitions/organisation-name'
+        type: array
+        items:
+          $ref: '#/definitions/organisation-name'
       addresses:
-        $ref: '#/definitions/address'
+        type: array
+        items:
+          $ref: '#/definitions/address'
       electronicAddresses:
-        $ref: '#/definitions/electronic-address'
+        type: array
+        items:
+          $ref: '#/definitions/electronic-address'
   partyId:
     type: string
     description: The party ID. Defaults to UUID v4
@@ -884,31 +1049,29 @@ definitions:
     example: 123e4567-e89b-12d3-a456-426655440000
   registered-identifier:
     description: The Registered Identifier details.
-    type: array
-    items:
-      type: object
-      properties:
-        id:
-          description: The resource's unique identifier.
-          readOnly: true
-          allOf:
-            - $ref: '#/definitions/resourceId'
-        identifier:
-          description: The registered identifier.
-          type: string
-          example: '123456789'
-        fromDate:
-          description: 'The date the registered identifier became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-          type: string
-          example: 01-07-2016
-        toDate:
-          description: 'The date the registered identifier became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-          type: string
-          example: ''
-        type:
-          description: 'The registered identifier type, for example, "ACN" or "ABN".'
-          type: string
-          example: ACN
+    type: object
+    properties:
+      id:
+        description: The resource's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/resourceId'
+      identifier:
+        description: The registered identifier.
+        type: string
+        example: '123456789'
+      fromDate:
+        description: 'The date the registered identifier became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+        type: string
+        example: 01-07-2016
+      toDate:
+        description: 'The date the registered identifier became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+        type: string
+        example: ''
+      type:
+        description: 'The registered identifier type, for example, "ACN" or "ABN".'
+        type: string
+        example: ACN
   resourceId:
     type: string
     description: The resource ID. Defaults to UUID v4

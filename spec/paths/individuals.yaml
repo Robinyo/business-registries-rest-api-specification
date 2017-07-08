@@ -5,6 +5,7 @@ get:
   description: |
     Retrieve a list of individuals
   parameters:
+    - $ref: "#/parameters/apiKey"
     - $ref: "#/parameters/dateOfBirth"
     - $ref: "#/parameters/placeOfBirth"
   responses:

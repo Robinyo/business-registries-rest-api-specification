@@ -1,0 +1,37 @@
+parameters:
+  - $ref: "#/parameters/partyId"
+get:
+  tags:
+    - Organisations Electronic Addresses
+  summary: Retrieve a list of electronic addresses
+  responses:
+    200:
+      description: Electronic addresses were retrieved successfully
+      schema:
+        $ref: "#/definitions/electronic-address"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    404:
+      $ref: "#/responses/NotFound"
+post:
+  tags:
+    - Organisations Electronic Addresses
+  summary: Create an electronic address
+  description: |
+    Create an electronic address
+  parameters:
+    - name: body
+      in: body
+      description: Electronic Address resource
+      required: true
+      schema:
+        $ref: "#/definitions/electronic-address"
+  responses:
+    201:
+      description: Electronic Address was created
+      schema:
+        $ref: "#/definitions/electronic-address"
+    401:
+      $ref: "#/responses/AccessForbidden"
+    422:
+      $ref: "#/responses/InvalidDataError"
