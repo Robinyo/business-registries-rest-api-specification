@@ -48,6 +48,7 @@ Government Information Mangement Office's [A Guide to Open Source Software for A
 5. Once you finish with the changes you can run tests using: `npm test`
 
 ## Additional Resources
+* [ATO RESTful API Design Guidelines](https://github.com/ato-team/restful-api-design-guidelines)
 * [ReDoc](https://github.com/Rebilly/ReDoc)
 * [Rebilly's REST API Specification](https://github.com/Rebilly/RebillyAPI)
 * [json-server](https://github.com/typicode/json-server) - Get a full fake REST API with zero coding in less than 30 seconds (seriously).
