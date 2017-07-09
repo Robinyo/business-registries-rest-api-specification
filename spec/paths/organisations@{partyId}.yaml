@@ -1,4 +1,5 @@
 parameters:
+  - $ref: "#/parameters/apiKey"
   - $ref: "#/parameters/partyId"
 get:
   tags:

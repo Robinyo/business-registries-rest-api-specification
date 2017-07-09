@@ -44,14 +44,14 @@ tags:
       For example, the individual's date and place of birth (for the purposes of identification) and the individual's residential address (which is used for administrative or law enforcement purposes).
   - name: Individuals Addresses
     description: |
-      The registry maintains information about an individuals contact details for administrative purposes.
+      The registry maintains information about an individual's contact details for administrative purposes.
 
         Including:
         - an address for the service of documents
         - a principal place of business address
   - name: Individuals Electronic Addresses
     description: |
-      The registry maintains information about an individuals contact details for administrative purposes.
+      The registry maintains information about an individual's contact details for administrative purposes.
 
         Including:
         - an email address
@@ -62,14 +62,14 @@ tags:
       For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity, Partnership or Joint Venture).
   - name: Organisations Addresses
     description: |
-      The registry maintains information about an organisations contact details for administrative purposes.
+      The registry maintains information about an organisation's contact details for administrative purposes.
 
         Including:
         - an address for the service of documents
         - a principal place of business address
   - name: Organisations Electronic Addresses
     description: |
-      The registry maintains information about an organisations contact details for administrative purposes.
+      The registry maintains information about an organisation's contact details for administrative purposes.
 
         Including:
         - an email address
@@ -177,6 +177,7 @@ paths:
       description: |
         Create an individual
       parameters:
+        - $ref: '#/parameters/apiKey'
         - name: body
           in: body
           description: Individual resource
@@ -199,6 +200,7 @@ paths:
           $ref: '#/responses/Unauthenticated'
   '/individuals/{partyId}':
     parameters:
+      - $ref: '#/parameters/apiKey'
       - $ref: '#/parameters/partyId'
     get:
       tags:
@@ -256,6 +258,7 @@ paths:
             $ref: '#/definitions/Error'
   '/individuals/{partyId}/addresses':
     parameters:
+      - $ref: '#/parameters/apiKey'
       - $ref: '#/parameters/partyId'
     get:
       tags:
@@ -294,6 +297,7 @@ paths:
           $ref: '#/responses/InvalidDataError'
   '/individuals/{partyId}/addresses/{addressId}':
     parameters:
+      - $ref: '#/parameters/apiKey'
       - $ref: '#/parameters/partyId'
       - $ref: '#/parameters/addressId'
     get:
@@ -348,6 +352,7 @@ paths:
           $ref: '#/responses/NotFound'
   '/individuals/{partyId}/electronic-addresses':
     parameters:
+      - $ref: '#/parameters/apiKey'
       - $ref: '#/parameters/partyId'
     get:
       tags:
@@ -386,6 +391,7 @@ paths:
           $ref: '#/responses/InvalidDataError'
   '/individuals/{partyId}/electronic-addresses/{addressId}':
     parameters:
+      - $ref: '#/parameters/apiKey'
       - $ref: '#/parameters/partyId'
       - $ref: '#/parameters/addressId'
     get:
@@ -446,6 +452,7 @@ paths:
       description: |
         Retrieve a list of organisations
       parameters:
+        - $ref: '#/parameters/apiKey'
         - $ref: '#/parameters/registeredIdentifier'
         - $ref: '#/parameters/identifier'
       responses:
@@ -464,6 +471,7 @@ paths:
       description: |
         Create an organisation
       parameters:
+        - $ref: '#/parameters/apiKey'
         - name: body
           in: body
           description: Organisation resource
@@ -484,6 +492,7 @@ paths:
           $ref: '#/responses/InvalidArgument'
   '/organisations/{partyId}':
     parameters:
+      - $ref: '#/parameters/apiKey'
       - $ref: '#/parameters/partyId'
     get:
       tags:
@@ -541,6 +550,7 @@ paths:
             $ref: '#/definitions/Error'
   '/organisations/{partyId}/addresses':
     parameters:
+      - $ref: '#/parameters/apiKey'
       - $ref: '#/parameters/partyId'
     get:
       tags:
@@ -579,6 +589,7 @@ paths:
           $ref: '#/responses/InvalidDataError'
   '/organisations/{partyId}/addresses/{addressId}':
     parameters:
+      - $ref: '#/parameters/apiKey'
       - $ref: '#/parameters/partyId'
       - $ref: '#/parameters/addressId'
     get:
@@ -633,6 +644,7 @@ paths:
           $ref: '#/responses/NotFound'
   '/organisations/{partyId}/electronic-addresses':
     parameters:
+      - $ref: '#/parameters/apiKey'
       - $ref: '#/parameters/partyId'
     get:
       tags:
@@ -671,6 +683,7 @@ paths:
           $ref: '#/responses/InvalidDataError'
   '/organisations/{partyId}/electronic-addresses/{addressId}':
     parameters:
+      - $ref: '#/parameters/apiKey'
       - $ref: '#/parameters/partyId'
       - $ref: '#/parameters/addressId'
     get:
@@ -953,7 +966,7 @@ definitions:
     discriminator: gender
     properties:
       id:
-        description: The resource's unique identifier.
+        description: The party's unique identifier.
         readOnly: true
         allOf:
           - $ref: '#/definitions/partyId'
@@ -1014,7 +1027,7 @@ definitions:
     type: object
     properties:
       id:
-        description: The resource's unique identifier.
+        description: The party's unique identifier.
         readOnly: true
         allOf:
           - $ref: '#/definitions/partyId'
@@ -1044,7 +1057,7 @@ definitions:
           $ref: '#/definitions/electronic-address'
   partyId:
     type: string
-    description: The party ID. Defaults to UUID v4
+    description: The party's unique identifier. Defaults to UUID v4
     maxLength: 36
     example: 123e4567-e89b-12d3-a456-426655440000
   registered-identifier:

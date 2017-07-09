@@ -55,7 +55,7 @@ tags:
       residential address (which is used for administrative or law enforcement purposes).
   - name: Individuals Addresses
     description: |
-      The registry maintains information about an individuals contact details for administrative purposes.
+      The registry maintains information about an individual's contact details for administrative purposes.
 
         Including:
         - an address for the service of documents
@@ -63,12 +63,11 @@ tags:
 
   - name: Individuals Electronic Addresses
     description: |
-      The registry maintains information about an individuals contact details for administrative purposes.
+      The registry maintains information about an individual's contact details for administrative purposes.
 
         Including:
         - an email address
         - a mobile number
-
   - name: Organisations
     description: >
       An organisation usually consists of a number of individuals or groups bound by a common purpose about whom the
@@ -78,20 +77,18 @@ tags:
       Partnership or Joint Venture).
   - name: Organisations Addresses
     description: |
-      The registry maintains information about an organisations contact details for administrative purposes.
+      The registry maintains information about an organisation's contact details for administrative purposes.
 
         Including:
         - an address for the service of documents
         - a principal place of business address
-
   - name: Organisations Electronic Addresses
     description: |
-      The registry maintains information about an organisations contact details for administrative purposes.
+      The registry maintains information about an organisation's contact details for administrative purposes.
 
         Including:
         - an email address
         - a mobile number
-
 x-tagGroups:
   - name: Individuals
     tags:

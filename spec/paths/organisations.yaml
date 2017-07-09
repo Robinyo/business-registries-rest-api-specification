@@ -5,6 +5,7 @@ get:
   description: |
     Retrieve a list of organisations
   parameters:
+    - $ref: "#/parameters/apiKey"
     - $ref: "#/parameters/registeredIdentifier"
     - $ref: "#/parameters/identifier"
   responses:
@@ -23,6 +24,7 @@ post:
   description: |
     Create an organisation
   parameters:
+    - $ref: "#/parameters/apiKey"
     - name: body
       in: body
       description: Organisation resource

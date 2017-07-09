@@ -24,6 +24,7 @@ post:
   description: |
     Create an individual
   parameters:
+    - $ref: "#/parameters/apiKey"
     - name: body
       in: body
       description: Individual resource

@@ -2,7 +2,7 @@ description: The Organisation details.
 type: object
 properties:
   id:
-    description: The resource's unique identifier.
+    description: The party's unique identifier.
     readOnly: true
     allOf:
       - $ref: "#/definitions/partyId"
