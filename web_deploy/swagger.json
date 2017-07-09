@@ -191,6 +191,12 @@
         "responses": {
           "200": {
             "description": "A list of individuals was retrieved successfully",
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
             "schema": {
               "type": "array",
               "items": {
@@ -348,6 +354,12 @@
         "summary": "Retrieve a list of addresses",
         "responses": {
           "200": {
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
             "description": "Addresses were retrieved successfully",
             "schema": {
               "$ref": "#/definitions/address"
@@ -381,6 +393,12 @@
         "responses": {
           "201": {
             "description": "Address was created",
+            "headers": {
+              "Location": {
+                "description": "A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.\n",
+                "type": "string"
+              }
+            },
             "schema": {
               "$ref": "#/definitions/address"
             }
@@ -494,6 +512,12 @@
         "summary": "Retrieve a list of electronic addresses",
         "responses": {
           "200": {
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
             "description": "Electronic addresses were retrieved successfully",
             "schema": {
               "$ref": "#/definitions/electronic-address"
@@ -527,6 +551,12 @@
         "responses": {
           "201": {
             "description": "Electronic Address was created",
+            "headers": {
+              "Location": {
+                "description": "A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.\n",
+                "type": "string"
+              }
+            },
             "schema": {
               "$ref": "#/definitions/electronic-address"
             }
@@ -645,6 +675,12 @@
         "responses": {
           "200": {
             "description": "A list of organisations was retrieved successfully",
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
             "schema": {
               "type": "array",
               "items": {
@@ -800,6 +836,12 @@
         "responses": {
           "200": {
             "description": "Addresses were retrieved successfully",
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
             "schema": {
               "$ref": "#/definitions/address"
             }
@@ -832,6 +874,12 @@
         "responses": {
           "201": {
             "description": "Address was created",
+            "headers": {
+              "Location": {
+                "description": "A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.\n",
+                "type": "string"
+              }
+            },
             "schema": {
               "$ref": "#/definitions/address"
             }
@@ -946,6 +994,12 @@
         "responses": {
           "200": {
             "description": "Electronic addresses were retrieved successfully",
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
             "schema": {
               "$ref": "#/definitions/electronic-address"
             }
@@ -978,6 +1032,12 @@
         "responses": {
           "201": {
             "description": "Electronic Address was created",
+            "headers": {
+              "Location": {
+                "description": "A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.\n",
+                "type": "string"
+              }
+            },
             "schema": {
               "$ref": "#/definitions/electronic-address"
             }

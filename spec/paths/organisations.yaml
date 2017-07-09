@@ -11,6 +11,9 @@ get:
   responses:
     200:
       description: A list of organisations was retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
       schema:
         type: array
         items:

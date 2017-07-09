@@ -7,6 +7,9 @@ get:
   summary: Retrieve a list of electronic addresses
   responses:
     200:
+      headers:
+        Link:
+          $ref: "#/headers/Link"
       description: Electronic addresses were retrieved successfully
       schema:
         $ref: "#/definitions/electronic-address"
@@ -30,6 +33,9 @@ post:
   responses:
     201:
       description: Electronic Address was created
+      headers:
+        Location:
+          $ref: "#/headers/Location"
       schema:
         $ref: "#/definitions/electronic-address"
     401:

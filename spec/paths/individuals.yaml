@@ -11,6 +11,9 @@ get:
   responses:
     200:
       description: A list of individuals was retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
       schema:
         type: array
         items:

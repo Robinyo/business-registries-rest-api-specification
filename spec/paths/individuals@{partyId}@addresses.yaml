@@ -7,6 +7,9 @@ get:
   summary: Retrieve a list of addresses
   responses:
     200:
+      headers:
+        Link:
+          $ref: "#/headers/Link"
       description: Addresses were retrieved successfully
       schema:
         $ref: "#/definitions/address"
@@ -30,6 +33,9 @@ post:
   responses:
     201:
       description: Address was created
+      headers:
+        Location:
+          $ref: "#/headers/Location"
       schema:
         $ref: "#/definitions/address"
     401:
