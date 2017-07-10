@@ -88,19 +88,19 @@ info:
 
     The Business Registries API supports API Key authentication.
 
-    When you sign up for an account, you are given your first API key. You can generate additional API keys, and delete
-    API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by
-    providing your secret key in the request header.
+      When you sign up for an account, you are given your first API key. You can generate additional API keys, and delete
+      API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by
+      providing your secret key in the request header.
 
 host: api.abr.ato.gov.au
 basePath: /
 schemes:
   - https
-securityDefinitions:
-  apiKey:
-    type: apiKey
-    name: apiKey
-    in: header
+# securityDefinitions:
+#   apiKey:
+#     type: apiKey
+#     name: apiKey
+#     in: header
 x-servers:
   - url: //api.abr.ato.gov.au/
     description: Production API Server

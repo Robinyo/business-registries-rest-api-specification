@@ -55,16 +55,14 @@ info:
 
     ## Authentication
     The Business Registries API supports API Key authentication.
-    When you sign up for an account, you are given your first API key. You can generate additional API keys, and delete API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by providing your secret key in the request header.
+
+      When you sign up for an account, you are given your first API key. You can generate additional API keys, and delete
+      API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by
+      providing your secret key in the request header.
 host: api.abr.ato.gov.au
 basePath: /
 schemes:
   - https
-securityDefinitions:
-  apiKey:
-    type: apiKey
-    name: apiKey
-    in: header
 x-servers:
   - url: //api.abr.ato.gov.au/
     description: Production API Server
@@ -144,7 +142,7 @@ parameters:
   dateOfBirth:
     name: dateOfBirth
     in: query
-    description: The individual's date of birth.
+    description: 'The individual''s date of birth in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
     type: string
     required: false
   placeOfBirth:
@@ -257,7 +255,8 @@ paths:
       responses:
         '200':
           description: Individual was retrieved successfully
-          $ref: '#/definitions/individual'
+          schema:
+            $ref: '#/definitions/individual'
         '401':
           $ref: '#/responses/Unauthenticated'
         '404':
@@ -278,7 +277,8 @@ paths:
       responses:
         '200':
           description: Individual was updated
-          $ref: '#/definitions/individual'
+          schema:
+            $ref: '#/definitions/individual'
         '400':
           $ref: '#/responses/InvalidArgument'
         '401':
@@ -878,7 +878,7 @@ definitions:
         description: The resource's unique identifier.
         readOnly: true
         allOf:
-          - $ref: '#/definitions/resourceId'
+          - $ref: '#/definitions/addressId'
       name:
         description: The address name.
         type: string
@@ -911,18 +911,23 @@ definitions:
         description: The country.
         type: string
         example: Australia
-      fromDate:
-        description: 'The date the address became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-        type: string
-        example: 01-01-2001
-      toDate:
-        description: 'The date the address became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-        type: string
-        example: ''
       type:
         description: 'The address type, for example, "Mailing", "Principal Place of Business" or "Principal Place of Residence".'
         type: string
         example: Principal Place of Business
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1979-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
+  addressId:
+    type: string
+    description: The address's unique identifier. Defaults to UUID v4
+    maxLength: 36
+    example: 123e4567-e89b-12d3-a456-426655440000
   electronic-address:
     description: The Electronic Address details.
     type: object
@@ -931,7 +936,7 @@ definitions:
         description: The resource's unique identifier.
         readOnly: true
         allOf:
-          - $ref: '#/definitions/resourceId'
+          - $ref: '#/definitions/addressId'
       countryPrefix:
         description: 'The country prefix, for example, "61".'
         type: string
@@ -956,18 +961,18 @@ definitions:
         description: 'The website address, for example, "https://ato.gov.au".'
         type: string
         example: ''
-      fromDate:
-        description: 'The date the electronic address became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-        type: string
-        example: 01-01-2017
-      toDate:
-        description: 'The date the electronic address became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-        type: string
-        example: ''
       type:
         description: 'The electronic address type, for example, "Email", "Fax", "Landline", "Mobile" or "Website".'
         type: string
         example: Landline
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1979-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   error-details:
     type: object
     properties:
@@ -1040,24 +1045,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/error-details'
-  Error:
-    type: object
-    properties:
-      status:
-        type: integer
-        minimum: 100
-        maximum: 600
-      error:
-        type: string
-  InvalidError:
-    allOf:
-      - $ref: '#/definitions/Error'
-      - type: object
-        properties:
-          details:
-            type: array
-            items:
-              type: string
   unauthenticated:
     type: object
     properties:
@@ -1116,18 +1103,18 @@ definitions:
         description: 'The individual''s informal salutation, for example, "Bill".'
         type: string
         example: Rob
-      fromDate:
-        description: 'The date the name became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-        type: string
-        example: 13-01-1979
-      toDate:
-        description: 'The date the name became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-        type: string
-        example: ''
       type:
         description: 'The name type, for example, "Alias" or "Principal Name".'
         type: string
         example: Principal Name
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1979-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   individual:
     description: The Individual details.
     type: object
@@ -1142,9 +1129,9 @@ definitions:
         allOf:
           - $ref: '#/definitions/partyId'
       dateOfBirth:
-        description: 'The individual''s date of birth, for example, "13-01-1979".'
+        description: 'The individual''s date of birth, for example, "13 Jan 1979".'
         type: string
-        example: 13-01-1979
+        example: 13 Jan 1979
       placeOfBirth:
         description: 'The individual''s palce of birth, for example, "Tamworth".'
         type: string
@@ -1170,6 +1157,14 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/electronic-address'
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1979-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   organisation-name:
     description: The Organisation Name details.
     type: array
@@ -1186,13 +1181,13 @@ definitions:
           type: string
           example: Australian Taxation Office
         fromDate:
-          description: 'The date the name became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+          description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+          type: string
+          example: '1928-03-03T09:05:06+10:00'
+        toDate:
+          description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
           type: string
           example: ''
-        toDate:
-          description: 'The date the name became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-          type: string
-          example: 13-01-1979
   organisation:
     description: The Organisation details.
     type: object
@@ -1207,9 +1202,9 @@ definitions:
         type: string
         example: Company
       establishmentDate:
-        description: 'The organisation''s establishment date, for example, "01-07-2016".'
+        description: 'The organisation''s establishment date, for example, "01 Jul 2016".'
         type: string
-        example: 03-03-1928
+        example: 03 Mar 1928
       registeredIdentifiers:
         type: array
         items:
@@ -1226,6 +1221,14 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/electronic-address'
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1979-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   partyId:
     type: string
     description: The party's unique identifier. Defaults to UUID v4
@@ -1244,18 +1247,18 @@ definitions:
         description: The registered identifier.
         type: string
         example: '123456789'
-      fromDate:
-        description: 'The date the registered identifier became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-        type: string
-        example: 01-07-2016
-      toDate:
-        description: 'The date the registered identifier became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
-        type: string
-        example: ''
       type:
         description: 'The registered identifier type, for example, "ACN" or "ABN".'
         type: string
         example: ACN
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1979-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   resourceId:
     type: string
     description: The resource ID. Defaults to UUID v4
