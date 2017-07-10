@@ -168,8 +168,6 @@ x-tagGroups:
       - Organisations
       - Organisations Addresses
       - Organisations Electronic Addresses
-      - Organisations Business Names
-      - Organisations Licenses
 
 headers:
   Link:
