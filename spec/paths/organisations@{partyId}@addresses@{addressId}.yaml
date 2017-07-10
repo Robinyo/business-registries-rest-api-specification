@@ -14,7 +14,7 @@ get:
       schema:
         $ref: "#/definitions/address"
     401:
-      $ref: "#/responses/AccessForbidden"
+      $ref: "#/responses/Unauthenticated"
     404:
       $ref: "#/responses/NotFound"
 put:
@@ -35,10 +35,12 @@ put:
       description: Address was updated
       schema:
         $ref: "#/definitions/address"
+    400:
+      $ref: "#/responses/InvalidArgument"
     401:
-      $ref: "#/responses/AccessForbidden"
-    422:
-      $ref: "#/responses/InvalidDataError"
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
 delete:
   tags:
     - Organisations Addresses
@@ -49,6 +51,6 @@ delete:
     204:
       description: Address was deleted
     401:
-      $ref: "#/responses/AccessForbidden"
+      $ref: "#/responses/Unauthenticated"
     404:
       $ref: "#/responses/NotFound"

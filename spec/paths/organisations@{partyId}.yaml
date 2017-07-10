@@ -13,7 +13,7 @@ get:
       schema:
         $ref: "#/definitions/organisation"
     401:
-      $ref: "#/responses/AccessForbidden"
+      $ref: "#/responses/Unauthenticated"
     404:
       $ref: "#/responses/NotFound"
 put:
@@ -34,10 +34,12 @@ put:
       description: Organisation was updated
       schema:
         $ref: "#/definitions/organisation"
+    400:
+      $ref: "#/responses/InvalidArgument"
     401:
-      $ref: "#/responses/AccessForbidden"
-    422:
-      $ref: "#/responses/InvalidDataError"
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
 delete:
   tags:
     - Organisations
@@ -47,11 +49,10 @@ delete:
   responses:
     204:
       description: Organisation was deleted
+    400:
+      description: Organisation has related resources and cannot be deleted
+      $ref: "#/responses/FailedPrecondition"
     401:
-      $ref: "#/responses/AccessForbidden"
+      $ref: "#/responses/Unauthenticated"
     404:
       $ref: "#/responses/NotFound"
-    409:
-      description: Organisation has related resources and cannot be deleted
-      schema:
-        $ref: "#/definitions/Error"

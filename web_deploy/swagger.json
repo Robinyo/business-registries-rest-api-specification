@@ -12,7 +12,7 @@
       "url": "https://www.ato.gov.au/uploadedImages/Content/_DEM/Images/logo-ato.png",
       "backgroundColor": "#D3D3D3"
     },
-    "description": "# Introduction\nThe Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs. It accepts and returns JSON (and optionally XML) in the HTTP body.\n# OpenAPI Specification\nThis API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format. In addition to the standard OpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).\n# Authentication\nThe Business Registries API supports:\n  - API Key authentication\n\nWhen you sign up for an account, you are given your first API key. You can generate additional API keys, and delete API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by providing your secret key in the request header.\n"
+    "description": "# Introduction\nThe Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs.\n# OpenAPI Specification\nThis API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format. In addition to the standard OpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).\n# Overview\nThe following sections describes the resources that make up the Business Registries REST API v1.\n## Current Version\nBy default, all requests to https://api.abr.ato.gov.au receive the `v1` version of the REST API. We encourage you to explicitly request this version via the `Accept` header.\n\n    Accept: application/vnd.abr-ato.v1+json\n\n## Schema\nAll API access is over HTTPS, and accessed from https://api.abr.ato.gov.au. All data is sent and received as JSON (and optionally as XML).\nBlank fields are included.\nAll timestamps are returned in ISO 8601 format:\n\n    YYYY-MM-DDTHH:MM:SSZ\n\n## Timezones\nSome requests allow for specifying timestamps or generate timestamps with time zone information. We apply the following rules, in order of priority, to determine timezone information for API calls.\n### Explicitly provide an ISO 8601 timestamp with timezone information\nFor API calls that allow for a timestamp to be specified, we use that exact timestamp.\nFor example: `2017-07-01T11:05:06+10:00`\n## Pagination\nInformation about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n## Parameters\nMany API methods take optional parameters.\n\n    GET /individuals/1234/addresses/?type='Mailing'\n\nIn this example, the '1234' value is provided for the `:partyId` parameter in the path while `:type` is passed in the query string.\nFor POST, PUT, and DELETE requests, parameters not included in the URL should be encoded as JSON with a Content-Type of 'application/json'.\n## Root Endpoint\nYou can issue a GET request to the root endpoint (also known as the service root) to get all the endpoint categories that the REST API supports:\n\n    curl https://api.abr.ato.gov.au\n\n## Authentication\nThe Business Registries API supports API Key authentication.\nWhen you sign up for an account, you are given your first API key. You can generate additional API keys, and delete API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by providing your secret key in the request header.\n"
   },
   "host": "api.abr.ato.gov.au",
   "basePath": "/",
@@ -86,38 +86,6 @@
       ]
     }
   ],
-  "responses": {
-    "InvalidArgument": {
-      "description": "Client specified an invalid argument",
-      "schema": {
-        "$ref": "#/definitions/invalid-argument"
-      }
-    },
-    "Unauthenticated": {
-      "description": "Request not authenticated",
-      "schema": {
-        "$ref": "#/definitions/unauthenticated"
-      }
-    },
-    "AccessForbidden": {
-      "description": "Access forbidden, an invalid API-KEY was used",
-      "schema": {
-        "$ref": "#/definitions/Error"
-      }
-    },
-    "NotFound": {
-      "description": "Resource was not found",
-      "schema": {
-        "$ref": "#/definitions/Error"
-      }
-    },
-    "InvalidDataError": {
-      "description": "Invalid data was sent",
-      "schema": {
-        "$ref": "#/definitions/InvalidError"
-      }
-    }
-  },
   "parameters": {
     "apiKey": {
       "name": "apiKey",
@@ -169,6 +137,32 @@
       "required": false
     }
   },
+  "responses": {
+    "InvalidArgument": {
+      "description": "The client specified an invalid argument",
+      "schema": {
+        "$ref": "#/definitions/invalid-argument"
+      }
+    },
+    "Unauthenticated": {
+      "description": "Request not authenticated due to missing, invalid, or expired token",
+      "schema": {
+        "$ref": "#/definitions/unauthenticated"
+      }
+    },
+    "NotFound": {
+      "description": "The specified resource was not found",
+      "schema": {
+        "$ref": "#/definitions/not-found"
+      }
+    },
+    "FailedPrecondition": {
+      "description": "Request can not be executed in the current system state",
+      "schema": {
+        "$ref": "#/definitions/failed-precondition"
+      }
+    }
+  },
   "paths": {
     "/individuals": {
       "get": {
@@ -193,7 +187,7 @@
             "description": "A list of individuals was retrieved successfully",
             "headers": {
               "Link": {
-                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
@@ -206,6 +200,9 @@
           },
           "401": {
             "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
           }
         }
       },
@@ -269,12 +266,10 @@
         "responses": {
           "200": {
             "description": "Individual was retrieved successfully",
-            "schema": {
-              "$ref": "#/definitions/individual"
-            }
+            "$ref": "#/definitions/individual"
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -301,15 +296,16 @@
         "responses": {
           "200": {
             "description": "Individual was updated",
-            "schema": {
-              "$ref": "#/definitions/individual"
-            }
+            "$ref": "#/definitions/individual"
+          },
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
-          "422": {
-            "$ref": "#/responses/InvalidDataError"
+          "404": {
+            "$ref": "#/responses/NotFound"
           }
         }
       },
@@ -323,17 +319,15 @@
           "204": {
             "description": "Individual was deleted"
           },
+          "400": {
+            "description": "Individual has related resources and cannot be deleted",
+            "$ref": "#/responses/FailedPrecondition"
+          },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
-          },
-          "409": {
-            "description": "Individual has related resources and cannot be deleted",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
           }
         }
       }
@@ -356,7 +350,7 @@
           "200": {
             "headers": {
               "Link": {
-                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
@@ -366,7 +360,7 @@
             }
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -403,11 +397,11 @@
               "$ref": "#/definitions/address"
             }
           },
-          "401": {
-            "$ref": "#/responses/AccessForbidden"
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
           },
-          "422": {
-            "$ref": "#/responses/InvalidDataError"
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
           }
         }
       }
@@ -438,7 +432,7 @@
             }
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -469,11 +463,14 @@
               "$ref": "#/definitions/address"
             }
           },
-          "401": {
-            "$ref": "#/responses/AccessForbidden"
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
           },
-          "422": {
-            "$ref": "#/responses/InvalidDataError"
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
           }
         }
       },
@@ -488,7 +485,7 @@
             "description": "Address was deleted"
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -514,7 +511,7 @@
           "200": {
             "headers": {
               "Link": {
-                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
@@ -524,7 +521,7 @@
             }
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -561,11 +558,11 @@
               "$ref": "#/definitions/electronic-address"
             }
           },
-          "401": {
-            "$ref": "#/responses/AccessForbidden"
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
           },
-          "422": {
-            "$ref": "#/responses/InvalidDataError"
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
           }
         }
       }
@@ -596,7 +593,7 @@
             }
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -627,11 +624,14 @@
               "$ref": "#/definitions/electronic-address"
             }
           },
-          "401": {
-            "$ref": "#/responses/AccessForbidden"
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
           },
-          "422": {
-            "$ref": "#/responses/InvalidDataError"
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
           }
         }
       },
@@ -646,7 +646,7 @@
             "description": "Electronic Address was deleted"
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -677,7 +677,7 @@
             "description": "A list of organisations was retrieved successfully",
             "headers": {
               "Link": {
-                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
@@ -689,7 +689,10 @@
             }
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
           }
         }
       },
@@ -728,6 +731,9 @@
           },
           "400": {
             "$ref": "#/responses/InvalidArgument"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
           }
         }
       }
@@ -755,7 +761,7 @@
             }
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -786,11 +792,14 @@
               "$ref": "#/definitions/organisation"
             }
           },
-          "401": {
-            "$ref": "#/responses/AccessForbidden"
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
           },
-          "422": {
-            "$ref": "#/responses/InvalidDataError"
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
           }
         }
       },
@@ -804,17 +813,15 @@
           "204": {
             "description": "Organisation was deleted"
           },
+          "400": {
+            "description": "Organisation has related resources and cannot be deleted",
+            "$ref": "#/responses/FailedPrecondition"
+          },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
-          },
-          "409": {
-            "description": "Organisation has related resources and cannot be deleted",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
           }
         }
       }
@@ -838,7 +845,7 @@
             "description": "Addresses were retrieved successfully",
             "headers": {
               "Link": {
-                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
@@ -847,7 +854,7 @@
             }
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -884,11 +891,11 @@
               "$ref": "#/definitions/address"
             }
           },
-          "401": {
-            "$ref": "#/responses/AccessForbidden"
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
           },
-          "422": {
-            "$ref": "#/responses/InvalidDataError"
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
           }
         }
       }
@@ -919,7 +926,7 @@
             }
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -950,11 +957,14 @@
               "$ref": "#/definitions/address"
             }
           },
-          "401": {
-            "$ref": "#/responses/AccessForbidden"
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
           },
-          "422": {
-            "$ref": "#/responses/InvalidDataError"
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
           }
         }
       },
@@ -969,7 +979,7 @@
             "description": "Address was deleted"
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -996,7 +1006,7 @@
             "description": "Electronic addresses were retrieved successfully",
             "headers": {
               "Link": {
-                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries\n start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on\n `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
@@ -1005,7 +1015,7 @@
             }
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -1042,11 +1052,11 @@
               "$ref": "#/definitions/electronic-address"
             }
           },
-          "401": {
-            "$ref": "#/responses/AccessForbidden"
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
           },
-          "422": {
-            "$ref": "#/responses/InvalidDataError"
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
           }
         }
       }
@@ -1077,7 +1087,7 @@
             }
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -1108,11 +1118,14 @@
               "$ref": "#/definitions/electronic-address"
             }
           },
-          "401": {
-            "$ref": "#/responses/AccessForbidden"
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
           },
-          "422": {
-            "$ref": "#/responses/InvalidDataError"
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
           }
         }
       },
@@ -1127,7 +1140,7 @@
             "description": "Electronic Address was deleted"
           },
           "401": {
-            "$ref": "#/responses/AccessForbidden"
+            "$ref": "#/responses/Unauthenticated"
           },
           "404": {
             "$ref": "#/responses/NotFound"
@@ -1268,38 +1281,48 @@
       }
     },
     "error-details": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "description": "The error code.",
-            "type": "string",
-            "example": "NullValue"
-          },
-          "target": {
-            "description": "The error target.",
-            "type": "string",
-            "example": "familyName"
-          },
-          "message": {
-            "description": "The error message.",
-            "type": "string",
-            "example": "Family name must not be null"
-          }
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The error code.",
+          "type": "string",
+          "example": "NullValue"
+        },
+        "target": {
+          "description": "The error target.",
+          "type": "string",
+          "example": "familyName"
+        },
+        "message": {
+          "description": "The error message.",
+          "type": "string",
+          "example": "Family name must not be null"
         }
       }
     },
-    "Error": {
+    "failed-precondition": {
       "type": "object",
       "properties": {
-        "status": {
-          "type": "integer",
-          "minimum": 100,
-          "maximum": 600
+        "code": {
+          "description": "The error code.",
+          "type": "string",
+          "example": "400"
         },
-        "error": {
-          "type": "string"
+        "message": {
+          "description": "The error message.",
+          "type": "string",
+          "example": "Request can not be executed in the current system state"
+        },
+        "status": {
+          "description": "The error status.",
+          "type": "string",
+          "example": "FAILED_PRECONDITION"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/error-details"
+          }
         }
       }
     },
@@ -1322,7 +1345,49 @@
           "example": "INVALID_ARGUMENT"
         },
         "details": {
-          "$ref": "#/definitions/error-details"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/error-details"
+          }
+        }
+      }
+    },
+    "not-found": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The error code.",
+          "type": "string",
+          "example": "404"
+        },
+        "message": {
+          "description": "The error message.",
+          "type": "string",
+          "example": "The specified resource was not found"
+        },
+        "status": {
+          "description": "The error status.",
+          "type": "string",
+          "example": "NOT_FOUND"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/error-details"
+          }
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 600
+        },
+        "error": {
+          "type": "string"
         }
       }
     },

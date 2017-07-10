@@ -20,6 +20,8 @@ get:
           $ref: "#/definitions/individual"
     401:
       $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
 post:
   tags:
     - Individuals

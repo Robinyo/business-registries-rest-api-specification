@@ -11,13 +11,50 @@ info:
     backgroundColor: '#D3D3D3'
   description: |
     # Introduction
-    The Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs. It accepts and returns JSON (and optionally XML) in the HTTP body.
+    The Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs.
     # OpenAPI Specification
     This API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format. In addition to the standard OpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
-    # Authentication
-    The Business Registries API supports:
-      - API Key authentication
+    # Overview
+    The following sections describes the resources that make up the Business Registries REST API v1.
+    ## Current Version
+    By default, all requests to https://api.abr.ato.gov.au receive the `v1` version of the REST API. We encourage you to explicitly request this version via the `Accept` header.
 
+        Accept: application/vnd.abr-ato.v1+json
+
+    ## Schema
+    All API access is over HTTPS, and accessed from https://api.abr.ato.gov.au. All data is sent and received as JSON (and optionally as XML).
+    Blank fields are included.
+    All timestamps are returned in ISO 8601 format:
+
+        YYYY-MM-DDTHH:MM:SSZ
+
+    ## Timezones
+    Some requests allow for specifying timestamps or generate timestamps with time zone information. We apply the following rules, in order of priority, to determine timezone information for API calls.
+    ### Explicitly provide an ISO 8601 timestamp with timezone information
+    For API calls that allow for a timestamp to be specified, we use that exact timestamp.
+    For example: `2017-07-01T11:05:06+10:00`
+    ## Pagination
+    Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.
+    For example:
+
+        Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
+              <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
+
+    `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+    ## Parameters
+    Many API methods take optional parameters.
+
+        GET /individuals/1234/addresses/?type='Mailing'
+
+    In this example, the '1234' value is provided for the `:partyId` parameter in the path while `:type` is passed in the query string.
+    For POST, PUT, and DELETE requests, parameters not included in the URL should be encoded as JSON with a Content-Type of 'application/json'.
+    ## Root Endpoint
+    You can issue a GET request to the root endpoint (also known as the service root) to get all the endpoint categories that the REST API supports:
+
+        curl https://api.abr.ato.gov.au
+
+    ## Authentication
+    The Business Registries API supports API Key authentication.
     When you sign up for an account, you are given your first API key. You can generate additional API keys, and delete API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by providing your secret key in the request header.
 host: api.abr.ato.gov.au
 basePath: /
@@ -85,27 +122,6 @@ x-tagGroups:
       - Organisations
       - Organisations Addresses
       - Organisations Electronic Addresses
-responses:
-  InvalidArgument:
-    description: Client specified an invalid argument
-    schema:
-      $ref: '#/definitions/invalid-argument'
-  Unauthenticated:
-    description: Request not authenticated
-    schema:
-      $ref: '#/definitions/unauthenticated'
-  AccessForbidden:
-    description: 'Access forbidden, an invalid API-KEY was used'
-    schema:
-      $ref: '#/definitions/Error'
-  NotFound:
-    description: Resource was not found
-    schema:
-      $ref: '#/definitions/Error'
-  InvalidDataError:
-    description: Invalid data was sent
-    schema:
-      $ref: '#/definitions/InvalidError'
 parameters:
   apiKey:
     name: apiKey
@@ -149,6 +165,23 @@ parameters:
     description: The identifier.
     type: string
     required: false
+responses:
+  InvalidArgument:
+    description: The client specified an invalid argument
+    schema:
+      $ref: '#/definitions/invalid-argument'
+  Unauthenticated:
+    description: 'Request not authenticated due to missing, invalid, or expired token'
+    schema:
+      $ref: '#/definitions/unauthenticated'
+  NotFound:
+    description: The specified resource was not found
+    schema:
+      $ref: '#/definitions/not-found'
+  FailedPrecondition:
+    description: Request can not be executed in the current system state
+    schema:
+      $ref: '#/definitions/failed-precondition'
 paths:
   /individuals:
     get:
@@ -173,9 +206,7 @@ paths:
                     Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
                           <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
 
-                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries
-                 start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on
-                 `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
               type: string
           schema:
             type: array
@@ -183,6 +214,8 @@ paths:
               $ref: '#/definitions/individual'
         '401':
           $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
     post:
       tags:
         - Individuals
@@ -224,10 +257,9 @@ paths:
       responses:
         '200':
           description: Individual was retrieved successfully
-          schema:
-            $ref: '#/definitions/individual'
+          $ref: '#/definitions/individual'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
     put:
@@ -246,12 +278,13 @@ paths:
       responses:
         '200':
           description: Individual was updated
-          schema:
-            $ref: '#/definitions/individual'
+          $ref: '#/definitions/individual'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
     delete:
       tags:
         - Individuals
@@ -261,14 +294,13 @@ paths:
       responses:
         '204':
           description: Individual was deleted
+        '400':
+          description: Individual has related resources and cannot be deleted
+          $ref: '#/responses/FailedPrecondition'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
-        '409':
-          description: Individual has related resources and cannot be deleted
-          schema:
-            $ref: '#/definitions/Error'
   '/individuals/{partyId}/addresses':
     parameters:
       - $ref: '#/parameters/apiKey'
@@ -288,15 +320,13 @@ paths:
                     Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
                           <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
 
-                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries
-                 start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on
-                 `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
               type: string
           description: Addresses were retrieved successfully
           schema:
             $ref: '#/definitions/address'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
     post:
@@ -322,10 +352,10 @@ paths:
               type: string
           schema:
             $ref: '#/definitions/address'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
   '/individuals/{partyId}/addresses/{addressId}':
     parameters:
       - $ref: '#/parameters/apiKey'
@@ -343,7 +373,7 @@ paths:
           schema:
             $ref: '#/definitions/address'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
     put:
@@ -364,10 +394,12 @@ paths:
           description: Address was updated
           schema:
             $ref: '#/definitions/address'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
     delete:
       tags:
         - Individuals Addresses
@@ -378,7 +410,7 @@ paths:
         '204':
           description: Address was deleted
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
   '/individuals/{partyId}/electronic-addresses':
@@ -400,15 +432,13 @@ paths:
                     Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
                           <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
 
-                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries
-                 start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on
-                 `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
               type: string
           description: Electronic addresses were retrieved successfully
           schema:
             $ref: '#/definitions/electronic-address'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
     post:
@@ -434,10 +464,10 @@ paths:
               type: string
           schema:
             $ref: '#/definitions/electronic-address'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
   '/individuals/{partyId}/electronic-addresses/{addressId}':
     parameters:
       - $ref: '#/parameters/apiKey'
@@ -455,7 +485,7 @@ paths:
           schema:
             $ref: '#/definitions/electronic-address'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
     put:
@@ -476,10 +506,12 @@ paths:
           description: Electronic Address was updated
           schema:
             $ref: '#/definitions/electronic-address'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
     delete:
       tags:
         - Individuals Electronic Addresses
@@ -490,7 +522,7 @@ paths:
         '204':
           description: Electronic Address was deleted
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
   /organisations:
@@ -516,16 +548,16 @@ paths:
                     Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
                           <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
 
-                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries
-                 start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on
-                 `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
               type: string
           schema:
             type: array
             items:
               $ref: '#/definitions/organisation'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
     post:
       tags:
         - Organisations
@@ -552,6 +584,8 @@ paths:
             $ref: '#/definitions/organisation'
         '400':
           $ref: '#/responses/InvalidArgument'
+        '401':
+          $ref: '#/responses/Unauthenticated'
   '/organisations/{partyId}':
     parameters:
       - $ref: '#/parameters/apiKey'
@@ -568,7 +602,7 @@ paths:
           schema:
             $ref: '#/definitions/organisation'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
     put:
@@ -589,10 +623,12 @@ paths:
           description: Organisation was updated
           schema:
             $ref: '#/definitions/organisation'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
     delete:
       tags:
         - Organisations
@@ -602,14 +638,13 @@ paths:
       responses:
         '204':
           description: Organisation was deleted
+        '400':
+          description: Organisation has related resources and cannot be deleted
+          $ref: '#/responses/FailedPrecondition'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
-        '409':
-          description: Organisation has related resources and cannot be deleted
-          schema:
-            $ref: '#/definitions/Error'
   '/organisations/{partyId}/addresses':
     parameters:
       - $ref: '#/parameters/apiKey'
@@ -630,14 +665,12 @@ paths:
                     Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
                           <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
 
-                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries
-                 start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on
-                 `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
               type: string
           schema:
             $ref: '#/definitions/address'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
     post:
@@ -663,10 +696,10 @@ paths:
               type: string
           schema:
             $ref: '#/definitions/address'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
   '/organisations/{partyId}/addresses/{addressId}':
     parameters:
       - $ref: '#/parameters/apiKey'
@@ -684,7 +717,7 @@ paths:
           schema:
             $ref: '#/definitions/address'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
     put:
@@ -705,10 +738,12 @@ paths:
           description: Address was updated
           schema:
             $ref: '#/definitions/address'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
     delete:
       tags:
         - Organisations Addresses
@@ -719,7 +754,7 @@ paths:
         '204':
           description: Address was deleted
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
   '/organisations/{partyId}/electronic-addresses':
@@ -742,14 +777,12 @@ paths:
                     Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
                           <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
 
-                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries
-                 start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on
-                 `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
               type: string
           schema:
             $ref: '#/definitions/electronic-address'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
     post:
@@ -775,10 +808,10 @@ paths:
               type: string
           schema:
             $ref: '#/definitions/electronic-address'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
   '/organisations/{partyId}/electronic-addresses/{addressId}':
     parameters:
       - $ref: '#/parameters/apiKey'
@@ -796,7 +829,7 @@ paths:
           schema:
             $ref: '#/definitions/electronic-address'
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
     put:
@@ -817,10 +850,12 @@ paths:
           description: Electronic Address was updated
           schema:
             $ref: '#/definitions/electronic-address'
+        '400':
+          $ref: '#/responses/InvalidArgument'
         '401':
-          $ref: '#/responses/AccessForbidden'
-        '422':
-          $ref: '#/responses/InvalidDataError'
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
     delete:
       tags:
         - Organisations Electronic Addresses
@@ -831,7 +866,7 @@ paths:
         '204':
           description: Electronic Address was deleted
         '401':
-          $ref: '#/responses/AccessForbidden'
+          $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
 definitions:
@@ -934,31 +969,39 @@ definitions:
         type: string
         example: Landline
   error-details:
-    type: array
-    items:
-      type: object
-      properties:
-        code:
-          description: The error code.
-          type: string
-          example: NullValue
-        target:
-          description: The error target.
-          type: string
-          example: familyName
-        message:
-          description: The error message.
-          type: string
-          example: Family name must not be null
-  Error:
     type: object
     properties:
-      status:
-        type: integer
-        minimum: 100
-        maximum: 600
-      error:
+      code:
+        description: The error code.
         type: string
+        example: NullValue
+      target:
+        description: The error target.
+        type: string
+        example: familyName
+      message:
+        description: The error message.
+        type: string
+        example: Family name must not be null
+  failed-precondition:
+    type: object
+    properties:
+      code:
+        description: The error code.
+        type: string
+        example: '400'
+      message:
+        description: The error message.
+        type: string
+        example: Request can not be executed in the current system state
+      status:
+        description: The error status.
+        type: string
+        example: FAILED_PRECONDITION
+      details:
+        type: array
+        items:
+          $ref: '#/definitions/error-details'
   invalid-argument:
     type: object
     properties:
@@ -975,7 +1018,37 @@ definitions:
         type: string
         example: INVALID_ARGUMENT
       details:
-        $ref: '#/definitions/error-details'
+        type: array
+        items:
+          $ref: '#/definitions/error-details'
+  not-found:
+    type: object
+    properties:
+      code:
+        description: The error code.
+        type: string
+        example: '404'
+      message:
+        description: The error message.
+        type: string
+        example: The specified resource was not found
+      status:
+        description: The error status.
+        type: string
+        example: NOT_FOUND
+      details:
+        type: array
+        items:
+          $ref: '#/definitions/error-details'
+  Error:
+    type: object
+    properties:
+      status:
+        type: integer
+        minimum: 100
+        maximum: 600
+      error:
+        type: string
   InvalidError:
     allOf:
       - $ref: '#/definitions/Error'

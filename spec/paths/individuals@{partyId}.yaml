@@ -10,10 +10,9 @@ get:
   responses:
     200:
       description: Individual was retrieved successfully
-      schema:
-        $ref: "#/definitions/individual"
+      $ref: "#/definitions/individual"
     401:
-      $ref: "#/responses/AccessForbidden"
+      $ref: "#/responses/Unauthenticated"
     404:
       $ref: "#/responses/NotFound"
 put:
@@ -32,12 +31,13 @@ put:
   responses:
     200:
       description: Individual was updated
-      schema:
-        $ref: "#/definitions/individual"
+      $ref: "#/definitions/individual"
+    400:
+      $ref: "#/responses/InvalidArgument"
     401:
-      $ref: "#/responses/AccessForbidden"
-    422:
-      $ref: "#/responses/InvalidDataError"
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
 delete:
   tags:
     - Individuals
@@ -47,11 +47,11 @@ delete:
   responses:
     204:
       description: Individual was deleted
+    400:
+      description: Individual has related resources and cannot be deleted
+      $ref: "#/responses/FailedPrecondition"
     401:
-      $ref: "#/responses/AccessForbidden"
+      $ref: "#/responses/Unauthenticated"
     404:
       $ref: "#/responses/NotFound"
-    409:
-      description: Individual has related resources and cannot be deleted
-      schema:
-        $ref: "#/definitions/Error"
+

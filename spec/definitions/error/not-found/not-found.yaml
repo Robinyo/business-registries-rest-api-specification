@@ -3,14 +3,16 @@ properties:
   code:
     description: The error code.
     type: string
-    example: "400"
+    example: "404"
   message:
     description: The error message.
     type: string
-    example: "The client specified an invalid argument"
+    example: "The specified resource was not found"
   status:
     description: The error status.
     type: string
-    example: "INVALID_ARGUMENT"
+    example: "NOT_FOUND"
   details:
-    $ref: "#/definitions/error-details"
+    type: array
+    items:
+      $ref: "#/definitions/error-details"

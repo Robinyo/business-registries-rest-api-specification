@@ -1,0 +1,18 @@
+type: object
+properties:
+  code:
+    description: The error code.
+    type: string
+    example: "400"
+  message:
+    description: The error message.
+    type: string
+    example: "The client specified an invalid argument"
+  status:
+    description: The error status.
+    type: string
+    example: "INVALID_ARGUMENT"
+  details:
+    type: array
+    items:
+      $ref: "#/definitions/error-details"

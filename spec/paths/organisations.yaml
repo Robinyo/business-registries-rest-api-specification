@@ -19,7 +19,9 @@ get:
         items:
           $ref: "#/definitions/organisation"
     401:
-      $ref: "#/responses/AccessForbidden"
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
 post:
   tags:
     - Organisations
@@ -44,3 +46,5 @@ post:
         $ref: "#/definitions/organisation"
     400:
       $ref: "#/responses/InvalidArgument"
+    401:
+      $ref: "#/responses/Unauthenticated"
