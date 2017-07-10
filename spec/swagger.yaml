@@ -50,13 +50,13 @@ info:
 
     For API calls that allow for a timestamp to be specified, we use that exact timestamp.
 
-    For example: `2017-07-01T11:05:06+10:00`
+      For example: `2017-07-01T11:05:06+10:00`
 
     ## Pagination
 
     Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.
 
-    For example:
+      For example:
 
         Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
               <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
