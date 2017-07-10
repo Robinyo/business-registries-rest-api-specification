@@ -1,4 +1,4 @@
-description: The Organisation details.
+description: The Organisation resource.
 type: object
 properties:
   id:
@@ -25,7 +25,7 @@ properties:
   addresses:
     type: array
     items:
-      $ref: "#/definitions/address"
+      $ref: "#/definitions/organisation-address"
   electronicAddresses:
     type: array
     items:

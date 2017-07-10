@@ -1,0 +1,26 @@
+description: The License resource.
+type: array
+items:
+  type: object
+  properties:
+    id:
+      description: The resource's unique identifier.
+      readOnly: true
+      allOf:
+        - $ref: "#/definitions/resourceId"
+    licenseType:
+      description: The license type.
+      default: "License 1A"
+      enum:
+        - "License 1A"
+        - "License 2B"
+    status:
+      description: The business name's status.
+      type: string
+      default: "Pending Approval"
+      enum:
+        - "Approved"
+        - "Issued"
+        - "Pending Approval"
+        - "Suspended"
+        - "Expired"

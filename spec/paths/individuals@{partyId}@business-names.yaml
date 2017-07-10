@@ -1,0 +1,44 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+  - $ref: "#/parameters/partyId"
+get:
+  tags:
+    - Individuals Business Names
+  summary: Retrieve a list of business names
+  responses:
+    200:
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      description: Business Names were retrieved successfully
+      schema:
+        $ref: "#/definitions/business-name"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
+post:
+  tags:
+    - Individuals Business Names
+  summary: Create a business name
+  description: |
+    Create a business name
+  parameters:
+    - name: body
+      in: body
+      description: Business Name resource
+      required: true
+      schema:
+        $ref: "#/definitions/business-name"
+  responses:
+    201:
+      description: Business Name was created
+      headers:
+        Location:
+          $ref: "#/headers/Location"
+      schema:
+        $ref: "#/definitions/business-name"
+    400:
+      $ref: "#/responses/InvalidArgument"
+    401:
+      $ref: "#/responses/Unauthenticated"

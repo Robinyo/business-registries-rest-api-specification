@@ -161,11 +161,15 @@ x-tagGroups:
       - Individuals
       - Individuals Addresses
       - Individuals Electronic Addresses
+      - Individuals Business Names
+      - Individuals Licenses
   - name: Organisations
     tags:
       - Organisations
       - Organisations Addresses
       - Organisations Electronic Addresses
+      - Organisations Business Names
+      - Organisations Licenses
 
 headers:
   Link:

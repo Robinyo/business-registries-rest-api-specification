@@ -1,4 +1,4 @@
-description: The Registered Identifier details.
+description: The Organisation Name resource.
 type: object
 properties:
   id:
@@ -6,18 +6,14 @@ properties:
     readOnly: true
     allOf:
       - $ref: "#/definitions/resourceId"
-  identifier:
-    description: The registered identifier.
+  name:
+    description: The organisation's name.
     type: string
-    example: "123456789"
-  type:
-    description: The registered identifier type, for example, "ACN" or "ABN".
-    type: string
-    example: "ACN"
+    example: "Australian Taxation Office"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     type: string
-    example: "1979-01-13T09:05:06+10:00"
+    example: "1928-03-03T09:05:06+10:00"
   toDate:
     description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     type: string

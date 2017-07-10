@@ -1,0 +1,44 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+  - $ref: "#/parameters/partyId"
+get:
+  tags:
+    - Individuals Licenses
+  summary: Retrieve a list of licenses
+  responses:
+    200:
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      description: Licenses were retrieved successfully
+      schema:
+        $ref: "#/definitions/license"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
+post:
+  tags:
+    - Individuals Licenses
+  summary: Create a license
+  description: |
+    Create a license
+  parameters:
+    - name: body
+      in: body
+      description: License resource
+      required: true
+      schema:
+        $ref: "#/definitions/license"
+  responses:
+    201:
+      description: License was created
+      headers:
+        Location:
+          $ref: "#/headers/Location"
+      schema:
+        $ref: "#/definitions/license"
+    400:
+      $ref: "#/responses/InvalidArgument"
+    401:
+      $ref: "#/responses/Unauthenticated"

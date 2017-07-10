@@ -1,0 +1,21 @@
+allOf:
+  -
+    $ref: "#/definitions/address"
+  -
+    type: object
+    properties:
+      addressType:
+        description: The address type.
+        type: string
+        default: "Principal Place of Business"
+        enum:
+          - "Mailing"
+          - "Principal Place of Business"
+      fromDate:
+        description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+        type: string
+        example: "1979-01-13T09:05:06+10:00"
+      toDate:
+        description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+        type: string
+        example: ""

@@ -1,4 +1,4 @@
-description: The Individual details.
+description: The Individual resource.
 type: object
 required:
   - dateOfBirth
@@ -21,7 +21,7 @@ properties:
   gender:
     description: The individual's gender.
     type: string
-    default: "Not Known"
+    default: "Male"
     enum:
       - "Female"
       - "Male"
@@ -34,7 +34,7 @@ properties:
   addresses:
     type: array
     items:
-      $ref: "#/definitions/address"
+      $ref: "#/definitions/individual-address"
   electronicAddresses:
     type: array
     items:

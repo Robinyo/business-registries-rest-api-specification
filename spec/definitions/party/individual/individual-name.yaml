@@ -1,4 +1,4 @@
-description: The Individual Name details.
+description: The Individual Name resource.
 type: object
 properties:
   id:
@@ -38,10 +38,13 @@ properties:
     description: The individual's informal salutation, for example, "Bill".
     type: string
     example: "Rob"
-  type:
-    description: The name type, for example, "Alias" or "Principal Name".
-    type: string
-    example: "Principal Name"
+  nameType:
+    description: The name type.
+    default: "Principal Name"
+    enum:
+      - "Alias"
+      - "Principal Name"
+      - "Stage Name"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     type: string

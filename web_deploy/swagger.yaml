@@ -118,11 +118,15 @@ x-tagGroups:
       - Individuals
       - Individuals Addresses
       - Individuals Electronic Addresses
+      - Individuals Business Names
+      - Individuals Licenses
   - name: Organisations
     tags:
       - Organisations
       - Organisations Addresses
       - Organisations Electronic Addresses
+      - Organisations Business Names
+      - Organisations Licenses
 parameters:
   apiKey:
     name: apiKey
@@ -416,6 +420,61 @@ paths:
           $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
+  '/individuals/{partyId}/business-names':
+    parameters:
+      - $ref: '#/parameters/apiKey'
+      - $ref: '#/parameters/partyId'
+    get:
+      tags:
+        - Individuals Business Names
+      summary: Retrieve a list of business names
+      responses:
+        '200':
+          headers:
+            Link:
+              description: |
+                Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.
+                For example:
+
+                    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
+                          <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
+
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+              type: string
+          description: Business Names were retrieved successfully
+          schema:
+            $ref: '#/definitions/business-name'
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+    post:
+      tags:
+        - Individuals Business Names
+      summary: Create a business name
+      description: |
+        Create a business name
+      parameters:
+        - name: body
+          in: body
+          description: Business Name resource
+          required: true
+          schema:
+            $ref: '#/definitions/business-name'
+      responses:
+        '201':
+          description: Business Name was created
+          headers:
+            Location:
+              description: |
+                A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.
+              type: string
+          schema:
+            $ref: '#/definitions/business-name'
+        '400':
+          $ref: '#/responses/InvalidArgument'
+        '401':
+          $ref: '#/responses/Unauthenticated'
   '/individuals/{partyId}/electronic-addresses':
     parameters:
       - $ref: '#/parameters/apiKey'
@@ -528,6 +587,61 @@ paths:
           $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
+  '/individuals/{partyId}/licenses':
+    parameters:
+      - $ref: '#/parameters/apiKey'
+      - $ref: '#/parameters/partyId'
+    get:
+      tags:
+        - Individuals Licenses
+      summary: Retrieve a list of licenses
+      responses:
+        '200':
+          headers:
+            Link:
+              description: |
+                Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.
+                For example:
+
+                    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
+                          <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
+
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+              type: string
+          description: Licenses were retrieved successfully
+          schema:
+            $ref: '#/definitions/license'
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+    post:
+      tags:
+        - Individuals Licenses
+      summary: Create a license
+      description: |
+        Create a license
+      parameters:
+        - name: body
+          in: body
+          description: License resource
+          required: true
+          schema:
+            $ref: '#/definitions/license'
+      responses:
+        '201':
+          description: License was created
+          headers:
+            Location:
+              description: |
+                A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.
+              type: string
+          schema:
+            $ref: '#/definitions/license'
+        '400':
+          $ref: '#/responses/InvalidArgument'
+        '401':
+          $ref: '#/responses/Unauthenticated'
   /organisations:
     get:
       tags:
@@ -873,109 +987,6 @@ paths:
         '404':
           $ref: '#/responses/NotFound'
 definitions:
-  address:
-    description: The Address details.
-    type: object
-    properties:
-      id:
-        description: The resource's unique identifier.
-        readOnly: true
-        allOf:
-          - $ref: '#/definitions/addressId'
-      name:
-        description: The address name.
-        type: string
-        example: Kembery Building
-      line1:
-        description: The address line 1.
-        type: string
-        example: Level 7
-      line2:
-        description: The address line 2.
-        type: string
-        example: 21 Genge Street
-      line3:
-        description: The address line 3.
-        type: string
-        example: ''
-      suburb:
-        description: The suburb.
-        type: string
-        example: Civic
-      city:
-        description: The city.
-        type: string
-        example: Canberra
-      postalCode:
-        description: The postal code.
-        type: string
-        example: '2601'
-      country:
-        description: The country.
-        type: string
-        example: Australia
-      type:
-        description: 'The address type, for example, "Mailing", "Principal Place of Business" or "Principal Place of Residence".'
-        type: string
-        example: Principal Place of Business
-      fromDate:
-        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
-        type: string
-        example: '1979-01-13T09:05:06+10:00'
-      toDate:
-        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
-        type: string
-        example: ''
-  addressId:
-    type: string
-    description: The address's unique identifier. Defaults to UUID v4
-    maxLength: 36
-    example: 123e4567-e89b-12d3-a456-426655440000
-  electronic-address:
-    description: The Electronic Address details.
-    type: object
-    properties:
-      id:
-        description: The resource's unique identifier.
-        readOnly: true
-        allOf:
-          - $ref: '#/definitions/addressId'
-      countryPrefix:
-        description: 'The country prefix, for example, "61".'
-        type: string
-        example: '61'
-      areaCode:
-        description: 'The area code, for example, "02".'
-        type: string
-        example: '02'
-      number:
-        description: 'The number, for example, "62164453".'
-        type: string
-        example: '62164453'
-      extension:
-        description: 'The extension number, for example, "4453".'
-        type: string
-        example: ''
-      email:
-        description: 'The email address, for example, "robert.ferguson@ato.gov.au".'
-        type: string
-        example: ''
-      url:
-        description: 'The website address, for example, "https://ato.gov.au".'
-        type: string
-        example: ''
-      type:
-        description: 'The electronic address type, for example, "Email", "Fax", "Landline", "Mobile" or "Website".'
-        type: string
-        example: Landline
-      fromDate:
-        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
-        type: string
-        example: '1979-01-13T09:05:06+10:00'
-      toDate:
-        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
-        type: string
-        example: ''
   error-details:
     type: object
     properties:
@@ -1065,8 +1076,135 @@ definitions:
         example: UNAUTHENTICATED
       details:
         $ref: '#/definitions/error-details'
+  address:
+    description: The Address resource.
+    type: object
+    properties:
+      id:
+        description: The resource's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/addressId'
+      name:
+        description: The address name.
+        type: string
+        example: Kembery Building
+      line1:
+        description: The address line 1.
+        type: string
+        example: Level 7
+      line2:
+        description: The address line 2.
+        type: string
+        example: 21 Genge Street
+      line3:
+        description: The address line 3.
+        type: string
+        example: ''
+      suburb:
+        description: The suburb.
+        type: string
+        example: Civic
+      city:
+        description: The city.
+        type: string
+        example: Canberra
+      postalCode:
+        description: The postal code.
+        type: string
+        example: '2601'
+      country:
+        description: The country.
+        type: string
+        example: Australia
+  individual-address:
+    allOf:
+      - $ref: '#/definitions/address'
+      - type: object
+        properties:
+          addressType:
+            description: The address type.
+            type: string
+            default: Principal Place of Residence
+            enum:
+              - Mailing
+              - Principal Place of Business
+              - Principal Place of Residence
+          fromDate:
+            description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+            type: string
+            example: '1979-01-13T09:05:06+10:00'
+          toDate:
+            description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+            type: string
+            example: ''
+  organisation-address:
+    allOf:
+      - $ref: '#/definitions/address'
+      - type: object
+        properties:
+          addressType:
+            description: The address type.
+            type: string
+            default: Principal Place of Business
+            enum:
+              - Mailing
+              - Principal Place of Business
+          fromDate:
+            description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+            type: string
+            example: '1979-01-13T09:05:06+10:00'
+          toDate:
+            description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+            type: string
+            example: ''
+  electronic-address:
+    description: The Electronic Address details.
+    type: object
+    properties:
+      id:
+        description: The resource's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/addressId'
+      countryPrefix:
+        description: 'The country prefix, for example, "61".'
+        type: string
+        example: '61'
+      areaCode:
+        description: 'The area code, for example, "02".'
+        type: string
+        example: '02'
+      number:
+        description: 'The number, for example, "62164453".'
+        type: string
+        example: '62164453'
+      extension:
+        description: 'The extension number, for example, "4453".'
+        type: string
+        example: ''
+      email:
+        description: 'The email address, for example, "robert.ferguson@ato.gov.au".'
+        type: string
+        example: ''
+      url:
+        description: 'The website address, for example, "https://ato.gov.au".'
+        type: string
+        example: ''
+      type:
+        description: 'The electronic address type, for example, "Email", "Fax", "Landline", "Mobile" or "Website".'
+        type: string
+        example: Landline
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1979-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   individual-name:
-    description: The Individual Name details.
+    description: The Individual Name resource.
     type: object
     properties:
       id:
@@ -1106,10 +1244,13 @@ definitions:
         description: 'The individual''s informal salutation, for example, "Bill".'
         type: string
         example: Rob
-      type:
-        description: 'The name type, for example, "Alias" or "Principal Name".'
-        type: string
-        example: Principal Name
+      nameType:
+        description: The name type.
+        default: Principal Name
+        enum:
+          - Alias
+          - Principal Name
+          - Stage Name
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
         type: string
@@ -1119,7 +1260,7 @@ definitions:
         type: string
         example: ''
   individual:
-    description: The Individual details.
+    description: The Individual resource.
     type: object
     required:
       - dateOfBirth
@@ -1142,7 +1283,7 @@ definitions:
       gender:
         description: The individual's gender.
         type: string
-        default: Not Known
+        default: Male
         enum:
           - Female
           - Male
@@ -1155,7 +1296,7 @@ definitions:
       addresses:
         type: array
         items:
-          $ref: '#/definitions/address'
+          $ref: '#/definitions/individual-address'
       electronicAddresses:
         type: array
         items:
@@ -1169,30 +1310,28 @@ definitions:
         type: string
         example: ''
   organisation-name:
-    description: The Organisation Name details.
-    type: array
-    items:
-      type: object
-      properties:
-        id:
-          description: The resource's unique identifier.
-          readOnly: true
-          allOf:
-            - $ref: '#/definitions/resourceId'
-        name:
-          description: The organisation's name.
-          type: string
-          example: Australian Taxation Office
-        fromDate:
-          description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
-          type: string
-          example: '1928-03-03T09:05:06+10:00'
-        toDate:
-          description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
-          type: string
-          example: ''
+    description: The Organisation Name resource.
+    type: object
+    properties:
+      id:
+        description: The resource's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/resourceId'
+      name:
+        description: The organisation's name.
+        type: string
+        example: Australian Taxation Office
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1928-03-03T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   organisation:
-    description: The Organisation details.
+    description: The Organisation resource.
     type: object
     properties:
       id:
@@ -1219,7 +1358,7 @@ definitions:
       addresses:
         type: array
         items:
-          $ref: '#/definitions/address'
+          $ref: '#/definitions/organisation-address'
       electronicAddresses:
         type: array
         items:
@@ -1232,13 +1371,8 @@ definitions:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
         type: string
         example: ''
-  partyId:
-    type: string
-    description: The party's unique identifier. Defaults to UUID v4
-    maxLength: 36
-    example: 123e4567-e89b-12d3-a456-426655440000
   registered-identifier:
-    description: The Registered Identifier details.
+    description: The Registered Identifier resource.
     type: object
     properties:
       id:
@@ -1250,10 +1384,12 @@ definitions:
         description: The registered identifier.
         type: string
         example: '123456789'
-      type:
-        description: 'The registered identifier type, for example, "ACN" or "ABN".'
-        type: string
-        example: ACN
+      identifierType:
+        description: The registered identifier type.
+        default: ACN
+        enum:
+          - ACN
+          - ABN
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
         type: string
@@ -1262,6 +1398,66 @@ definitions:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
         type: string
         example: ''
+  business-name:
+    description: The Business Name resource.
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          description: The resource's unique identifier.
+          readOnly: true
+          allOf:
+            - $ref: '#/definitions/resourceId'
+        name:
+          description: The business name.
+          type: string
+          example: XYZ Technology Ventures
+        status:
+          description: The business name's status.
+          type: string
+          default: Pending Approval
+          enum:
+            - Approved
+            - Pending Approval
+            - Suspended
+  license:
+    description: The License resource.
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          description: The resource's unique identifier.
+          readOnly: true
+          allOf:
+            - $ref: '#/definitions/resourceId'
+        licenseType:
+          description: The license type.
+          default: License 1A
+          enum:
+            - License 1A
+            - License 2B
+        status:
+          description: The business name's status.
+          type: string
+          default: Pending Approval
+          enum:
+            - Approved
+            - Issued
+            - Pending Approval
+            - Suspended
+            - Expired
+  addressId:
+    type: string
+    description: The address's unique identifier. Defaults to UUID v4
+    maxLength: 36
+    example: 123e4567-e89b-12d3-a456-426655440000
+  partyId:
+    type: string
+    description: The party's unique identifier. Defaults to UUID v4
+    maxLength: 36
+    example: 123e4567-e89b-12d3-a456-426655440000
   resourceId:
     type: string
     description: The resource ID. Defaults to UUID v4
