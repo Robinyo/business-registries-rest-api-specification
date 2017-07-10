@@ -10,7 +10,8 @@ get:
   responses:
     200:
       description: Individual was retrieved successfully
-      $ref: "#/definitions/individual"
+      schema:
+        $ref: "#/definitions/individual"
     401:
       $ref: "#/responses/Unauthenticated"
     404:
@@ -31,7 +32,8 @@ put:
   responses:
     200:
       description: Individual was updated
-      $ref: "#/definitions/individual"
+      schema:
+        $ref: "#/definitions/individual"
     400:
       $ref: "#/responses/InvalidArgument"
     401:
