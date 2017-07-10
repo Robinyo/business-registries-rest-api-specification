@@ -205,7 +205,7 @@ headers:
     type: integer
   Rate-Limit-Reset:
     description: >
-      The date in format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1)
+      The date in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1)
       when the current period will reset.
     type: string
 
@@ -231,7 +231,7 @@ parameters:
   dateOfBirth:
     name: dateOfBirth
     in: query
-    description: The individual's date of birth.
+    description: The individual's date of birth in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).
     type: string
     required: false
   placeOfBirth:

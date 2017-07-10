@@ -11,9 +11,9 @@ properties:
     type: string
     example: "Company"
   establishmentDate:
-    description: The organisation's establishment date, for example, "01-07-2016".
+    description: The organisation's establishment date, for example, "01 Jul 2016".
     type: string
-    example: "03-03-1928"
+    example: "03 Mar 1928"
   registeredIdentifiers:
     type: array
     items:
@@ -30,3 +30,11 @@ properties:
     type: array
     items:
       $ref: "#/definitions/electronic-address"
+  fromDate:
+    description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    type: string
+    example: "1979-01-13T09:05:06+10:00"
+  toDate:
+    description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    type: string
+    example: ""

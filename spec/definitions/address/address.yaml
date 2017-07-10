@@ -5,7 +5,7 @@ properties:
     description: The resource's unique identifier.
     readOnly: true
     allOf:
-      - $ref: "#/definitions/resourceId"
+      - $ref: "#/definitions/addressId"
   name:
     description: The address name.
     type: string
@@ -38,15 +38,15 @@ properties:
     description: The country.
     type: string
     example: "Australia"
-  fromDate:
-    description: The date the address became active in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).
-    type: string
-    example: "01-01-2001"
-  toDate:
-    description: The date the address became inactive in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).
-    type: string
-    example: ""
   type:
     description: The address type, for example, "Mailing", "Principal Place of Business" or "Principal Place of Residence".
     type: string
     example: "Principal Place of Business"
+  fromDate:
+    description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    type: string
+    example: "1979-01-13T09:05:06+10:00"
+  toDate:
+    description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    type: string
+    example: ""
