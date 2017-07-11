@@ -1,0 +1,22 @@
+get:
+  tags:
+    - Licenses
+  summary: Retrieve a list of licenses
+  description: |
+    Retrieve a list of licenses
+  parameters:
+    - $ref: "#/parameters/apiKey"
+  responses:
+    200:
+      description: A list of licenses was retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/license"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

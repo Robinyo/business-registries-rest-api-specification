@@ -161,6 +161,27 @@ tags:
         Including:
         - an email address
         - a mobile number
+  - name: Organisations Business Names
+    description: >
+      A business name is a name or title under which an organisation conducts a business.
+  - name: Organisations Licenses
+    description: |
+      If you carry on a business you may need to hold a licence.
+
+        For example, if you provide financial services, you are required to hold an Australian Financial
+        Services (AFS) licence.
+
+  - name: Business Names
+    description: >
+      A business name is a name or title under which a person or organisation conducts a business.
+
+  - name: Licenses
+    description: |
+      If you carry on a business you may need to hold a licence.
+
+        For example, if you provide financial services, you are required to hold an Australian Financial
+        Services (AFS) licence.
+
 
 x-tagGroups:
   - name: Individuals
@@ -175,6 +196,14 @@ x-tagGroups:
       - Organisations
       - Organisations Addresses
       - Organisations Electronic Addresses
+      - Organisations Business Names
+      - Organisations Licenses
+  - name: Business Names
+    tags:
+      - Business Names
+  - name: Licenses
+    tags:
+      - Licenses
 
 headers:
   Link:
@@ -235,6 +264,12 @@ parameters:
     name: addressId
     in: path
     description: The address identifier.
+    type: string
+    required: true
+  productId:
+    name: productId
+    in: path
+    description: The product identifier.
     type: string
     required: true
   dateOfBirth:

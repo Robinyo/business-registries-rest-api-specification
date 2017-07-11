@@ -1,0 +1,56 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+  - $ref: "#/parameters/partyId"
+  - $ref: "#/parameters/productId"
+get:
+  tags:
+    - Organisations Licenses
+  summary: Retrieve a license
+  description: |
+    Retrieve a license
+  responses:
+    200:
+      description: License was retrieved successfully
+      schema:
+        $ref: "#/definitions/license"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
+put:
+  tags:
+    - Organisations Licenses
+  summary: Update a license
+  description: |
+    Update a license
+  parameters:
+    - name: body
+      in: body
+      description: License resource
+      required: true
+      schema:
+        $ref: "#/definitions/license"
+  responses:
+    200:
+      description: License was updated
+      schema:
+        $ref: "#/definitions/license"
+    400:
+      $ref: "#/responses/InvalidArgument"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
+delete:
+  tags:
+    - Organisations Licenses
+  summary: Delete a license
+  description: |
+    Delete a license
+  responses:
+    204:
+      description: License was deleted
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

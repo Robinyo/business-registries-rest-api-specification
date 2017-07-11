@@ -1,0 +1,22 @@
+get:
+  tags:
+    - Business Names
+  summary: Retrieve a list of business names
+  description: |
+    Retrieve a list of business names
+  parameters:
+    - $ref: "#/parameters/apiKey"
+  responses:
+    200:
+      description: A list of business names was retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/business-name"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

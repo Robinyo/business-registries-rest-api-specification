@@ -67,6 +67,22 @@
     {
       "name": "Organisations Electronic Addresses",
       "description": "The registry maintains information about an organisation's contact details for administrative purposes.\n\n  Including:\n  - an email address\n  - a mobile number\n"
+    },
+    {
+      "name": "Organisations Business Names",
+      "description": "A business name is a name or title under which an organisation conducts a business.\n"
+    },
+    {
+      "name": "Organisations Licenses",
+      "description": "If you carry on a business you may need to hold a licence.\n\n  For example, if you provide financial services, you are required to hold an Australian Financial\n  Services (AFS) licence.\n"
+    },
+    {
+      "name": "Business Names",
+      "description": "A business name is a name or title under which a person or organisation conducts a business.\n"
+    },
+    {
+      "name": "Licenses",
+      "description": "If you carry on a business you may need to hold a licence.\n\n  For example, if you provide financial services, you are required to hold an Australian Financial\n  Services (AFS) licence.\n"
     }
   ],
   "x-tagGroups": [
@@ -85,7 +101,21 @@
       "tags": [
         "Organisations",
         "Organisations Addresses",
-        "Organisations Electronic Addresses"
+        "Organisations Electronic Addresses",
+        "Organisations Business Names",
+        "Organisations Licenses"
+      ]
+    },
+    {
+      "name": "Business Names",
+      "tags": [
+        "Business Names"
+      ]
+    },
+    {
+      "name": "Licenses",
+      "tags": [
+        "Licenses"
       ]
     }
   ],
@@ -108,6 +138,13 @@
       "name": "addressId",
       "in": "path",
       "description": "The address identifier.",
+      "type": "string",
+      "required": true
+    },
+    "productId": {
+      "name": "productId",
+      "in": "path",
+      "description": "The product identifier.",
       "type": "string",
       "required": true
     },
@@ -167,6 +204,43 @@
     }
   },
   "paths": {
+    "/business-names": {
+      "get": {
+        "tags": [
+          "Business Names"
+        ],
+        "summary": "Retrieve a list of business names",
+        "description": "Retrieve a list of business names\n",
+        "parameters": [
+          {
+            "$ref": "#/parameters/apiKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of business names was retrieved successfully",
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/business-name"
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      }
+    },
     "/individuals": {
       "get": {
         "tags": [
@@ -574,6 +648,93 @@
         }
       }
     },
+    "/individuals/{partyId}/business-names/{productId}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/apiKey"
+        },
+        {
+          "$ref": "#/parameters/partyId"
+        },
+        {
+          "$ref": "#/parameters/productId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Individuals Business Names"
+        ],
+        "summary": "Retrieve a business name",
+        "description": "Retrieve a business name\n",
+        "responses": {
+          "200": {
+            "description": "Business Name was retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/business-name"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Individuals Business Names"
+        ],
+        "summary": "Update a business name",
+        "description": "Update a business name\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Business Name resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/business-name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Address was updated",
+            "schema": {
+              "$ref": "#/definitions/business-name"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Individuals Business Names"
+        ],
+        "summary": "Delete a business name",
+        "description": "Delete a business name\n",
+        "responses": {
+          "204": {
+            "description": "Address was deleted"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      }
+    },
     "/individuals/{partyId}/electronic-addresses": {
       "parameters": [
         {
@@ -805,6 +966,130 @@
           },
           "401": {
             "$ref": "#/responses/Unauthenticated"
+          }
+        }
+      }
+    },
+    "/individuals/{partyId}/licenses/{productId}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/apiKey"
+        },
+        {
+          "$ref": "#/parameters/partyId"
+        },
+        {
+          "$ref": "#/parameters/productId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Individuals Licenses"
+        ],
+        "summary": "Retrieve a license",
+        "description": "Retrieve a license\n",
+        "responses": {
+          "200": {
+            "description": "License was retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/license"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Individuals Licenses"
+        ],
+        "summary": "Update a license",
+        "description": "Update a license\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "License resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/license"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "License was updated",
+            "schema": {
+              "$ref": "#/definitions/license"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Individuals Licenses"
+        ],
+        "summary": "Delete a license",
+        "description": "Delete a license\n",
+        "responses": {
+          "204": {
+            "description": "License was deleted"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/licenses": {
+      "get": {
+        "tags": [
+          "Licenses"
+        ],
+        "summary": "Retrieve a list of licenses",
+        "description": "Retrieve a list of licenses\n",
+        "parameters": [
+          {
+            "$ref": "#/parameters/apiKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of licenses was retrieved successfully",
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/license"
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
           }
         }
       }
@@ -1142,6 +1427,167 @@
         }
       }
     },
+    "/organisations/{partyId}/business-names": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/apiKey"
+        },
+        {
+          "$ref": "#/parameters/partyId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Organisations Business Names"
+        ],
+        "summary": "Retrieve a list of business names",
+        "responses": {
+          "200": {
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
+            "description": "Business Names were retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/business-name"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Organisations Business Names"
+        ],
+        "summary": "Create a business name",
+        "description": "Create a business name\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Business Name resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/business-name"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Business Name was created",
+            "headers": {
+              "Location": {
+                "description": "A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.\n",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/business-name"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          }
+        }
+      }
+    },
+    "/organisations/{partyId}/business-names/{productId}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/apiKey"
+        },
+        {
+          "$ref": "#/parameters/partyId"
+        },
+        {
+          "$ref": "#/parameters/productId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Organisations Business Names"
+        ],
+        "summary": "Retrieve a business name",
+        "description": "Retrieve a business name\n",
+        "responses": {
+          "200": {
+            "description": "Business Name was retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/business-name"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Organisations Business Names"
+        ],
+        "summary": "Update a business name",
+        "description": "Update a business name\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Business Name resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/business-name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Address was updated",
+            "schema": {
+              "$ref": "#/definitions/business-name"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Organisations Business Names"
+        ],
+        "summary": "Delete a business name",
+        "description": "Delete a business name\n",
+        "responses": {
+          "204": {
+            "description": "Address was deleted"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      }
+    },
     "/organisations/{partyId}/electronic-addresses": {
       "parameters": [
         {
@@ -1293,6 +1739,167 @@
         "responses": {
           "204": {
             "description": "Electronic Address was deleted"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/organisations/{partyId}/licenses": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/apiKey"
+        },
+        {
+          "$ref": "#/parameters/partyId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Organisations Licenses"
+        ],
+        "summary": "Retrieve a list of licenses",
+        "responses": {
+          "200": {
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
+            "description": "Licenses were retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/license"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Organisations Licenses"
+        ],
+        "summary": "Create a license",
+        "description": "Create a license\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "License resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/license"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "License was created",
+            "headers": {
+              "Location": {
+                "description": "A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.\n",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/license"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          }
+        }
+      }
+    },
+    "/organisations/{partyId}/licenses/{productId}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/apiKey"
+        },
+        {
+          "$ref": "#/parameters/partyId"
+        },
+        {
+          "$ref": "#/parameters/productId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Organisations Licenses"
+        ],
+        "summary": "Retrieve a license",
+        "description": "Retrieve a license\n",
+        "responses": {
+          "200": {
+            "description": "License was retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/license"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Organisations Licenses"
+        ],
+        "summary": "Update a license",
+        "description": "Update a license\n",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "License resource",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/license"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "License was updated",
+            "schema": {
+              "$ref": "#/definitions/license"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidArgument"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Organisations Licenses"
+        ],
+        "summary": "Delete a license",
+        "description": "Delete a license\n",
+        "responses": {
+          "204": {
+            "description": "License was deleted"
           },
           "401": {
             "$ref": "#/responses/Unauthenticated"

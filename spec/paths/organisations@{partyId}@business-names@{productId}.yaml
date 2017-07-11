@@ -1,0 +1,56 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+  - $ref: "#/parameters/partyId"
+  - $ref: "#/parameters/productId"
+get:
+  tags:
+    - Organisations Business Names
+  summary: Retrieve a business name
+  description: |
+    Retrieve a business name
+  responses:
+    200:
+      description: Business Name was retrieved successfully
+      schema:
+        $ref: "#/definitions/business-name"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
+put:
+  tags:
+    - Organisations Business Names
+  summary: Update a business name
+  description: |
+    Update a business name
+  parameters:
+    - name: body
+      in: body
+      description: Business Name resource
+      required: true
+      schema:
+        $ref: "#/definitions/business-name"
+  responses:
+    200:
+      description: Address was updated
+      schema:
+        $ref: "#/definitions/business-name"
+    400:
+      $ref: "#/responses/InvalidArgument"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
+delete:
+  tags:
+    - Organisations Business Names
+  summary: Delete a business name
+  description: |
+    Delete a business name
+  responses:
+    204:
+      description: Address was deleted
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
