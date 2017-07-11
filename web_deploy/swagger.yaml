@@ -12,19 +12,21 @@ info:
   description: |
     # Introduction
     The Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs.
-    # OpenAPI Specification
-    This API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format. In addition to the standard OpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
+
+      The API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format.
+      In addition to the standard OpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
+
     # Overview
-    The following sections describes the resources that make up the Business Registries REST API v1.
+    The following sections describes the resources that make up the Business Registries REST API.
     ## Current Version
     By default, all requests to https://api.abr.ato.gov.au receive the `v1` version of the REST API. We encourage you to explicitly request this version via the `Accept` header.
 
         Accept: application/vnd.abr-ato.v1+json
 
     ## Schema
-    All API access is over HTTPS, and accessed from https://api.abr.ato.gov.au. All data is sent and received as JSON (and optionally as XML).
+    All API access is over HTTPS, and accessed from https://api.abr.ato.gov.au. All data is sent and received as JSON.
     Blank fields are included.
-    All timestamps are returned in ISO 8601 format:
+    All timestamps use the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format:
 
         YYYY-MM-DDTHH:MM:SSZ
 
@@ -45,12 +47,12 @@ info:
 
     `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
     ## Parameters
-    Many API methods take optional parameters.
+    Many API methods take optional parameters:
 
-        GET /individuals/1234/addresses/?type='Mailing'
+        GET /individuals/1234/addresses/?addressType='Mailing'
 
-    In this example, the '1234' value is provided for the `:partyId` parameter in the path while `:type` is passed in the query string.
-    For POST, PUT, and DELETE requests, parameters not included in the URL should be encoded as JSON with a Content-Type of 'application/json'.
+    In this example, the '1234' value is provided for the `:partyId` parameter in the path while `:addressType` is passed in the query string.
+    For POST, PATCH, PUT, and DELETE requests, parameters not included in the URL should be encoded as JSON with a Content-Type of 'application/json'.
     ## Root Endpoint
     You can issue a GET request to the root endpoint (also known as the service root) to get all the endpoint categories that the REST API supports:
 
@@ -79,7 +81,9 @@ tags:
   - name: Individuals
     description: |
       An individual is a person about whom the registry wishes to maintain information.
-      For example, the individual's date and place of birth (for the purposes of identification) and the individual's residential address (which is used for administrative or law enforcement purposes).
+
+        For example, the individual's date and place of birth (for the purposes of identification) and the individual's
+        residential address (which is used for administrative or law enforcement purposes).
   - name: Individuals Addresses
     description: |
       The registry maintains information about an individual's contact details for administrative purposes.
@@ -94,10 +98,22 @@ tags:
         Including:
         - an email address
         - a mobile number
+  - name: Individuals Business Names
+    description: |
+      A business name is a name or title under which a person conducts a business.
+  - name: Individuals Licenses
+    description: |
+      If you carry on a business you may need to hold a licence.
+
+        For example, if you provide financial services, you are required to hold an Australian Financial
+        Services (AFS) licence.
   - name: Organisations
     description: |
-      An organisation usually consists of a number of individuals or groups bound by a common purpose about whom the registry wishes to maintain information.
-      For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity, Partnership or Joint Venture).
+      An organisation usually consists of a number of individuals or groups bound by a common purpose about whom the
+      registry wishes to maintain information.
+
+        For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity,
+        Partnership or Joint Venture).
   - name: Organisations Addresses
     description: |
       The registry maintains information about an organisation's contact details for administrative purposes.
@@ -1432,9 +1448,9 @@ definitions:
             - $ref: '#/definitions/resourceId'
         licenseType:
           description: The license type.
-          default: License 1A
+          default: Australian Financial Services
           enum:
-            - License 1A
+            - Australian Financial Services
             - License 2B
         status:
           description: The business name's status.

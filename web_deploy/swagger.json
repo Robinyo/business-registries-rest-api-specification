@@ -12,7 +12,7 @@
       "url": "https://www.ato.gov.au/uploadedImages/Content/_DEM/Images/logo-ato.png",
       "backgroundColor": "#D3D3D3"
     },
-    "description": "# Introduction\nThe Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs.\n# OpenAPI Specification\nThis API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format. In addition to the standard OpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).\n# Overview\nThe following sections describes the resources that make up the Business Registries REST API v1.\n## Current Version\nBy default, all requests to https://api.abr.ato.gov.au receive the `v1` version of the REST API. We encourage you to explicitly request this version via the `Accept` header.\n\n    Accept: application/vnd.abr-ato.v1+json\n\n## Schema\nAll API access is over HTTPS, and accessed from https://api.abr.ato.gov.au. All data is sent and received as JSON (and optionally as XML).\nBlank fields are included.\nAll timestamps are returned in ISO 8601 format:\n\n    YYYY-MM-DDTHH:MM:SSZ\n\n## Timezones\nSome requests allow for specifying timestamps or generate timestamps with time zone information. We apply the following rules, in order of priority, to determine timezone information for API calls.\n### Explicitly provide an ISO 8601 timestamp with timezone information\nFor API calls that allow for a timestamp to be specified, we use that exact timestamp.\n\n  For example: `2017-07-01T11:05:06+10:00`\n\n## Pagination\nInformation about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\n\n  For example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n## Parameters\nMany API methods take optional parameters.\n\n    GET /individuals/1234/addresses/?type='Mailing'\n\nIn this example, the '1234' value is provided for the `:partyId` parameter in the path while `:type` is passed in the query string.\nFor POST, PUT, and DELETE requests, parameters not included in the URL should be encoded as JSON with a Content-Type of 'application/json'.\n## Root Endpoint\nYou can issue a GET request to the root endpoint (also known as the service root) to get all the endpoint categories that the REST API supports:\n\n    curl https://api.abr.ato.gov.au\n\n## Authentication\nThe Business Registries API supports API Key authentication.\n\n  When you sign up for an account, you are given your first API key. You can generate additional API keys, and delete\n  API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by\n  providing your secret key in the request header.\n"
+    "description": "# Introduction\nThe Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs.\n\n  The API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format.\n  In addition to the standard OpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).\n\n# Overview\nThe following sections describes the resources that make up the Business Registries REST API.\n## Current Version\nBy default, all requests to https://api.abr.ato.gov.au receive the `v1` version of the REST API. We encourage you to explicitly request this version via the `Accept` header.\n\n    Accept: application/vnd.abr-ato.v1+json\n\n## Schema\nAll API access is over HTTPS, and accessed from https://api.abr.ato.gov.au. All data is sent and received as JSON.\nBlank fields are included.\nAll timestamps use the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format:\n\n    YYYY-MM-DDTHH:MM:SSZ\n\n## Timezones\nSome requests allow for specifying timestamps or generate timestamps with time zone information. We apply the following rules, in order of priority, to determine timezone information for API calls.\n### Explicitly provide an ISO 8601 timestamp with timezone information\nFor API calls that allow for a timestamp to be specified, we use that exact timestamp.\n\n  For example: `2017-07-01T11:05:06+10:00`\n\n## Pagination\nInformation about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\n\n  For example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n## Parameters\nMany API methods take optional parameters:\n\n    GET /individuals/1234/addresses/?addressType='Mailing'\n\nIn this example, the '1234' value is provided for the `:partyId` parameter in the path while `:addressType` is passed in the query string.\nFor POST, PATCH, PUT, and DELETE requests, parameters not included in the URL should be encoded as JSON with a Content-Type of 'application/json'.\n## Root Endpoint\nYou can issue a GET request to the root endpoint (also known as the service root) to get all the endpoint categories that the REST API supports:\n\n    curl https://api.abr.ato.gov.au\n\n## Authentication\nThe Business Registries API supports API Key authentication.\n\n  When you sign up for an account, you are given your first API key. You can generate additional API keys, and delete\n  API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by\n  providing your secret key in the request header.\n"
   },
   "host": "api.abr.ato.gov.au",
   "basePath": "/",
@@ -38,7 +38,7 @@
   "tags": [
     {
       "name": "Individuals",
-      "description": "An individual is a person about whom the registry wishes to maintain information.\nFor example, the individual's date and place of birth (for the purposes of identification) and the individual's residential address (which is used for administrative or law enforcement purposes).\n"
+      "description": "An individual is a person about whom the registry wishes to maintain information.\n\n  For example, the individual's date and place of birth (for the purposes of identification) and the individual's\n  residential address (which is used for administrative or law enforcement purposes).\n"
     },
     {
       "name": "Individuals Addresses",
@@ -49,8 +49,16 @@
       "description": "The registry maintains information about an individual's contact details for administrative purposes.\n\n  Including:\n  - an email address\n  - a mobile number\n"
     },
     {
+      "name": "Individuals Business Names",
+      "description": "A business name is a name or title under which a person conducts a business.\n"
+    },
+    {
+      "name": "Individuals Licenses",
+      "description": "If you carry on a business you may need to hold a licence.\n\n  For example, if you provide financial services, you are required to hold an Australian Financial\n  Services (AFS) licence.\n"
+    },
+    {
       "name": "Organisations",
-      "description": "An organisation usually consists of a number of individuals or groups bound by a common purpose about whom the registry wishes to maintain information.\nFor example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity, Partnership or Joint Venture).\n"
+      "description": "An organisation usually consists of a number of individuals or groups bound by a common purpose about whom the\nregistry wishes to maintain information.\n\n  For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity,\n  Partnership or Joint Venture).\n"
     },
     {
       "name": "Organisations Addresses",
@@ -1916,9 +1924,9 @@
           },
           "licenseType": {
             "description": "The license type.",
-            "default": "License 1A",
+            "default": "Australian Financial Services",
             "enum": [
-              "License 1A",
+              "Australian Financial Services",
               "License 2B"
             ]
           },

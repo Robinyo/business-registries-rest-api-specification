@@ -10,9 +10,9 @@ items:
         - $ref: "#/definitions/resourceId"
     licenseType:
       description: The license type.
-      default: "License 1A"
+      default: "Australian Financial Services"
       enum:
-        - "License 1A"
+        - "Australian Financial Services"
         - "License 2B"
     status:
       description: The business name's status.
