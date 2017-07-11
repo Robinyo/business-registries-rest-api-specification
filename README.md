@@ -21,7 +21,7 @@ This work is licensed under the Creative Commons Attribution 3.0 Australia (CC B
 this license, visit https://creativecommons.org/licenses/by/3.0/au/.
 
 See: The Digital Transformation Agency's [Digital Service Standard](https://www.dta.gov.au/standard/) and the Australian 
-Government Information Mangement Office's [A Guide to Open Source Software for Australian Government Agencies](http://www.finance.gov.au/files/2012/04/AGuidetoOpenSourceSoftware.pdf).
+Government Information Management Office's [A Guide to Open Source Software for Australian Government Agencies](http://www.finance.gov.au/files/2012/04/AGuidetoOpenSourceSoftware.pdf).
 
 ## Links
 
@@ -50,7 +50,6 @@ Government Information Mangement Office's [A Guide to Open Source Software for A
 ## Additional Resources
 * [ATO RESTful API Design Guidelines](https://github.com/ato-team/restful-api-design-guidelines)
 * [ReDoc](https://github.com/Rebilly/ReDoc)
-* [Rebilly's REST API Specification](https://github.com/Rebilly/RebillyAPI)
 * [json-server](https://github.com/typicode/json-server) - Get a full fake REST API with zero coding in less than 30 seconds (seriously).
 * [faker.js](https://github.com/marak/Faker.js/) - Generate massive amounts of fake data in Node.js and the browser.
 * [Postman](https://www.getpostman.com/) - Developing APIs is hard. Postman makes it easy.
