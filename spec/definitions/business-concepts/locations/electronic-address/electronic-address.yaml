@@ -30,10 +30,15 @@ properties:
     description: The website address, for example, "https://ato.gov.au".
     type: string
     example: ""
-  type:
-    description: The electronic address type, for example, "Email", "Fax", "Landline", "Mobile" or "Website".
-    type: string
-    example: "Landline"
+  addressType:
+    description: The electronic address type.
+    default: "Landline"
+    enum:
+      - "Email"
+      - "Fax"
+      - "Landline"
+      - "Mobile"
+      - "Website"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     type: string
