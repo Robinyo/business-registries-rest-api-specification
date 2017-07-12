@@ -3,7 +3,6 @@ type: object
 required:
   - dateOfBirth
   - placeOfBirth
-discriminator: gender
 properties:
   id:
     description: The party's unique identifier.

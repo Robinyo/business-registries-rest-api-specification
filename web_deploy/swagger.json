@@ -2555,7 +2555,6 @@
         "dateOfBirth",
         "placeOfBirth"
       ],
-      "discriminator": "gender",
       "properties": {
         "id": {
           "description": "The party's unique identifier.",
@@ -2650,6 +2649,10 @@
     "organisation": {
       "description": "The Organisation resource.",
       "type": "object",
+      "required": [
+        "legalEntityType",
+        "establishmentDate"
+      ],
       "properties": {
         "id": {
           "description": "The party's unique identifier.",
@@ -2721,7 +2724,6 @@
         },
         "fromPartyId": {
           "description": "The \"from\" party's unique identifier.",
-          "readOnly": true,
           "allOf": [
             {
               "$ref": "#/definitions/partyId"
@@ -2739,7 +2741,6 @@
         },
         "toPartyId": {
           "description": "The \"to\" party's unique identifier.",
-          "readOnly": true,
           "allOf": [
             {
               "$ref": "#/definitions/partyId"

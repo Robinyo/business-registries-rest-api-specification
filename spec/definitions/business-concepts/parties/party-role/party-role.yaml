@@ -8,7 +8,7 @@ properties:
       - $ref: "#/definitions/roleId"
   fromPartyId:
     description: The "from" party's unique identifier.
-    readOnly: true
+#   readOnly: true
     allOf:
       - $ref: "#/definitions/partyId"
   fromPartyRoleType:
@@ -20,7 +20,7 @@ properties:
       - "Director"
   toPartyId:
     description: The "to" party's unique identifier.
-    readOnly: true
+#   readOnly: true
     allOf:
       - $ref: "#/definitions/partyId"
   toPartyRoleType:

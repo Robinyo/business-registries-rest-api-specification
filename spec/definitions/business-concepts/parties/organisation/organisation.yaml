@@ -1,5 +1,8 @@
 description: The Organisation resource.
 type: object
+required:
+  - legalEntityType
+  - establishmentDate
 properties:
   id:
     description: The party's unique identifier.
