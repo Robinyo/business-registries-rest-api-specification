@@ -7,12 +7,14 @@ get:
   summary: Retrieve a list of licenses
   responses:
     200:
+      description: Licenses were retrieved successfully
       headers:
         Link:
           $ref: "#/headers/Link"
-      description: Licenses were retrieved successfully
       schema:
-        $ref: "#/definitions/license"
+        type: array
+        items:
+          $ref: "#/definitions/license"
     401:
       $ref: "#/responses/Unauthenticated"
     404:

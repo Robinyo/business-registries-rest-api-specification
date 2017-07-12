@@ -429,15 +429,18 @@
         "summary": "Retrieve a list of addresses",
         "responses": {
           "200": {
+            "description": "Addresses were retrieved successfully",
             "headers": {
               "Link": {
                 "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
-            "description": "Addresses were retrieved successfully",
             "schema": {
-              "$ref": "#/definitions/address"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/address"
+              }
             }
           },
           "401": {
@@ -590,15 +593,18 @@
         "summary": "Retrieve a list of business names",
         "responses": {
           "200": {
+            "description": "Business Names were retrieved successfully",
             "headers": {
               "Link": {
                 "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
-            "description": "Business Names were retrieved successfully",
             "schema": {
-              "$ref": "#/definitions/business-name"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/business-name"
+              }
             }
           },
           "401": {
@@ -751,15 +757,18 @@
         "summary": "Retrieve a list of electronic addresses",
         "responses": {
           "200": {
+            "description": "Electronic addresses were retrieved successfully",
             "headers": {
               "Link": {
                 "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
-            "description": "Electronic addresses were retrieved successfully",
             "schema": {
-              "$ref": "#/definitions/electronic-address"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/electronic-address"
+              }
             }
           },
           "401": {
@@ -829,7 +838,7 @@
         "description": "Retrieve an electronic address\n",
         "responses": {
           "200": {
-            "description": "Electronic address was retrieved successfully",
+            "description": "Electronic Address was retrieved successfully",
             "schema": {
               "$ref": "#/definitions/electronic-address"
             }
@@ -912,15 +921,18 @@
         "summary": "Retrieve a list of licenses",
         "responses": {
           "200": {
+            "description": "Licenses were retrieved successfully",
             "headers": {
               "Link": {
                 "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
-            "description": "Licenses were retrieved successfully",
             "schema": {
-              "$ref": "#/definitions/license"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/license"
+              }
             }
           },
           "401": {
@@ -1290,7 +1302,10 @@
               }
             },
             "schema": {
-              "$ref": "#/definitions/address"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/address"
+              }
             }
           },
           "401": {
@@ -1443,15 +1458,18 @@
         "summary": "Retrieve a list of business names",
         "responses": {
           "200": {
+            "description": "Business Names were retrieved successfully",
             "headers": {
               "Link": {
                 "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
-            "description": "Business Names were retrieved successfully",
             "schema": {
-              "$ref": "#/definitions/business-name"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/business-name"
+              }
             }
           },
           "401": {
@@ -1612,7 +1630,10 @@
               }
             },
             "schema": {
-              "$ref": "#/definitions/electronic-address"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/electronic-address"
+              }
             }
           },
           "401": {
@@ -1765,15 +1786,18 @@
         "summary": "Retrieve a list of licenses",
         "responses": {
           "200": {
+            "description": "Licenses were retrieved successfully",
             "headers": {
               "Link": {
                 "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
                 "type": "string"
               }
             },
-            "description": "Licenses were retrieved successfully",
             "schema": {
-              "$ref": "#/definitions/license"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/license"
+              }
             }
           },
           "401": {
@@ -1912,127 +1936,6 @@
     }
   },
   "definitions": {
-    "error-details": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "description": "The error code.",
-          "type": "string",
-          "example": "NullValue"
-        },
-        "target": {
-          "description": "The error target.",
-          "type": "string",
-          "example": "familyName"
-        },
-        "message": {
-          "description": "The error message.",
-          "type": "string",
-          "example": "Family name must not be null"
-        }
-      }
-    },
-    "failed-precondition": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "description": "The error code.",
-          "type": "string",
-          "example": "400"
-        },
-        "message": {
-          "description": "The error message.",
-          "type": "string",
-          "example": "Request can not be executed in the current system state"
-        },
-        "status": {
-          "description": "The error status.",
-          "type": "string",
-          "example": "FAILED_PRECONDITION"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/error-details"
-          }
-        }
-      }
-    },
-    "invalid-argument": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "description": "The error code.",
-          "type": "string",
-          "example": "400"
-        },
-        "message": {
-          "description": "The error message.",
-          "type": "string",
-          "example": "The client specified an invalid argument"
-        },
-        "status": {
-          "description": "The error status.",
-          "type": "string",
-          "example": "INVALID_ARGUMENT"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/error-details"
-          }
-        }
-      }
-    },
-    "not-found": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "description": "The error code.",
-          "type": "string",
-          "example": "404"
-        },
-        "message": {
-          "description": "The error message.",
-          "type": "string",
-          "example": "The specified resource was not found"
-        },
-        "status": {
-          "description": "The error status.",
-          "type": "string",
-          "example": "NOT_FOUND"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/error-details"
-          }
-        }
-      }
-    },
-    "unauthenticated": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "description": "The error code.",
-          "type": "string",
-          "example": "401"
-        },
-        "message": {
-          "description": "The error message.",
-          "type": "string",
-          "example": "Request not authenticated due to missing, invalid, or expired token"
-        },
-        "status": {
-          "description": "The error status.",
-          "type": "string",
-          "example": "UNAUTHENTICATED"
-        },
-        "details": {
-          "$ref": "#/definitions/error-details"
-        }
-      }
-    },
     "address": {
       "description": "The Address resource.",
       "type": "object",
@@ -2443,6 +2346,49 @@
         }
       }
     },
+    "party-role": {
+      "description": "The Party Role resource.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The resource's unique identifier.",
+            "readOnly": true,
+            "allOf": [
+              {
+                "$ref": "#/definitions/resourceId"
+              }
+            ]
+          },
+          "name": {
+            "description": "The business name.",
+            "type": "string",
+            "example": "XYZ Technology Ventures"
+          },
+          "status": {
+            "description": "The business name's status.",
+            "type": "string",
+            "default": "Pending Approval",
+            "enum": [
+              "Approved",
+              "Pending Approval",
+              "Suspended"
+            ]
+          },
+          "fromDate": {
+            "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+            "type": "string",
+            "example": "1979-01-13T09:05:06+10:00"
+          },
+          "toDate": {
+            "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+            "type": "string",
+            "example": ""
+          }
+        }
+      }
+    },
     "registered-identifier": {
       "description": "The Registered Identifier resource.",
       "type": "object",
@@ -2483,34 +2429,31 @@
     },
     "business-name": {
       "description": "The Business Name resource.",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "description": "The resource's unique identifier.",
-            "readOnly": true,
-            "allOf": [
-              {
-                "$ref": "#/definitions/resourceId"
-              }
-            ]
-          },
-          "name": {
-            "description": "The business name.",
-            "type": "string",
-            "example": "XYZ Technology Ventures"
-          },
-          "status": {
-            "description": "The business name's status.",
-            "type": "string",
-            "default": "Pending Approval",
-            "enum": [
-              "Approved",
-              "Pending Approval",
-              "Suspended"
-            ]
-          }
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The resource's unique identifier.",
+          "readOnly": true,
+          "allOf": [
+            {
+              "$ref": "#/definitions/resourceId"
+            }
+          ]
+        },
+        "name": {
+          "description": "The business name.",
+          "type": "string",
+          "example": "XYZ Technology Ventures"
+        },
+        "status": {
+          "description": "The business name's status.",
+          "type": "string",
+          "default": "Pending Approval",
+          "enum": [
+            "Approved",
+            "Pending Approval",
+            "Suspended"
+          ]
         }
       }
     },
@@ -2552,17 +2495,146 @@
         }
       }
     },
+    "error-details": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The error code.",
+          "type": "string",
+          "example": "NullValue"
+        },
+        "target": {
+          "description": "The error target.",
+          "type": "string",
+          "example": "familyName"
+        },
+        "message": {
+          "description": "The error message.",
+          "type": "string",
+          "example": "Family name must not be null"
+        }
+      }
+    },
+    "failed-precondition": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The error code.",
+          "type": "string",
+          "example": "400"
+        },
+        "message": {
+          "description": "The error message.",
+          "type": "string",
+          "example": "Request can not be executed in the current system state"
+        },
+        "status": {
+          "description": "The error status.",
+          "type": "string",
+          "example": "FAILED_PRECONDITION"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/error-details"
+          }
+        }
+      }
+    },
+    "invalid-argument": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The error code.",
+          "type": "string",
+          "example": "400"
+        },
+        "message": {
+          "description": "The error message.",
+          "type": "string",
+          "example": "The client specified an invalid argument"
+        },
+        "status": {
+          "description": "The error status.",
+          "type": "string",
+          "example": "INVALID_ARGUMENT"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/error-details"
+          }
+        }
+      }
+    },
+    "not-found": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The error code.",
+          "type": "string",
+          "example": "404"
+        },
+        "message": {
+          "description": "The error message.",
+          "type": "string",
+          "example": "The specified resource was not found"
+        },
+        "status": {
+          "description": "The error status.",
+          "type": "string",
+          "example": "NOT_FOUND"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/error-details"
+          }
+        }
+      }
+    },
+    "unauthenticated": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The error code.",
+          "type": "string",
+          "example": "401"
+        },
+        "message": {
+          "description": "The error message.",
+          "type": "string",
+          "example": "Request not authenticated due to missing, invalid, or expired token"
+        },
+        "status": {
+          "description": "The error status.",
+          "type": "string",
+          "example": "UNAUTHENTICATED"
+        },
+        "details": {
+          "$ref": "#/definitions/error-details"
+        }
+      }
+    },
     "addressId": {
-      "type": "string",
-      "description": "The address's unique identifier. Defaults to UUID v4",
-      "maxLength": 36,
-      "example": "123e4567-e89b-12d3-a456-426655440000"
+      "allOf": [
+        {
+          "$ref": "#/definitions/resourceId"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "partyId": {
-      "type": "string",
-      "description": "The party's unique identifier. Defaults to UUID v4",
-      "maxLength": 36,
-      "example": "123e4567-e89b-12d3-a456-426655440000"
+      "allOf": [
+        {
+          "$ref": "#/definitions/resourceId"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "resourceId": {
       "type": "string",

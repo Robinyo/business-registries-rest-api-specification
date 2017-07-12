@@ -12,7 +12,9 @@ get:
         Link:
           $ref: "#/headers/Link"
       schema:
-        $ref: "#/definitions/address"
+        type: array
+        items:
+          $ref: "#/definitions/address"
     401:
       $ref: "#/responses/Unauthenticated"
     404:

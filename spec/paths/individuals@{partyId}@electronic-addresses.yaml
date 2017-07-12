@@ -7,12 +7,14 @@ get:
   summary: Retrieve a list of electronic addresses
   responses:
     200:
+      description: Electronic addresses were retrieved successfully
       headers:
         Link:
           $ref: "#/headers/Link"
-      description: Electronic addresses were retrieved successfully
       schema:
-        $ref: "#/definitions/electronic-address"
+        type: array
+        items:
+          $ref: "#/definitions/electronic-address"
     401:
       $ref: "#/responses/Unauthenticated"
     404:

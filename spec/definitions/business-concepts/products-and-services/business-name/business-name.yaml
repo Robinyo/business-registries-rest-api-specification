@@ -1,0 +1,20 @@
+description: The Business Name resource.
+type: object
+properties:
+  id:
+    description: The resource's unique identifier.
+    readOnly: true
+    allOf:
+      - $ref: "#/definitions/resourceId"
+  name:
+    description: The business name.
+    type: string
+    example: "XYZ Technology Ventures"
+  status:
+    description: The business name's status.
+    type: string
+    default: "Pending Approval"
+    enum:
+      - "Approved"
+      - "Pending Approval"
+      - "Suspended"

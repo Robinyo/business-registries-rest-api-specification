@@ -7,12 +7,14 @@ get:
   summary: Retrieve a list of business names
   responses:
     200:
+      description: Business Names were retrieved successfully
       headers:
         Link:
           $ref: "#/headers/Link"
-      description: Business Names were retrieved successfully
       schema:
-        $ref: "#/definitions/business-name"
+        type: array
+        items:
+          $ref: "#/definitions/business-name"
     401:
       $ref: "#/responses/Unauthenticated"
     404:

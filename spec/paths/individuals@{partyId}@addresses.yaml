@@ -7,12 +7,14 @@ get:
   summary: Retrieve a list of addresses
   responses:
     200:
+      description: Addresses were retrieved successfully
       headers:
         Link:
           $ref: "#/headers/Link"
-      description: Addresses were retrieved successfully
       schema:
-        $ref: "#/definitions/address"
+        type: array
+        items:
+          $ref: "#/definitions/address"
     401:
       $ref: "#/responses/Unauthenticated"
     404:

@@ -10,7 +10,7 @@ get:
     Retrieve an electronic address
   responses:
     200:
-      description: Electronic address was retrieved successfully
+      description: Electronic Address was retrieved successfully
       schema:
         $ref: "#/definitions/electronic-address"
     401:
