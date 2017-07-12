@@ -1,0 +1,56 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+  - $ref: "#/parameters/partyId"
+  - $ref: "#/parameters/roleId"
+get:
+  tags:
+    - Organisations Roles
+  summary: Retrieve a role
+  description: |
+    Retrieve a role
+  responses:
+    200:
+      description: Role was retrieved successfully
+      schema:
+        $ref: "#/definitions/party-role"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
+put:
+  tags:
+    - Organisations Roles
+  summary: Update a role
+  description: |
+    Update a role
+  parameters:
+    - name: body
+      in: body
+      description: Role resource
+      required: true
+      schema:
+        $ref: "#/definitions/party-role"
+  responses:
+    200:
+      description: Role was updated
+      schema:
+        $ref: "#/definitions/party-role"
+    400:
+      $ref: "#/responses/InvalidArgument"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
+delete:
+  tags:
+    - Organisations Roles
+  summary: Delete a role
+  description: |
+    Delete a role
+  responses:
+    204:
+      description: Role was deleted
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

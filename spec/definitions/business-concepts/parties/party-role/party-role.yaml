@@ -1,30 +1,47 @@
 description: The Party Role resource.
-type: array
-items:
-  type: object
-  properties:
-    id:
-      description: The resource's unique identifier.
-      readOnly: true
-      allOf:
-        - $ref: "#/definitions/resourceId"
-    name:
-      description: The business name.
-      type: string
-      example: "XYZ Technology Ventures"
-    status:
-      description: The business name's status.
-      type: string
-      default: "Pending Approval"
-      enum:
-        - "Approved"
-        - "Pending Approval"
-        - "Suspended"
-    fromDate:
-      description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
-      type: string
-      example: "1979-01-13T09:05:06+10:00"
-    toDate:
-      description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
-      type: string
-      example: ""
+type: object
+properties:
+  id:
+    description: The resource's unique identifier.
+    readOnly: true
+    allOf:
+      - $ref: "#/definitions/roleId"
+  fromPartyId:
+    description: The "from" party's unique identifier.
+    readOnly: true
+    allOf:
+      - $ref: "#/definitions/partyId"
+  fromPartyRoleType:
+    description: The "from" party's role type.
+    type: string
+    default: "Director"
+    enum:
+      - "Employee"
+      - "Director"
+  toPartyId:
+    description: The "to" party's unique identifier.
+    readOnly: true
+    allOf:
+      - $ref: "#/definitions/partyId"
+  toPartyRoleType:
+    description: The "to" party's role type.
+    type: string
+    default: "Office Bearer"
+    enum:
+      - "Employer"
+      - "Office Bearer"
+  relationshipType:
+    description: The relationship type.
+    type: string
+    default: "Office Holder"
+    enum:
+      - "Employment"
+      - "Office Holder"
+  fromDate:
+    description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    type: string
+    example: "2016-01-13T09:05:06+10:00"
+  toDate:
+    description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    type: string
+    example: ""

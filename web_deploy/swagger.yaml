@@ -64,6 +64,9 @@ info:
       When you sign up for an account, you are given your first API key. You can generate additional API keys, and delete
       API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by
       providing your secret key in the request header.
+
+        **Note:** Some requests will return 404 Not Found, instead of 403 Permission Denied. This is to prevent the
+        accidental leakage of information to unauthorised users.
 host: api.abr.ato.gov.au
 basePath: /
 schemes:
@@ -84,6 +87,9 @@ tags:
 
         For example, the individual's date and place of birth (for the purposes of identification) and the individual's
         residential address (which is used for administrative or law enforcement purposes).
+  - name: Individuals Roles
+    description: |
+      A role defines the characteristics of a relationship between parties (individuals and organisations).
   - name: Individuals Addresses
     description: |
       The registry maintains information about an individual's contact details for administrative purposes.
@@ -114,6 +120,9 @@ tags:
 
         For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity,
         Partnership or Joint Venture).
+  - name: Organisations Roles
+    description: |
+      A role defines the characteristics of a relationship between parties (individuals and organisations).
   - name: Organisations Addresses
     description: |
       The registry maintains information about an organisation's contact details for administrative purposes.
@@ -147,25 +156,33 @@ tags:
         For example, if you provide financial services, you are required to hold an Australian Financial
         Services (AFS) licence.
 x-tagGroups:
-  - name: Individuals
+  - name: Individuals Details
     tags:
       - Individuals
+      - Individuals Roles
+  - name: Individuals Contact Details
+    tags:
       - Individuals Addresses
       - Individuals Electronic Addresses
+  - name: Individuals Products
+    tags:
       - Individuals Business Names
       - Individuals Licenses
-  - name: Organisations
+  - name: Organisations Details
     tags:
       - Organisations
+      - Organisations Roles
+  - name: Organisations Contact Details
+    tags:
       - Organisations Addresses
       - Organisations Electronic Addresses
+  - name: Organisations Products
+    tags:
       - Organisations Business Names
       - Organisations Licenses
-  - name: Business Names
+  - name: Products & Services
     tags:
       - Business Names
-  - name: Licenses
-    tags:
       - Licenses
 parameters:
   apiKey:
@@ -190,6 +207,12 @@ parameters:
     name: productId
     in: path
     description: The product identifier.
+    type: string
+    required: true
+  roleId:
+    name: roleId
+    in: path
+    description: The role identifier.
     type: string
     required: true
   dateOfBirth:
@@ -841,6 +864,120 @@ paths:
           $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
+  '/individuals/{partyId}/roles':
+    parameters:
+      - $ref: '#/parameters/apiKey'
+      - $ref: '#/parameters/partyId'
+    get:
+      tags:
+        - Individuals Roles
+      summary: Retrieve a list of roles
+      responses:
+        '200':
+          description: Roles were retrieved successfully
+          headers:
+            Link:
+              description: |
+                Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.
+                For example:
+
+                    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
+                          <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
+
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+              type: string
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/party-role'
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+    post:
+      tags:
+        - Individuals Roles
+      summary: Create a role
+      description: |
+        Create a role
+      parameters:
+        - name: body
+          in: body
+          description: Role resource
+          required: true
+          schema:
+            $ref: '#/definitions/party-role'
+      responses:
+        '201':
+          description: Role was created
+          headers:
+            Location:
+              description: |
+                A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.
+              type: string
+          schema:
+            $ref: '#/definitions/party-role'
+        '400':
+          $ref: '#/responses/InvalidArgument'
+        '401':
+          $ref: '#/responses/Unauthenticated'
+  '/individuals/{partyId}/roles/{roleId}':
+    parameters:
+      - $ref: '#/parameters/apiKey'
+      - $ref: '#/parameters/partyId'
+      - $ref: '#/parameters/roleId'
+    get:
+      tags:
+        - Individuals Roles
+      summary: Retrieve a role
+      description: |
+        Retrieve a role
+      responses:
+        '200':
+          description: Role was retrieved successfully
+          schema:
+            $ref: '#/definitions/party-role'
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+    put:
+      tags:
+        - Individuals Roles
+      summary: Update a role
+      description: |
+        Update a role
+      parameters:
+        - name: body
+          in: body
+          description: Role resource
+          required: true
+          schema:
+            $ref: '#/definitions/party-role'
+      responses:
+        '200':
+          description: Role was updated
+          schema:
+            $ref: '#/definitions/party-role'
+        '400':
+          $ref: '#/responses/InvalidArgument'
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+    delete:
+      tags:
+        - Individuals Roles
+      summary: Delete a role
+      description: |
+        Delete a role
+      responses:
+        '204':
+          description: Role was deleted
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
   /licenses:
     get:
       tags:
@@ -1448,6 +1585,120 @@ paths:
           $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
+  '/organisations/{partyId}/roles':
+    parameters:
+      - $ref: '#/parameters/apiKey'
+      - $ref: '#/parameters/partyId'
+    get:
+      tags:
+        - Organisations Roles
+      summary: Retrieve a list of roles
+      responses:
+        '200':
+          description: Roles were retrieved successfully
+          headers:
+            Link:
+              description: |
+                Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.
+                For example:
+
+                    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
+                          <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
+
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+              type: string
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/party-role'
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+    post:
+      tags:
+        - Organisations Roles
+      summary: Create a role
+      description: |
+        Create a role
+      parameters:
+        - name: body
+          in: body
+          description: Role resource
+          required: true
+          schema:
+            $ref: '#/definitions/party-role'
+      responses:
+        '201':
+          description: Role was created
+          headers:
+            Location:
+              description: |
+                A [Location](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30) header pointing to the location of the new resource.
+              type: string
+          schema:
+            $ref: '#/definitions/party-role'
+        '400':
+          $ref: '#/responses/InvalidArgument'
+        '401':
+          $ref: '#/responses/Unauthenticated'
+  '/organisations/{partyId}/roles/{roleId}':
+    parameters:
+      - $ref: '#/parameters/apiKey'
+      - $ref: '#/parameters/partyId'
+      - $ref: '#/parameters/roleId'
+    get:
+      tags:
+        - Organisations Roles
+      summary: Retrieve a role
+      description: |
+        Retrieve a role
+      responses:
+        '200':
+          description: Role was retrieved successfully
+          schema:
+            $ref: '#/definitions/party-role'
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+    put:
+      tags:
+        - Organisations Roles
+      summary: Update a role
+      description: |
+        Update a role
+      parameters:
+        - name: body
+          in: body
+          description: Role resource
+          required: true
+          schema:
+            $ref: '#/definitions/party-role'
+      responses:
+        '200':
+          description: Role was updated
+          schema:
+            $ref: '#/definitions/party-role'
+        '400':
+          $ref: '#/responses/InvalidArgument'
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+    delete:
+      tags:
+        - Organisations Roles
+      summary: Delete a role
+      description: |
+        Delete a role
+      responses:
+        '204':
+          description: Role was deleted
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
 definitions:
   address:
     description: The Address resource.
@@ -1746,35 +1997,52 @@ definitions:
         example: ''
   party-role:
     description: The Party Role resource.
-    type: array
-    items:
-      type: object
-      properties:
-        id:
-          description: The resource's unique identifier.
-          readOnly: true
-          allOf:
-            - $ref: '#/definitions/resourceId'
-        name:
-          description: The business name.
-          type: string
-          example: XYZ Technology Ventures
-        status:
-          description: The business name's status.
-          type: string
-          default: Pending Approval
-          enum:
-            - Approved
-            - Pending Approval
-            - Suspended
-        fromDate:
-          description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
-          type: string
-          example: '1979-01-13T09:05:06+10:00'
-        toDate:
-          description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
-          type: string
-          example: ''
+    type: object
+    properties:
+      id:
+        description: The resource's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/roleId'
+      fromPartyId:
+        description: The "from" party's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/partyId'
+      fromPartyRoleType:
+        description: The "from" party's role type.
+        type: string
+        default: Director
+        enum:
+          - Employee
+          - Director
+      toPartyId:
+        description: The "to" party's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/partyId'
+      toPartyRoleType:
+        description: The "to" party's role type.
+        type: string
+        default: Office Bearer
+        enum:
+          - Employer
+          - Office Bearer
+      relationshipType:
+        description: The relationship type.
+        type: string
+        default: Office Holder
+        enum:
+          - Employment
+          - Office Holder
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '2016-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   registered-identifier:
     description: The Registered Identifier resource.
     type: object
@@ -1823,33 +2091,47 @@ definitions:
           - Approved
           - Pending Approval
           - Suspended
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1979-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   license:
     description: The License resource.
-    type: array
-    items:
-      type: object
-      properties:
-        id:
-          description: The resource's unique identifier.
-          readOnly: true
-          allOf:
-            - $ref: '#/definitions/resourceId'
-        licenseType:
-          description: The license type.
-          default: Australian Financial Services
-          enum:
-            - Australian Financial Services
-            - License 2B
-        status:
-          description: The business name's status.
-          type: string
-          default: Pending Approval
-          enum:
-            - Approved
-            - Issued
-            - Pending Approval
-            - Suspended
-            - Expired
+    type: object
+    properties:
+      id:
+        description: The resource's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/resourceId'
+      licenseType:
+        description: The license type.
+        default: Australian Financial Services
+        enum:
+          - Australian Financial Services
+          - License 2B
+      status:
+        description: The business name's status.
+        type: string
+        default: Pending Approval
+        enum:
+          - Approved
+          - Issued
+          - Pending Approval
+          - Suspended
+          - Expired
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1979-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   error-details:
     type: object
     properties:
@@ -1952,3 +2234,7 @@ definitions:
     description: The resource ID. Defaults to UUID v4
     maxLength: 36
     example: 123e4567-e89b-12d3-a456-426655440000
+  roleId:
+    allOf:
+      - $ref: '#/definitions/resourceId'
+      - type: string

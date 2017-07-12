@@ -1,26 +1,32 @@
 description: The License resource.
-type: array
-items:
-  type: object
-  properties:
-    id:
-      description: The resource's unique identifier.
-      readOnly: true
-      allOf:
-        - $ref: "#/definitions/resourceId"
-    licenseType:
-      description: The license type.
-      default: "Australian Financial Services"
-      enum:
-        - "Australian Financial Services"
-        - "License 2B"
-    status:
-      description: The business name's status.
-      type: string
-      default: "Pending Approval"
-      enum:
-        - "Approved"
-        - "Issued"
-        - "Pending Approval"
-        - "Suspended"
-        - "Expired"
+type: object
+properties:
+  id:
+    description: The resource's unique identifier.
+    readOnly: true
+    allOf:
+      - $ref: "#/definitions/resourceId"
+  licenseType:
+    description: The license type.
+    default: "Australian Financial Services"
+    enum:
+      - "Australian Financial Services"
+      - "License 2B"
+  status:
+    description: The business name's status.
+    type: string
+    default: "Pending Approval"
+    enum:
+      - "Approved"
+      - "Issued"
+      - "Pending Approval"
+      - "Suspended"
+      - "Expired"
+  fromDate:
+    description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    type: string
+    example: "1979-01-13T09:05:06+10:00"
+  toDate:
+    description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    type: string
+    example: ""

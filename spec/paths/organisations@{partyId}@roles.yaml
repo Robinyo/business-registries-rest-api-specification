@@ -1,0 +1,46 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+  - $ref: "#/parameters/partyId"
+get:
+  tags:
+    - Organisations Roles
+  summary: Retrieve a list of roles
+  responses:
+    200:
+      description: Roles were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/party-role"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
+post:
+  tags:
+    - Organisations Roles
+  summary: Create a role
+  description: |
+    Create a role
+  parameters:
+    - name: body
+      in: body
+      description: Role resource
+      required: true
+      schema:
+        $ref: "#/definitions/party-role"
+  responses:
+    201:
+      description: Role was created
+      headers:
+        Location:
+          $ref: "#/headers/Location"
+      schema:
+        $ref: "#/definitions/party-role"
+    400:
+      $ref: "#/responses/InvalidArgument"
+    401:
+      $ref: "#/responses/Unauthenticated"

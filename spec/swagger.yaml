@@ -90,6 +90,9 @@ info:
       API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by
       providing your secret key in the request header.
 
+        **Note:** Some requests will return 404 Not Found, instead of 403 Permission Denied. This is to prevent the
+        accidental leakage of information to unauthorised users.
+
 host: api.abr.ato.gov.au
 basePath: /
 schemes:
@@ -116,6 +119,9 @@ tags:
 
         For example, the individual's date and place of birth (for the purposes of identification) and the individual's
         residential address (which is used for administrative or law enforcement purposes).
+  - name: Individuals Roles
+    description: |
+      A role defines the characteristics of a relationship between parties (individuals and organisations).
   - name: Individuals Addresses
     description: |
       The registry maintains information about an individual's contact details for administrative purposes.
@@ -147,6 +153,9 @@ tags:
 
         For example, the organisation's legal entity type (e.g., Incorporated Entity, Unincorporated Entity,
         Partnership or Joint Venture).
+  - name: Organisations Roles
+    description: |
+      A role defines the characteristics of a relationship between parties (individuals and organisations).
   - name: Organisations Addresses
     description: |
       The registry maintains information about an organisation's contact details for administrative purposes.
@@ -184,25 +193,35 @@ tags:
 
 
 x-tagGroups:
-  - name: Individuals
+  - name: Individuals Details
     tags:
       - Individuals
+      - Individuals Roles
+  - name: Individuals Contact Details
+    tags:
       - Individuals Addresses
       - Individuals Electronic Addresses
+  - name: Individuals Products
+    tags:
       - Individuals Business Names
       - Individuals Licenses
-  - name: Organisations
+
+  - name: Organisations Details
     tags:
       - Organisations
+      - Organisations Roles
+  - name: Organisations Contact Details
+    tags:
       - Organisations Addresses
       - Organisations Electronic Addresses
+  - name: Organisations Products
+    tags:
       - Organisations Business Names
       - Organisations Licenses
-  - name: Business Names
+
+  - name: Products & Services
     tags:
       - Business Names
-  - name: Licenses
-    tags:
       - Licenses
 
 headers:
@@ -270,6 +289,12 @@ parameters:
     name: productId
     in: path
     description: The product identifier.
+    type: string
+    required: true
+  roleId:
+    name: roleId
+    in: path
+    description: The role identifier.
     type: string
     required: true
   dateOfBirth:
