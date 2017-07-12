@@ -309,7 +309,6 @@ parameters:
     name: dateOfBirth
     in: query
     description: The individual's date of birth, for example, `1979-01-13` (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format).
-    example: "1979-01-13"
     type: string
     required: false
   placeOfBirth:
