@@ -1,0 +1,18 @@
+type: object
+properties:
+  code:
+    description: The error code.
+    type: string
+    example: "403"
+  message:
+    description: The error message.
+    type: string
+    example: "The client does not have sufficient permission"
+  status:
+    description: The error status.
+    type: string
+    example: "PERMISSION_DENIED"
+  details:
+    type: array
+    items:
+      $ref: "#/definitions/error-details"

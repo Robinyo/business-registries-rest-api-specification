@@ -65,8 +65,8 @@ info:
       API keys (as you may need to rotate your keys in the future). You authenticate to the Business Registries API by
       providing your secret key in the request header.
 
-        **Note:** Some requests will return 404 Not Found, instead of 403 Permission Denied. This is to prevent the
-        accidental leakage of information to unauthorised users.
+      **Note:** Some requests will return `404 Not Found`, instead of `403 Permission Denied`. This is to prevent the
+      accidental leakage of information to unauthorised users.
 host: api.abr.ato.gov.au
 basePath: /
 schemes:
@@ -2200,6 +2200,25 @@ definitions:
         description: The error status.
         type: string
         example: NOT_FOUND
+      details:
+        type: array
+        items:
+          $ref: '#/definitions/error-details'
+  permission-denied:
+    type: object
+    properties:
+      code:
+        description: The error code.
+        type: string
+        example: '403'
+      message:
+        description: The error message.
+        type: string
+        example: The client does not have sufficient permission
+      status:
+        description: The error status.
+        type: string
+        example: PERMISSION_DENIED
       details:
         type: array
         items:
