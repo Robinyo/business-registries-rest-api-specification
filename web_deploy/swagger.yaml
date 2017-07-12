@@ -218,7 +218,7 @@ parameters:
   dateOfBirth:
     name: dateOfBirth
     in: query
-    description: 'The individual''s date of birth in the format defined by [RFC 822](https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1).'
+    description: 'The individual''s date of birth in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
     type: string
     required: false
   placeOfBirth:
@@ -1741,6 +1741,14 @@ definitions:
         description: The country.
         type: string
         example: Australia
+      fromDate:
+        description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: '1979-01-13T09:05:06+10:00'
+      toDate:
+        description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        type: string
+        example: ''
   individual-address:
     allOf:
       - $ref: '#/definitions/address'
@@ -1837,9 +1845,11 @@ definitions:
         allOf:
           - $ref: '#/definitions/resourceId'
       namePrefix:
-        description: 'The individual''s name prefix, for example, "Mr" or "Ms".'
-        type: string
-        example: Mr
+        description: The individual's name prefix.
+        default: Mr
+        enum:
+          - Mr
+          - Ms
       givenName:
         description: The individual's given name.
         type: string
@@ -1857,9 +1867,11 @@ definitions:
         type: string
         example: ''
       direction:
-        description: 'The direction used to render the individual''s name, for example, "right-to-left" or "left-to-right".'
-        type: string
-        example: right-to-left
+        description: The direction used to render the individual's name.
+        default: right-to-left
+        enum:
+          - right-to-left
+          - left-to-right
       formalSalutation:
         description: 'The individual''s formal salutation, for example, "Mr William Smith".'
         type: string
@@ -1896,16 +1908,15 @@ definitions:
         allOf:
           - $ref: '#/definitions/partyId'
       dateOfBirth:
-        description: 'The individual''s date of birth, for example, "13 Jan 1979".'
+        description: 'The individual''s date of birth in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
         type: string
-        example: 13 Jan 1979
+        example: '1979-01-13'
       placeOfBirth:
         description: 'The individual''s palce of birth, for example, "Tamworth".'
         type: string
         example: Tamworth
       gender:
         description: The individual's gender.
-        type: string
         default: Male
         enum:
           - Female
@@ -1966,13 +1977,17 @@ definitions:
         allOf:
           - $ref: '#/definitions/partyId'
       legalEntityType:
-        description: 'The organisation''s legal entity type, for example, Company, Trust, Partnership or Joint Venture.'
-        type: string
-        example: Company
+        description: The organisation's legal entity type.
+        default: Company
+        enum:
+          - Company
+          - Partnership
+          - Trust
+          - Joint Venture
       establishmentDate:
-        description: 'The organisation''s establishment date, for example, "01 Jul 2016".'
+        description: 'The organisation''s establishment date in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
         type: string
-        example: 03 Mar 1928
+        example: '1928-03-03'
       registeredIdentifiers:
         type: array
         items:
