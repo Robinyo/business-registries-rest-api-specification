@@ -8,6 +8,7 @@ properties:
       - $ref: "#/definitions/resourceId"
   licenseType:
     description: The license type.
+    type: string
     default: "Australian Financial Services"
     enum:
       - "Australian Financial Services"

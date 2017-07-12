@@ -10,15 +10,16 @@ properties:
     allOf:
       - $ref: "#/definitions/partyId"
   dateOfBirth:
-    description: The individual's date of birth in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    description: The individual's date of birth, for example, `1979-01-13` (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format).
     type: string
     example: "1979-01-13"
   placeOfBirth:
-    description: The individual's palce of birth, for example, "Tamworth".
+    description: The individual's place of birth, for example, `Tamworth`.
     type: string
     example: "Tamworth"
   gender:
     description: The individual's gender.
+    type: string
     default: "Male"
     enum:
       - "Female"
@@ -39,9 +40,11 @@ properties:
       $ref: "#/definitions/electronic-address"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    readOnly: true
     type: string
     example: "1979-01-13T09:05:06+10:00"
   toDate:
     description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    readOnly: true
     type: string
     example: ""

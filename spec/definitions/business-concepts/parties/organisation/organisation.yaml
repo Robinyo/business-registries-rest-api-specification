@@ -11,6 +11,7 @@ properties:
       - $ref: "#/definitions/partyId"
   legalEntityType:
     description: The organisation's legal entity type.
+    type: string
     default: "Company"
     enum:
       - "Company"

@@ -8,6 +8,7 @@ properties:
       - $ref: "#/definitions/resourceId"
   namePrefix:
     description: The individual's name prefix.
+    type: string
     default: "Mr"
     enum:
       - "Mr"
@@ -30,6 +31,7 @@ properties:
     example: ""
   direction:
     description: The direction used to render the individual's name.
+    type: string
     default: "right-to-left"
     enum:
       - "right-to-left"
@@ -44,6 +46,7 @@ properties:
     example: "Rob"
   nameType:
     description: The name type.
+    type: string
     default: "Principal Name"
     enum:
       - "Alias"

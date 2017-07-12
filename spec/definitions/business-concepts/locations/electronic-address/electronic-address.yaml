@@ -1,4 +1,4 @@
-description: The Electronic Address details.
+description: The Electronic Address resource.
 type: object
 properties:
   id:
@@ -30,8 +30,9 @@ properties:
     description: The website address, for example, "https://ato.gov.au".
     type: string
     example: ""
-  addressType:
+  electronicAddressType:
     description: The electronic address type.
+    type: string
     default: "Landline"
     enum:
       - "Email"

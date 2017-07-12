@@ -15,7 +15,8 @@ info:
     The Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs.
 
       The API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format.
-      In addition to the standard OpenAPI syntax we use a few [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
+      In addition to the standard OpenAPI syntax we use a few
+      [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
 
     # Overview
 
@@ -31,13 +32,19 @@ info:
     ## Schema
 
     All API access is over HTTPS, and accessed from https://api.abr.ato.gov.au.
-    All data is sent and received as JSON.
+    All data is sent and received as JSON. Blank fields are included.
 
-    Blank fields are included.
+      All dates use the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format:
 
-    All timestamps use the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format:
+        YYYY-MM-DD
+
+      For example: `2017-07-01` (the 1st of July 2017)
+
+      All timestamps use the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format:
 
         YYYY-MM-DDTHH:MM:SSZ
+
+      For example: `2017-07-01T11:05:06+10:00`
 
     ## Timezones
 
@@ -118,7 +125,7 @@ tags:
       An individual is a person about whom the registry wishes to maintain information.
 
         For example, the individual's date and place of birth (for the purposes of identification) and the individual's
-        residential address (which is used for administrative or law enforcement purposes).
+        residential address (which is used for administrative purposes).
   - name: Individuals Roles
     description: |
       A role defines the characteristics of a relationship between parties (individuals and organisations).
@@ -296,47 +303,58 @@ parameters:
     description: The role identifier.
     type: string
     required: true
+
+# Query parameters, include examples in the description
   dateOfBirth:
     name: dateOfBirth
     in: query
-    description: The individual's date of birth in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    description: The individual's date of birth, for example, `1979-01-13` (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format).
+    example: "1979-01-13"
     type: string
     required: false
   placeOfBirth:
     name: placeOfBirth
     in: query
-    description: The individual's place of birth.
+    description: The individual's place of birth, for example, `Tamworth`.
     type: string
     required: false
   registeredIdentifier:
     name: registeredIdentifier
     in: query
-    description: The registered identifier, for example, "ACN" or "ABN".
+    description: The registered identifier, for example, `ACN` or `ABN"`.
     type: string
     required: false
   identifier:
     name: identifier
     in: query
-    description: The identifier.
+    description: The identifier, for example, `123456789`.
     type: string
     required: false
 
 responses:
+  # 400
   InvalidArgument:
     description: The client specified an invalid argument
     schema:
       $ref: '#/definitions/invalid-argument'
-  Unauthenticated:
-    description: Request not authenticated due to missing, invalid, or expired token
-    schema:
-      $ref: '#/definitions/unauthenticated'
-  NotFound:
-    description: The specified resource was not found
-    schema:
-      $ref: '#/definitions/not-found'
   FailedPrecondition:
     description: Request can not be executed in the current system state
     schema:
       $ref: '#/definitions/failed-precondition'
+  # 401
+  Unauthenticated:
+    description: Request not authenticated due to missing, invalid, or expired token
+    schema:
+      $ref: '#/definitions/unauthenticated'
+  # 403
+  PermissionDenied:
+    description: The client does not have sufficient permission
+    schema:
+      $ref: '#/definitions/permission-denied'
+  # 404
+  NotFound:
+    description: The specified resource was not found
+    schema:
+      $ref: '#/definitions/not-found'
 
 

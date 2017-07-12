@@ -12,6 +12,7 @@ properties:
     example: "123456789"
   identifierType:
     description: The registered identifier type.
+    type: string
     default: "ACN"
     enum:
       - "ACN"

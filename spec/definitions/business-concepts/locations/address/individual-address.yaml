@@ -6,6 +6,7 @@ allOf:
     properties:
       addressType:
         description: The address type.
+        type: string
         default: "Principal Place of Residence"
         enum:
           - "Mailing"
