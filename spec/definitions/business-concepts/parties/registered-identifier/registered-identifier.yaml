@@ -1,4 +1,4 @@
-    readOnly: truedescription: The Registered Identifier resource.
+description: The Registered Identifier resource.
 type: object
 properties:
   id:
