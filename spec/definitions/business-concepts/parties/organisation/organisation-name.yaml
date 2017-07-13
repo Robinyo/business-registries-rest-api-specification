@@ -12,9 +12,11 @@ properties:
     example: "Australian Taxation Office"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    readOnly: true
     type: string
     example: "1928-03-03T09:05:06+10:00"
   toDate:
     description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    readOnly: true
     type: string
     example: ""
