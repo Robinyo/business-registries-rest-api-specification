@@ -320,7 +320,7 @@ parameters:
   registeredIdentifier:
     name: registeredIdentifier
     in: query
-    description: The registered identifier, for example, `ACN` or `ABN"`.
+    description: The registered identifier, for example, `ACN` or `ABN`.
     type: string
     required: false
   identifier:

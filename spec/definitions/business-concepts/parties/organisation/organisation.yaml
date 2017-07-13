@@ -19,7 +19,7 @@ properties:
       - "Trust"
       - "Joint Venture"
   establishmentDate:
-    description: The organisation's establishment date in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+    description: The organisation's establishment date, for example, `1928-03-03` (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format).
     type: string
     example: "1928-03-03"
   registeredIdentifiers:
