@@ -137,7 +137,6 @@ tags:
       | Party         | Role           | Relationship     | Role       | Party                           |
       | ------------- | -------------- | ---------------- | ---------- | ------------------------------- |
       | Homer Simpson | Husband        | Marriage         | Wife       | Marge Simpson                   |
-      | Homer Simpson | Father         | Parent           | Son        | Bart Simpson                    |
       | Homer Simpson | Employee       | Employment       | Employer   | Springfield Nuclear Power Plant |
       | Homer Simpson | Safety Officer | Colleague        | Supervisor | Carl Carlson                    |
       | Homer Simpson | Director       | Office Holder    | Employer   | Mr Plow                         |
