@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.0.4
+  version: 0.0.5
   title: Business Registries REST API
   license:
     name: Creative Commons Attribution 3.0 Australia
@@ -98,7 +98,22 @@ tags:
         residential address (which is used for administrative purposes).
   - name: Individuals Roles
     description: |
-      A role defines the characteristics of a relationship between parties (individuals and organisations).
+      A role defines the characteristics of a relationship between parties.
+      An Indiviual can participate in a relationship with other indiviuals and with organisations.
+
+      For example:
+
+      | Party         | Role           | Relationship     | Role       | Party                           |
+      | ------------- | -------------- | ---------------- | ---------- | ------------------------------- |
+      | Homer Simpson | Husband        | Marriage         | Wife       | Marge Simpson                   |
+      | Homer Simpson | Father         | Parent           | Son        | Bart Simpson                    |
+      | Homer Simpson | Employee       | Employment       | Employer   | Springfield Nuclear Power Plant |
+      | Homer Simpson | Safety Officer | Colleague        | Supervisor | Carl Carlson                    |
+      | Homer Simpson | Director       | Office Holder    | Employer   | Mr Plow                         |
+      | Homer Simpson | Director       | Office Holder    |            | Homerpalooza                    |
+
+      **Note:** Homer Simpson was a `Director` and an `Employee` of Mr Plow.
+      Homer Simpson was a `Director` but not an `Employee` of the Homerpalooza festival.
   - name: Individuals Addresses
     description: |
       The registry maintains information about an individual's contact details for administrative purposes.
@@ -131,7 +146,20 @@ tags:
         Partnership or Joint Venture).
   - name: Organisations Roles
     description: |
-      A role defines the characteristics of a relationship between parties (individuals and organisations).
+      A role defines the characteristics of a relationship between parties.
+      An Organisation can participate in a relationship with other organisations and with indiviuals.
+
+      For example:
+
+      | Party                           | Role     | Relationship     | Role       | Party         |
+      | ------------------------------- | -------- | ---------------- | ---------- | ------------- |
+      | Springfield Nuclear Power Plant | Employee | Employment       | Employee   | Homer Simpson |
+      | Springfield Nuclear Power Plant | Employer | Office Holder    | Director   | Mr Burns      |
+      | Springfield Nuclear Power Plant |          | Office Holder    | Director   | Fat Tony      |
+      | Springfield Nuclear Power Plant | Customer | Service Provider | Accountant | Dan Gillick   |
+
+      **Note:** Mr Burns is a `Director` and an `Employee` of the Springfield Nuclear Power Plant.
+      Fat Tony is a `Director` (albeit a silent one) but not an `Employee` of the Springfield Nuclear Power Plant.
   - name: Organisations Addresses
     description: |
       The registry maintains information about an organisation's contact details for administrative purposes.
@@ -228,7 +256,6 @@ parameters:
     name: dateOfBirth
     in: query
     description: 'The individual''s date of birth, for example, `1979-01-13` (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format).'
-    example: '1979-01-13'
     type: string
     required: false
   placeOfBirth:
@@ -240,7 +267,7 @@ parameters:
   registeredIdentifier:
     name: registeredIdentifier
     in: query
-    description: 'The registered identifier, for example, `ACN` or `ABN"`.'
+    description: 'The registered identifier, for example, `ACN` or `ABN`.'
     type: string
     required: false
   identifier:
@@ -1757,10 +1784,12 @@ definitions:
         example: Australia
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: '1979-01-13T09:05:06+10:00'
       toDate:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: ''
   individual-address:
@@ -1778,10 +1807,12 @@ definitions:
               - Principal Place of Residence
           fromDate:
             description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+            readOnly: true
             type: string
             example: '1979-01-13T09:05:06+10:00'
           toDate:
             description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+            readOnly: true
             type: string
             example: ''
   organisation-address:
@@ -1798,10 +1829,12 @@ definitions:
               - Principal Place of Business
           fromDate:
             description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+            readOnly: true
             type: string
             example: '1979-01-13T09:05:06+10:00'
           toDate:
             description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+            readOnly: true
             type: string
             example: ''
   electronic-address:
@@ -1849,10 +1882,12 @@ definitions:
           - Website
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: '1979-01-13T09:05:06+10:00'
       toDate:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: ''
   individual-name:
@@ -1912,10 +1947,12 @@ definitions:
           - Stage Name
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: '1979-01-13T09:05:06+10:00'
       toDate:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: ''
   individual:
@@ -1981,13 +2018,15 @@ definitions:
       name:
         description: The organisation's name.
         type: string
-        example: Australian Taxation Office
+        example: 321 Technology Ventures
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: '1928-03-03T09:05:06+10:00'
       toDate:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: ''
   organisation:
@@ -2012,7 +2051,7 @@ definitions:
           - Trust
           - Joint Venture
       establishmentDate:
-        description: 'The organisation''s establishment date in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        description: 'The organisation''s establishment date, for example, `1928-03-03` (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format).'
         type: string
         example: '1928-03-03'
       registeredIdentifiers:
@@ -2033,29 +2072,30 @@ definitions:
           $ref: '#/definitions/electronic-address'
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: '1979-01-13T09:05:06+10:00'
       toDate:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: ''
   party-role:
     description: The Party Role resource.
     type: object
+    required:
+      - toPartyId
+      - relationshipType
     properties:
       id:
         description: The resource's unique identifier.
         readOnly: true
         allOf:
           - $ref: '#/definitions/roleId'
-      fromPartyId:
-        description: The "from" party's unique identifier.
-        allOf:
-          - $ref: '#/definitions/partyId'
       fromPartyRoleType:
         description: The "from" party's role type.
         type: string
-        default: Director
+        default: Employee
         enum:
           - Employee
           - Director
@@ -2066,23 +2106,28 @@ definitions:
       toPartyRoleType:
         description: The "to" party's role type.
         type: string
-        default: Office Bearer
+        default: Employer
         enum:
+          - Not Applicable
+          - Accountant
+          - Auditor
           - Employer
-          - Office Bearer
       relationshipType:
         description: The relationship type.
         type: string
-        default: Office Holder
+        default: Employment
         enum:
           - Employment
           - Office Holder
+          - Service Provider
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: '2016-01-13T09:05:06+10:00'
       toDate:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: ''
   registered-identifier:
@@ -2107,10 +2152,12 @@ definitions:
           - ABN
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: '1979-01-13T09:05:06+10:00'
       toDate:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: ''
   business-name:
@@ -2136,10 +2183,12 @@ definitions:
           - Suspended
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: '1979-01-13T09:05:06+10:00'
       toDate:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: ''
   license:
@@ -2170,10 +2219,12 @@ definitions:
           - Expired
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: '1979-01-13T09:05:06+10:00'
       toDate:
         description: 'The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+        readOnly: true
         type: string
         example: ''
   error-details:

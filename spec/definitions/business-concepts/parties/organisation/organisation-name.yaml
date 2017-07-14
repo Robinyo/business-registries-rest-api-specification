@@ -9,7 +9,7 @@ properties:
   name:
     description: The organisation's name.
     type: string
-    example: "Australian Taxation Office"
+    example: "321 Technology Ventures"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     readOnly: true

@@ -1,20 +1,18 @@
 description: The Party Role resource.
 type: object
+required:
+  - toPartyId
+  - relationshipType
 properties:
   id:
     description: The resource's unique identifier.
     readOnly: true
     allOf:
       - $ref: "#/definitions/roleId"
-  fromPartyId:
-    description: The "from" party's unique identifier.
-#   readOnly: true
-    allOf:
-      - $ref: "#/definitions/partyId"
   fromPartyRoleType:
     description: The "from" party's role type.
     type: string
-    default: "Director"
+    default: "Employee"
     enum:
       - "Employee"
       - "Director"
@@ -26,17 +24,20 @@ properties:
   toPartyRoleType:
     description: The "to" party's role type.
     type: string
-    default: "Office Bearer"
+    default: "Employer"
     enum:
+      - "Not Applicable"
+      - "Accountant"
+      - "Auditor"
       - "Employer"
-      - "Office Bearer"
   relationshipType:
     description: The relationship type.
     type: string
-    default: "Office Holder"
+    default: "Employment"
     enum:
       - "Employment"
       - "Office Holder"
+      - "Service Provider"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     readOnly: true

@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "0.0.4",
+    "version": "0.0.5",
     "title": "Business Registries REST API",
     "license": {
       "name": "Creative Commons Attribution 3.0 Australia",
@@ -42,7 +42,7 @@
     },
     {
       "name": "Individuals Roles",
-      "description": "A role defines the characteristics of a relationship between parties (individuals and organisations).\n"
+      "description": "A role defines the characteristics of a relationship between parties.\nAn Indiviual can participate in a relationship with other indiviuals and with organisations.\n\nFor example:\n\n| Party         | Role           | Relationship     | Role       | Party                           |\n| ------------- | -------------- | ---------------- | ---------- | ------------------------------- |\n| Homer Simpson | Husband        | Marriage         | Wife       | Marge Simpson                   |\n| Homer Simpson | Father         | Parent           | Son        | Bart Simpson                    |\n| Homer Simpson | Employee       | Employment       | Employer   | Springfield Nuclear Power Plant |\n| Homer Simpson | Safety Officer | Colleague        | Supervisor | Carl Carlson                    |\n| Homer Simpson | Director       | Office Holder    | Employer   | Mr Plow                         |\n| Homer Simpson | Director       | Office Holder    |            | Homerpalooza                    |\n\n**Note:** Homer Simpson was a `Director` and an `Employee` of Mr Plow.\nHomer Simpson was a `Director` but not an `Employee` of the Homerpalooza festival.\n"
     },
     {
       "name": "Individuals Addresses",
@@ -66,7 +66,7 @@
     },
     {
       "name": "Organisations Roles",
-      "description": "A role defines the characteristics of a relationship between parties (individuals and organisations).\n"
+      "description": "A role defines the characteristics of a relationship between parties.\nAn Organisation can participate in a relationship with other organisations and with indiviuals.\n\nFor example:\n\n| Party                           | Role     | Relationship     | Role       | Party         |\n| ------------------------------- | -------- | ---------------- | ---------- | ------------- |\n| Springfield Nuclear Power Plant | Employee | Employment       | Employee   | Homer Simpson |\n| Springfield Nuclear Power Plant | Employer | Office Holder    | Director   | Mr Burns      |\n| Springfield Nuclear Power Plant |          | Office Holder    | Director   | Fat Tony      |\n| Springfield Nuclear Power Plant | Customer | Service Provider | Accountant | Dan Gillick   |\n\n**Note:** Mr Burns is a `Director` and an `Employee` of the Springfield Nuclear Power Plant.\nFat Tony is a `Director` (albeit a silent one) but not an `Employee` of the Springfield Nuclear Power Plant.\n"
     },
     {
       "name": "Organisations Addresses",
@@ -184,7 +184,6 @@
       "name": "dateOfBirth",
       "in": "query",
       "description": "The individual's date of birth, for example, `1979-01-13` (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format).",
-      "example": "1979-01-13",
       "type": "string",
       "required": false
     },
@@ -198,7 +197,7 @@
     "registeredIdentifier": {
       "name": "registeredIdentifier",
       "in": "query",
-      "description": "The registered identifier, for example, `ACN` or `ABN\"`.",
+      "description": "The registered identifier, for example, `ACN` or `ABN`.",
       "type": "string",
       "required": false
     },
@@ -2358,11 +2357,13 @@
         },
         "fromDate": {
           "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": "1979-01-13T09:05:06+10:00"
         },
         "toDate": {
           "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": ""
         }
@@ -2388,11 +2389,13 @@
             },
             "fromDate": {
               "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+              "readOnly": true,
               "type": "string",
               "example": "1979-01-13T09:05:06+10:00"
             },
             "toDate": {
               "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+              "readOnly": true,
               "type": "string",
               "example": ""
             }
@@ -2419,11 +2422,13 @@
             },
             "fromDate": {
               "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+              "readOnly": true,
               "type": "string",
               "example": "1979-01-13T09:05:06+10:00"
             },
             "toDate": {
               "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+              "readOnly": true,
               "type": "string",
               "example": ""
             }
@@ -2488,11 +2493,13 @@
         },
         "fromDate": {
           "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": "1979-01-13T09:05:06+10:00"
         },
         "toDate": {
           "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": ""
         }
@@ -2571,11 +2578,13 @@
         },
         "fromDate": {
           "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": "1979-01-13T09:05:06+10:00"
         },
         "toDate": {
           "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": ""
         }
@@ -2667,15 +2676,17 @@
         "name": {
           "description": "The organisation's name.",
           "type": "string",
-          "example": "Australian Taxation Office"
+          "example": "321 Technology Ventures"
         },
         "fromDate": {
           "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": "1928-03-03T09:05:06+10:00"
         },
         "toDate": {
           "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": ""
         }
@@ -2710,7 +2721,7 @@
           ]
         },
         "establishmentDate": {
-          "description": "The organisation's establishment date in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "description": "The organisation's establishment date, for example, `1928-03-03` (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format).",
           "type": "string",
           "example": "1928-03-03"
         },
@@ -2740,11 +2751,13 @@
         },
         "fromDate": {
           "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": "1979-01-13T09:05:06+10:00"
         },
         "toDate": {
           "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": ""
         }
@@ -2753,6 +2766,10 @@
     "party-role": {
       "description": "The Party Role resource.",
       "type": "object",
+      "required": [
+        "toPartyId",
+        "relationshipType"
+      ],
       "properties": {
         "id": {
           "description": "The resource's unique identifier.",
@@ -2763,18 +2780,10 @@
             }
           ]
         },
-        "fromPartyId": {
-          "description": "The \"from\" party's unique identifier.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/partyId"
-            }
-          ]
-        },
         "fromPartyRoleType": {
           "description": "The \"from\" party's role type.",
           "type": "string",
-          "default": "Director",
+          "default": "Employee",
           "enum": [
             "Employee",
             "Director"
@@ -2791,28 +2800,33 @@
         "toPartyRoleType": {
           "description": "The \"to\" party's role type.",
           "type": "string",
-          "default": "Office Bearer",
+          "default": "Employer",
           "enum": [
-            "Employer",
-            "Office Bearer"
+            "Not Applicable",
+            "Accountant",
+            "Auditor",
+            "Employer"
           ]
         },
         "relationshipType": {
           "description": "The relationship type.",
           "type": "string",
-          "default": "Office Holder",
+          "default": "Employment",
           "enum": [
             "Employment",
-            "Office Holder"
+            "Office Holder",
+            "Service Provider"
           ]
         },
         "fromDate": {
           "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": "2016-01-13T09:05:06+10:00"
         },
         "toDate": {
           "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": ""
         }
@@ -2847,11 +2861,13 @@
         },
         "fromDate": {
           "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": "1979-01-13T09:05:06+10:00"
         },
         "toDate": {
           "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": ""
         }
@@ -2887,11 +2903,13 @@
         },
         "fromDate": {
           "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": "1979-01-13T09:05:06+10:00"
         },
         "toDate": {
           "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": ""
         }
@@ -2933,11 +2951,13 @@
         },
         "fromDate": {
           "description": "The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": "1979-01-13T09:05:06+10:00"
         },
         "toDate": {
           "description": "The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).",
+          "readOnly": true,
           "type": "string",
           "example": ""
         }
