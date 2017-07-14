@@ -1,7 +1,7 @@
 description: The Party Role resource.
 type: object
 required:
-  - toPartyId
+  - relatedPartyId
   - relationshipType
 properties:
   id:
@@ -9,20 +9,20 @@ properties:
     readOnly: true
     allOf:
       - $ref: "#/definitions/roleId"
-  fromPartyRoleType:
-    description: The "from" party's role type.
+  partyRoleType:
+    description: The party's role type.
     type: string
     default: "Employee"
     enum:
       - "Employee"
       - "Director"
-  toPartyId:
-    description: The "to" party's unique identifier.
+  relatedPartyId:
+    description: The related party's unique identifier.
 #   readOnly: true
     allOf:
       - $ref: "#/definitions/partyId"
-  toPartyRoleType:
-    description: The "to" party's role type.
+  relatedPartyRoleType:
+    description: The related party's role type.
     type: string
     default: "Employer"
     enum:

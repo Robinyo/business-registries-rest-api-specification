@@ -130,7 +130,7 @@ tags:
   - name: Individuals Roles
     description: |
       A role defines the characteristics of a relationship between parties.
-      An Indiviual can participate in a relationship with other indiviuals and with organisations.
+      An Indiviual can participate in a relationship with other indiviuals and organisations.
 
       For example:
 
@@ -181,7 +181,7 @@ tags:
   - name: Organisations Roles
     description: |
       A role defines the characteristics of a relationship between parties.
-      An Organisation can participate in a relationship with other organisations and with indiviuals.
+      An Organisation can participate in a relationship with other organisations and indiviuals.
 
       For example:
 
@@ -190,7 +190,6 @@ tags:
       | Springfield Nuclear Power Plant | Employer | Employment       | Employee   | Homer Simpson |
       | Springfield Nuclear Power Plant | Employer | Office Holder    | Director   | Mr Burns      |
       | Springfield Nuclear Power Plant |          | Office Holder    | Director   | Fat Tony      |
-      | Springfield Nuclear Power Plant | Customer | Service Provider | Accountant | Dan Gillick   |
 
       **Note:** Mr Burns is a `Director` and an `Employee` of the Springfield Nuclear Power Plant.
       Fat Tony is a `Director` (albeit a silent one) but not an `Employee` of the Springfield Nuclear Power Plant.
