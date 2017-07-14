@@ -187,7 +187,7 @@ tags:
 
       | Party                           | Role     | Relationship     | Role       | Party         |
       | ------------------------------- | -------- | ---------------- | ---------- | ------------- |
-      | Springfield Nuclear Power Plant | Employee | Employment       | Employee   | Homer Simpson |
+      | Springfield Nuclear Power Plant | Employer | Employment       | Employee   | Homer Simpson |
       | Springfield Nuclear Power Plant | Employer | Office Holder    | Director   | Mr Burns      |
       | Springfield Nuclear Power Plant |          | Office Holder    | Director   | Fat Tony      |
       | Springfield Nuclear Power Plant | Customer | Service Provider | Accountant | Dan Gillick   |
