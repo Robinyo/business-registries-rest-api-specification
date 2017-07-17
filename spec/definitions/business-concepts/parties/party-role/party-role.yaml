@@ -14,8 +14,10 @@ properties:
     type: string
     default: "Employee"
     enum:
-      - "Employee"
       - "Director"
+      - "Employee"
+      - "Member"
+      - "Partner"
   relatedPartyId:
     description: The related party's unique identifier.
 #   readOnly: true
@@ -26,7 +28,6 @@ properties:
     type: string
     default: "Employer"
     enum:
-      - "Not Applicable"
       - "Accountant"
       - "Auditor"
       - "Employer"
@@ -35,9 +36,10 @@ properties:
     type: string
     default: "Employment"
     enum:
+      - "Commerce"
       - "Employment"
-      - "Office Holder"
-      - "Service Provider"
+      - "Membership"
+      - "Partnership"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     readOnly: true

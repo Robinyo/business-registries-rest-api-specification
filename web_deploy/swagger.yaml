@@ -103,17 +103,15 @@ tags:
 
       For example:
 
-      | Party         | Role           | Relationship     | Role       | Party                           |
-      | ------------- | -------------- | ---------------- | ---------- | ------------------------------- |
-      | Homer Simpson | Husband        | Marriage         | Wife       | Marge Simpson                   |
-      | Homer Simpson | Father         | Parent           | Son        | Bart Simpson                    |
-      | Homer Simpson | Employee       | Employment       | Employer   | Springfield Nuclear Power Plant |
-      | Homer Simpson | Safety Officer | Colleague        | Supervisor | Carl Carlson                    |
-      | Homer Simpson | Director       | Office Holder    | Employer   | Mr Plow                         |
-      | Homer Simpson | Director       | Office Holder    |            | Homerpalooza                    |
-
-      **Note:** Homer Simpson was a `Director` and an `Employee` of Mr Plow.
-      Homer Simpson was a `Director` but not an `Employee` of the Homerpalooza festival.
+      | Party         | Role           | Relationship     | Role         | Party                           |
+      | ------------- | -------------- | ---------------- | ------------ | ------------------------------- |
+      | Homer Simpson | Husband        | Marriage         | Wife         | Marge Simpson                   |
+      | Homer Simpson | Employee       | Employment       | Employer     | Springfield Nuclear Power Plant |
+      | Homer Simpson | Safety Officer | Colleague        | Supervisor   | Carl Carlson                    |
+      | Homer Simpson | Director       | Directorship     | Company      | Mr Plow                         |
+      | Homer Simpson | Employee       | Employment       | Employer     | Mr Plow                         |
+      | Homer Simpson | Member         | Membership       | Organisation | Stonecutters                    |
+      | Homer Simpson | Partner        | Partnership      | Partnership  | The Be Sharps                   |
   - name: Individuals Addresses
     description: |
       The registry maintains information about an individual's contact details for administrative purposes.
@@ -151,14 +149,12 @@ tags:
 
       For example:
 
-      | Party                           | Role     | Relationship     | Role       | Party         |
-      | ------------------------------- | -------- | ---------------- | ---------- | ------------- |
-      | Springfield Nuclear Power Plant | Employer | Employment       | Employee   | Homer Simpson |
-      | Springfield Nuclear Power Plant | Employer | Office Holder    | Director   | Mr Burns      |
-      | Springfield Nuclear Power Plant |          | Office Holder    | Director   | Fat Tony      |
-
-      **Note:** Mr Burns is a `Director` and an `Employee` of the Springfield Nuclear Power Plant.
-      Fat Tony is a `Director` (albeit a silent one) but not an `Employee` of the Springfield Nuclear Power Plant.
+      | Party                           | Role     | Relationship | Role         | Party         |
+      | ------------------------------- | -------- | -------------| ------------ | ------------- |
+      | Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Homer Simpson |
+      | Springfield Nuclear Power Plant | Company  | Directorship | Director     | Mr Burns      |
+      | Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Mr Burns      |
+      | Springfield Nuclear Power Plant | Sponsor  | Sponsorship  | Organisation | Stonecutters  |
   - name: Organisations Addresses
     description: |
       The registry maintains information about an organisation's contact details for administrative purposes.
@@ -2096,8 +2092,10 @@ definitions:
         type: string
         default: Employee
         enum:
-          - Employee
           - Director
+          - Employee
+          - Member
+          - Partner
       relatedPartyId:
         description: The related party's unique identifier.
         allOf:
@@ -2107,7 +2105,6 @@ definitions:
         type: string
         default: Employer
         enum:
-          - Not Applicable
           - Accountant
           - Auditor
           - Employer
@@ -2116,9 +2113,10 @@ definitions:
         type: string
         default: Employment
         enum:
+          - Commerce
           - Employment
-          - Office Holder
-          - Service Provider
+          - Membership
+          - Partnership
       fromDate:
         description: 'The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
         readOnly: true
