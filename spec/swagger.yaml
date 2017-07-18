@@ -134,15 +134,17 @@ tags:
 
       For example:
 
-      | Party         | Role           | Relationship     | Role         | Party                           |
-      | ------------- | -------------- | ---------------- | ------------ | ------------------------------- |
-      | Homer Simpson | Husband        | Marriage         | Wife         | Marge Simpson                   |
-      | Homer Simpson | Employee       | Employment       | Employer     | Springfield Nuclear Power Plant |
-      | Homer Simpson | Safety Officer | Colleague        | Supervisor   | Carl Carlson                    |
-      | Homer Simpson | Director       | Directorship     | Company      | Mr Plow                         |
-      | Homer Simpson | Employee       | Employment       | Employer     | Mr Plow                         |
-      | Homer Simpson | Member         | Membership       | Organisation | Stonecutters                    |
-      | Homer Simpson | Partner        | Partnership      | Partnership  | The Be Sharps                   |
+      | Party         | Role           | Relationship     | Role          | Party                           |
+      | ------------- | -------------- | ---------------- | ------------- | ------------------------------- |
+      | Homer Simpson | Husband        | Marriage         | Wife          | Marge Simpson                   |
+      | Homer Simpson | Employee       | Employment       | Employer      | Springfield Nuclear Power Plant |
+      | Homer Simpson | Safety Officer | Colleague        | Supervisor    | Carl Carlson                    |
+      | Homer Simpson | Director       | Directorship     | Company       | Compu Global Hyper Mega Net     |
+      | Homer Simpson | Employee       | Employment       | Employer      | Compu Global Hyper Mega Net     |
+      | Homer Simpson | Member         | Membership       | Organisation  | The Stonecutters                |
+      | Homer Simpson | Partner        | Partnership      | Partnership   | The Be Sharps                   |
+      | Homer Simpson | Trustee        | Trusteeship      | Trust         | The Simpson Family Trust        |
+      | Homer Simpson | Member         | Membership       | Association   | Mensa International             |
 
   - name: Individuals Addresses
     description: |
@@ -183,12 +185,12 @@ tags:
 
       For example:
 
-      | Party                           | Role     | Relationship | Role         | Party         |
-      | ------------------------------- | -------- | -------------| ------------ | ------------- |
-      | Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Homer Simpson |
-      | Springfield Nuclear Power Plant | Company  | Directorship | Director     | Mr Burns      |
-      | Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Mr Burns      |
-      | Springfield Nuclear Power Plant | Sponsor  | Sponsorship  | Organisation | Stonecutters  |
+      | Party                           | Role     | Relationship | Role         | Party             |
+      | ------------------------------- | -------- | -------------| ------------ | ----------------- |
+      | Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Homer Simpson     |
+      | Springfield Nuclear Power Plant | Company  | Directorship | Director     | Mr Burns          |
+      | Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Mr Burns          |
+      | Springfield Nuclear Power Plant | Sponsor  | Sponsorship  | Organisation | The Stonecutters  |
 
   - name: Organisations Addresses
     description: |
