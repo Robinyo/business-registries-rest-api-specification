@@ -62,6 +62,29 @@ info:
 
     In this example, the '1234' value is provided for the `:partyId` parameter in the path while `:addressType` is passed in the query string.
     For POST, PATCH, PUT, and DELETE requests, parameters not included in the URL should be encoded as JSON with a Content-Type of 'application/json'.
+    ## Metadata
+    The API provides **metadata services** that you can use to discover information about the classifcation schemes and values used by the Registry.
+
+      For example:
+
+        GET /classifications/roles
+
+      Sample response:
+
+        [
+          {
+            "id": "123e4567-e89b-12d3-a456-426655440001",
+            "role": "Director",
+            "roleDescription": "An individual responsible for managing a company's ...",
+            "relationship": "Directorship",
+            "reciprocalRole": "Company",
+            "reciprocalRoleDescription": "An incorporated legal entity."
+          },
+          {
+            ...
+          }
+        ]
+
     ## Root Endpoint
     You can issue a GET request to the root endpoint (also known as the service root) to get all the endpoint categories that the REST API supports:
 
@@ -117,10 +140,6 @@ tags:
 
       You can use the API's **metadata services** to retrieve information about the classifcation schemes and
       values used by the Registry.
-
-        For example:
-
-          GET /classifications/roles
   - name: Individuals Addresses
     description: |
       The registry maintains information about an individual's contact details for administrative purposes.
@@ -167,10 +186,6 @@ tags:
 
       You can use the API's **metadata services** to retrieve information about the classifcation schemes and
       values used by the Registry.
-
-        For example:
-
-          GET /classifications/roles
   - name: Organisations Addresses
     description: |
       The registry maintains information about an organisation's contact details for administrative purposes.
@@ -502,7 +517,7 @@ paths:
             example:
               - id: 123e4567-e89b-12d3-a456-426655440001
                 role: Director
-                roleDescription: A person responsible for managing a company's business activities.
+                roleDescription: An individual responsible for managing a company's business activities.
                 relationship: Directorship
                 reciprocalRole: Company
                 reciprocalRoleDescription: An incorporated legal entity.

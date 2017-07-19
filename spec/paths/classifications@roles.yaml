@@ -17,7 +17,7 @@ get:
         example:
           - id: "123e4567-e89b-12d3-a456-426655440001"
             role: "Director"
-            roleDescription: "A person responsible for managing a company's business activities."
+            roleDescription: "An individual responsible for managing a company's business activities."
             relationship: "Directorship"
             reciprocalRole: "Company"
             reciprocalRoleDescription: "An incorporated legal entity."
