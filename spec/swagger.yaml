@@ -146,6 +146,13 @@ tags:
       | Homer Simpson | Trustee        | Trusteeship      | Trust         | The Simpson Family Trust        |
       | Homer Simpson | Member         | Membership       | Association   | Mensa International             |
 
+      You can use the API's **metadata services** to retrieve information about the classifcation schemes and
+      values used by the Registry.
+
+        For example:
+
+          GET /classifications/roles
+
   - name: Individuals Addresses
     description: |
       The registry maintains information about an individual's contact details for administrative purposes.
@@ -191,6 +198,13 @@ tags:
       | Springfield Nuclear Power Plant | Company  | Directorship | Director     | Mr Burns          |
       | Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Mr Burns          |
       | Springfield Nuclear Power Plant | Sponsor  | Sponsorship  | Organisation | The Stonecutters  |
+
+      You can use the API's **metadata services** to retrieve information about the classifcation schemes and
+      values used by the Registry.
+
+        For example:
+
+          GET /classifications/roles
 
   - name: Organisations Addresses
     description: |

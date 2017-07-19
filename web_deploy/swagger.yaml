@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.0.5
+  version: 0.0.6
   title: Business Registries REST API
   license:
     name: Creative Commons Attribution 3.0 Australia
@@ -114,6 +114,13 @@ tags:
       | Homer Simpson | Partner        | Partnership      | Partnership   | The Be Sharps                   |
       | Homer Simpson | Trustee        | Trusteeship      | Trust         | The Simpson Family Trust        |
       | Homer Simpson | Member         | Membership       | Association   | Mensa International             |
+
+      You can use the API's **metadata services** to retrieve information about the classifcation schemes and
+      values used by the Registry.
+
+        For example:
+
+          GET /classifications/roles
   - name: Individuals Addresses
     description: |
       The registry maintains information about an individual's contact details for administrative purposes.
@@ -157,6 +164,13 @@ tags:
       | Springfield Nuclear Power Plant | Company  | Directorship | Director     | Mr Burns          |
       | Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Mr Burns          |
       | Springfield Nuclear Power Plant | Sponsor  | Sponsorship  | Organisation | The Stonecutters  |
+
+      You can use the API's **metadata services** to retrieve information about the classifcation schemes and
+      values used by the Registry.
+
+        For example:
+
+          GET /classifications/roles
   - name: Organisations Addresses
     description: |
       The registry maintains information about an organisation's contact details for administrative purposes.
@@ -494,7 +508,7 @@ paths:
                 reciprocalRoleDescription: An incorporated legal entity.
               - id: 123e4567-e89b-12d3-a456-426655440002
                 role: Employee
-                roleDescription: A person employed for wages or salary.
+                roleDescription: An individual employed for wages or salary.
                 relationship: Employment
                 reciprocalRole: Employer
                 reciprocalRoleDescription: An individual or organisation that employs people.

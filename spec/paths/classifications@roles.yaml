@@ -23,7 +23,7 @@ get:
             reciprocalRoleDescription: "An incorporated legal entity."
           - id: "123e4567-e89b-12d3-a456-426655440002"
             role: "Employee"
-            roleDescription: "A person employed for wages or salary."
+            roleDescription: "An individual employed for wages or salary."
             relationship: "Employment"
             reciprocalRole: "Employer"
             reciprocalRoleDescription: "An individual or organisation that employs people."

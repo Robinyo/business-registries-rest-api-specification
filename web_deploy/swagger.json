@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "0.0.5",
+    "version": "0.0.6",
     "title": "Business Registries REST API",
     "license": {
       "name": "Creative Commons Attribution 3.0 Australia",
@@ -42,7 +42,7 @@
     },
     {
       "name": "Individuals Roles",
-      "description": "A role defines the characteristics of a relationship between parties.\nAn Indiviual can participate in a relationship with other indiviuals and organisations.\n\nFor example:\n\n| Party         | Role           | Relationship     | Role          | Party                           |\n| ------------- | -------------- | ---------------- | ------------- | ------------------------------- |\n| Homer Simpson | Husband        | Marriage         | Wife          | Marge Simpson                   |\n| Homer Simpson | Employee       | Employment       | Employer      | Springfield Nuclear Power Plant |\n| Homer Simpson | Safety Officer | Colleague        | Supervisor    | Carl Carlson                    |\n| Homer Simpson | Director       | Directorship     | Company       | Compu Global Hyper Mega Net     |\n| Homer Simpson | Employee       | Employment       | Employer      | Compu Global Hyper Mega Net     |\n| Homer Simpson | Member         | Membership       | Organisation  | The Stonecutters                |\n| Homer Simpson | Partner        | Partnership      | Partnership   | The Be Sharps                   |\n| Homer Simpson | Trustee        | Trusteeship      | Trust         | The Simpson Family Trust        |\n| Homer Simpson | Member         | Membership       | Association   | Mensa International             |\n"
+      "description": "A role defines the characteristics of a relationship between parties.\nAn Indiviual can participate in a relationship with other indiviuals and organisations.\n\nFor example:\n\n| Party         | Role           | Relationship     | Role          | Party                           |\n| ------------- | -------------- | ---------------- | ------------- | ------------------------------- |\n| Homer Simpson | Husband        | Marriage         | Wife          | Marge Simpson                   |\n| Homer Simpson | Employee       | Employment       | Employer      | Springfield Nuclear Power Plant |\n| Homer Simpson | Safety Officer | Colleague        | Supervisor    | Carl Carlson                    |\n| Homer Simpson | Director       | Directorship     | Company       | Compu Global Hyper Mega Net     |\n| Homer Simpson | Employee       | Employment       | Employer      | Compu Global Hyper Mega Net     |\n| Homer Simpson | Member         | Membership       | Organisation  | The Stonecutters                |\n| Homer Simpson | Partner        | Partnership      | Partnership   | The Be Sharps                   |\n| Homer Simpson | Trustee        | Trusteeship      | Trust         | The Simpson Family Trust        |\n| Homer Simpson | Member         | Membership       | Association   | Mensa International             |\n\nYou can use the API's **metadata services** to retrieve information about the classifcation schemes and\nvalues used by the Registry.\n\n  For example:\n\n    GET /classifications/roles\n"
     },
     {
       "name": "Individuals Addresses",
@@ -66,7 +66,7 @@
     },
     {
       "name": "Organisations Roles",
-      "description": "A role defines the characteristics of a relationship between parties.\nAn Organisation can participate in a relationship with other organisations and indiviuals.\n\nFor example:\n\n| Party                           | Role     | Relationship | Role         | Party             |\n| ------------------------------- | -------- | -------------| ------------ | ----------------- |\n| Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Homer Simpson     |\n| Springfield Nuclear Power Plant | Company  | Directorship | Director     | Mr Burns          |\n| Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Mr Burns          |\n| Springfield Nuclear Power Plant | Sponsor  | Sponsorship  | Organisation | The Stonecutters  |\n"
+      "description": "A role defines the characteristics of a relationship between parties.\nAn Organisation can participate in a relationship with other organisations and indiviuals.\n\nFor example:\n\n| Party                           | Role     | Relationship | Role         | Party             |\n| ------------------------------- | -------- | -------------| ------------ | ----------------- |\n| Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Homer Simpson     |\n| Springfield Nuclear Power Plant | Company  | Directorship | Director     | Mr Burns          |\n| Springfield Nuclear Power Plant | Employer | Employment   | Employee     | Mr Burns          |\n| Springfield Nuclear Power Plant | Sponsor  | Sponsorship  | Organisation | The Stonecutters  |\n\nYou can use the API's **metadata services** to retrieve information about the classifcation schemes and\nvalues used by the Registry.\n\n  For example:\n\n    GET /classifications/roles\n"
     },
     {
       "name": "Organisations Addresses",
@@ -498,7 +498,7 @@
                 {
                   "id": "123e4567-e89b-12d3-a456-426655440002",
                   "role": "Employee",
-                  "roleDescription": "A person employed for wages or salary.",
+                  "roleDescription": "An individual employed for wages or salary.",
                   "relationship": "Employment",
                   "reciprocalRole": "Employer",
                   "reciprocalRoleDescription": "An individual or organisation that employs people."
