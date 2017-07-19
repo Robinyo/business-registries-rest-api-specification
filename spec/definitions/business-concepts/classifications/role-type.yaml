@@ -1,0 +1,28 @@
+description: The Role Type resource.
+type: object
+properties:
+  id:
+    description: The resource's unique identifier.
+    readOnly: true
+    allOf:
+      - $ref: "#/definitions/resourceId"
+  role:
+    description: The role name.
+    type: string
+    example: "Director"
+  roleDescription:
+    description: The role description.
+    type: string
+    example: "A person responsible for managing a company's business activities."
+  relationship:
+    description: The relationship name.
+    type: string
+    example: "Directorship"
+  reciprocalRole:
+    description: The reciprocal role name.
+    type: string
+    example: "Company"
+  reciprocalRoleDescription:
+    description: The reciprocal role name.
+    type: string
+    example: "An incorporated legal entity."

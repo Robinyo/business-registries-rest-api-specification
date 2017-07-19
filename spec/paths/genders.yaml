@@ -1,0 +1,29 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+get:
+  tags:
+    - Genders
+  summary: Retrieve a list of genders
+  responses:
+    200:
+      description: Genders were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/gender"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426655440001"
+            gender: "Not Known"
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            gender: "Male"
+          - id: "123e4567-e89b-12d3-a456-426655440003"
+            gender: "Female"
+          - id: "123e4567-e89b-12d3-a456-426655440004"
+            gender: "Not Applicable"
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

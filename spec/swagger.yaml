@@ -227,6 +227,15 @@ tags:
         For example, if you provide financial services, you are required to hold an Australian Financial
         Services (AFS) licence.
 
+# Metadata
+
+  - name: Genders
+    description: |
+      A classification scheme for the representation of human sexes.
+
+  - name: Roles
+    description: |
+      A classification scheme for the characteristics of relationships between parties.
 
 x-tagGroups:
   - name: Individuals Details
@@ -259,6 +268,11 @@ x-tagGroups:
     tags:
       - Business Names
       - Licenses
+
+  - name: Metadata
+    tags:
+      - Genders
+      - Roles
 
 headers:
   Link:
@@ -346,6 +360,14 @@ parameters:
     description: The individual's place of birth, for example, `Tamworth`.
     type: string
     required: false
+
+  classification:
+    name: classification
+    in: query
+    description: The classification, for example, `gender`.
+    type: string
+    required: true
+
   registeredIdentifier:
     name: registeredIdentifier
     in: query

@@ -1,0 +1,12 @@
+description: The Gender resource.
+type: object
+properties:
+  id:
+    description: The resource's unique identifier.
+    readOnly: true
+    allOf:
+      - $ref: "#/definitions/resourceId"
+  gender:
+    description: The gender.
+    type: string
+    example: "Male"

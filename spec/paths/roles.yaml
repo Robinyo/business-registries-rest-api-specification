@@ -1,0 +1,33 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+get:
+  tags:
+    - Roles
+  summary: Retrieve a list of roles
+  responses:
+    200:
+      description: Roles were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/role-type"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426655440001"
+            role: "Director"
+            roleDescription: "A person responsible for managing a company's business activities."
+            relationship: "Directorship"
+            reciprocalRole: "Company"
+            reciprocalRoleDescription: "An incorporated legal entity."
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            role: "Employee"
+            roleDescription: "A person employed for wages or salary."
+            relationship: "Employment"
+            reciprocalRole: "Employer"
+            reciprocalRoleDescription: "An individual or organisation that employs people."
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
