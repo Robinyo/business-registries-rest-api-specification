@@ -1,0 +1,27 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+get:
+  tags:
+    - Address Types
+  summary: Retrieve a list of address types
+  responses:
+    200:
+      description: Address types were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/address-type"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426655440001"
+            name: "Mailing"
+            description: "The address at which an individual or organisation receives letters or packages."
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            name: "Principal Place of Business"
+            description: "The main location where work is conducted."
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

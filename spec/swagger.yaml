@@ -229,6 +229,14 @@ tags:
 
 # Metadata
 
+  - name: Address Types
+    description: |
+      A classification scheme for addresses.
+
+  - name: Electronic Address Types
+    description: |
+      A classification scheme for electronic addresses.
+
   - name: Genders
     description: |
       A classification scheme for the representation of human sexes.
@@ -271,6 +279,8 @@ x-tagGroups:
 
   - name: Metadata
     tags:
+      - Address Types
+      - Electronic Address Types
       - Genders
       - Roles
 

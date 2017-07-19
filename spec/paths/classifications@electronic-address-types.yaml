@@ -1,0 +1,27 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+get:
+  tags:
+    - Electronic Address Types
+  summary: Retrieve a list of electronic address types
+  responses:
+    200:
+      description: Electronic address types were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/electronic-address-type"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426655440001"
+            name: "Email"
+            description: "An address used to send and receive emails."
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            name: "Fax"
+            description: "A number used to send and receive faxes."
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

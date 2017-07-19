@@ -1,4 +1,4 @@
-description: The Individual Name Type resource.
+description: The Type resource.
 type: object
 properties:
   id:
@@ -9,8 +9,6 @@ properties:
   name:
     description: The scheme value.
     type: string
-    example: "Alias"
   description:
     description: The scheme value description.
     type: string
-    example: "An alternate name used by a person."

@@ -9,4 +9,3 @@ properties:
   gender:
     description: The gender.
     type: string
-    example: "Male"

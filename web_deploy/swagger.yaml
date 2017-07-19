@@ -189,6 +189,12 @@ tags:
 
         For example, if you provide financial services, you are required to hold an Australian Financial
         Services (AFS) licence.
+  - name: Address Types
+    description: |
+      A classification scheme for addresses.
+  - name: Electronic Address Types
+    description: |
+      A classification scheme for electronic addresses.
   - name: Genders
     description: |
       A classification scheme for the representation of human sexes.
@@ -226,6 +232,8 @@ x-tagGroups:
       - Licenses
   - name: Metadata
     tags:
+      - Address Types
+      - Electronic Address Types
       - Genders
       - Roles
 parameters:
@@ -342,7 +350,79 @@ paths:
           $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
-  /genders:
+  /classifications/address-types:
+    parameters:
+      - $ref: '#/parameters/apiKey'
+    get:
+      tags:
+        - Address Types
+      summary: Retrieve a list of address types
+      responses:
+        '200':
+          description: Address types were retrieved successfully
+          headers:
+            Link:
+              description: |
+                Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.
+                For example:
+
+                    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
+                          <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
+
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+              type: string
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/address-type'
+            example:
+              - id: 123e4567-e89b-12d3-a456-426655440001
+                name: Mailing
+                description: The address at which an individual or organisation receives letters or packages.
+              - id: 123e4567-e89b-12d3-a456-426655440002
+                name: Principal Place of Business
+                description: The main location where work is conducted.
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+  /classifications/electronic-address-types:
+    parameters:
+      - $ref: '#/parameters/apiKey'
+    get:
+      tags:
+        - Electronic Address Types
+      summary: Retrieve a list of electronic address types
+      responses:
+        '200':
+          description: Electronic address types were retrieved successfully
+          headers:
+            Link:
+              description: |
+                Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.
+                For example:
+
+                    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
+                          <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
+
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+              type: string
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/electronic-address-type'
+            example:
+              - id: 123e4567-e89b-12d3-a456-426655440001
+                name: Email
+                description: An address used to send and receive emails.
+              - id: 123e4567-e89b-12d3-a456-426655440002
+                name: Fax
+                description: A number used to send and receive faxes.
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+  /classifications/genders:
     parameters:
       - $ref: '#/parameters/apiKey'
     get:
@@ -376,6 +456,48 @@ paths:
                 gender: Female
               - id: 123e4567-e89b-12d3-a456-426655440004
                 gender: Not Applicable
+        '401':
+          $ref: '#/responses/Unauthenticated'
+        '404':
+          $ref: '#/responses/NotFound'
+  /classifications/roles:
+    parameters:
+      - $ref: '#/parameters/apiKey'
+    get:
+      tags:
+        - Roles
+      summary: Retrieve a list of roles
+      responses:
+        '200':
+          description: Roles were retrieved successfully
+          headers:
+            Link:
+              description: |
+                Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.
+                For example:
+
+                    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
+                          <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
+
+                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
+              type: string
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/role'
+            example:
+              - id: 123e4567-e89b-12d3-a456-426655440001
+                role: Director
+                roleDescription: A person responsible for managing a company's business activities.
+                relationship: Directorship
+                reciprocalRole: Company
+                reciprocalRoleDescription: An incorporated legal entity.
+              - id: 123e4567-e89b-12d3-a456-426655440002
+                role: Employee
+                roleDescription: A person employed for wages or salary.
+                relationship: Employment
+                reciprocalRole: Employer
+                reciprocalRoleDescription: An individual or organisation that employs people.
         '401':
           $ref: '#/responses/Unauthenticated'
         '404':
@@ -1791,49 +1913,15 @@ paths:
           $ref: '#/responses/Unauthenticated'
         '404':
           $ref: '#/responses/NotFound'
-  /roles:
-    parameters:
-      - $ref: '#/parameters/apiKey'
-    get:
-      tags:
-        - Roles
-      summary: Retrieve a list of roles
-      responses:
-        '200':
-          description: Roles were retrieved successfully
-          headers:
-            Link:
-              description: |
-                Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.
-                For example:
-
-                    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel="next",
-                          <https://api.abr.ato.gov.au/individuals?page=34>; rel="last"
-
-                `rel="next"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel="last"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.
-              type: string
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/role-type'
-            example:
-              - id: 123e4567-e89b-12d3-a456-426655440001
-                role: Director
-                roleDescription: A person responsible for managing a company's business activities.
-                relationship: Directorship
-                reciprocalRole: Company
-                reciprocalRoleDescription: An incorporated legal entity.
-              - id: 123e4567-e89b-12d3-a456-426655440002
-                role: Employee
-                roleDescription: A person employed for wages or salary.
-                relationship: Employment
-                reciprocalRole: Employer
-                reciprocalRoleDescription: An individual or organisation that employs people.
-        '401':
-          $ref: '#/responses/Unauthenticated'
-        '404':
-          $ref: '#/responses/NotFound'
 definitions:
+  address-type:
+    allOf:
+      - $ref: '#/definitions/type'
+      - type: object
+  electronic-address-type:
+    allOf:
+      - $ref: '#/definitions/type'
+      - type: object
   gender:
     description: The Gender resource.
     type: object
@@ -1846,25 +1934,11 @@ definitions:
       gender:
         description: The gender.
         type: string
-        example: Male
-  individual-name-type:
-    description: The Individual Name Type resource.
-    type: object
-    properties:
-      id:
-        description: The resource's unique identifier.
-        readOnly: true
-        allOf:
-          - $ref: '#/definitions/resourceId'
-      name:
-        description: The scheme value.
-        type: string
-        example: Alias
-      description:
-        description: The scheme value description.
-        type: string
-        example: An alternate name used by a person.
-  role-type:
+  name-type:
+    allOf:
+      - $ref: '#/definitions/type'
+      - type: object
+  role:
     description: The Role Type resource.
     type: object
     properties:
@@ -1876,23 +1950,33 @@ definitions:
       role:
         description: The role name.
         type: string
-        example: Director
       roleDescription:
         description: The role description.
         type: string
-        example: A person responsible for managing a company's business activities.
       relationship:
         description: The relationship name.
         type: string
-        example: Directorship
       reciprocalRole:
         description: The reciprocal role name.
         type: string
-        example: Company
       reciprocalRoleDescription:
-        description: The reciprocal role name.
+        description: The reciprocal role description.
         type: string
-        example: An incorporated legal entity.
+  type:
+    description: The Type resource.
+    type: object
+    properties:
+      id:
+        description: The resource's unique identifier.
+        readOnly: true
+        allOf:
+          - $ref: '#/definitions/resourceId'
+      name:
+        description: The scheme value.
+        type: string
+      description:
+        description: The scheme value description.
+        type: string
   address:
     description: The Address resource.
     type: object
