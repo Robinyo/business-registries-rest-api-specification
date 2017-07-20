@@ -42,19 +42,19 @@ Government Information Management Office's [A Guide to Open Source Software for 
 
 1. Run `npm start`
 2. Check the console output to see where the local server was started:
-      
-      [08:24:32] Starting 'build'...
-      [08:24:32] Starting 'watch'...
-      [08:24:32] Finished 'watch' after 77 ms
-      [08:24:32] Starting 'edit'...
-      [08:24:32] Finished 'edit' after 1.92 ms
-      [08:24:32] swagger-editor started http://localhost:5000
-      [08:24:36] Finished 'build' after 3.73 s
-      [08:24:36] Starting 'serve'...
-      [08:24:36] Finished 'serve' after 73 μs
-      [08:24:36] Server started http://localhost:3000
-      [08:24:36] LiveReload started on port 35729
-      
+    ```
+    [08:24:32] Starting 'build'...
+    [08:24:32] Starting 'watch'...
+    [08:24:32] Finished 'watch' after 77 ms
+    [08:24:32] Starting 'edit'...
+    [08:24:32] Finished 'edit' after 1.92 ms
+    [08:24:32] swagger-editor started http://localhost:5000
+    [08:24:36] Finished 'build' after 3.73 s
+    [08:24:36] Starting 'serve'...
+    [08:24:36] Finished 'serve' after 73 μs
+    [08:24:36] Server started http://localhost:3000
+    [08:24:36] LiveReload started on port 35729
+    ```   
 3. Make changes using your favorite editor (in the `/spec` folder) or use the bundled `swagger-editor` (look for the URL in the console's output)
 4. All changes are immediately propagated to your local server, moreover all documentation pages will be automagically refreshed in the browser after each change
 5. Once you finish with the changes you can run tests using: `npm test`
