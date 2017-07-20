@@ -13,12 +13,12 @@ info:
     # Introduction
     The Business Registries API is built on HTTP. The API is RESTful. It has predictable resource URIs.
 
-      The API is documented in [OpenAPI](https://github.com/OAI/OpenAPI-Specification) format.
+      The API is documented in <a target="_blank" href="https://github.com/OAI/OpenAPI-Specification">OpenAPI</a> format.
       In addition to the standard OpenAPI syntax we use a few
-      [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
+      <a target="_blank" href="https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md">vendor extensions</a>.
 
     # Overview
-    The following sections describes the resources that make up the Business Registries REST API.
+    The following sections describe the resources that make up the Business Registries REST API.
     ## Current Version
     By default, all requests to https://api.abr.ato.gov.au receive the `v1` version of the REST API. We encourage you to explicitly request this version via the `Accept` header.
 
