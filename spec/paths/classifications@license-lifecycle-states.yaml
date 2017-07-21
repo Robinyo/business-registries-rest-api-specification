@@ -2,34 +2,34 @@ parameters:
   - $ref: "#/parameters/apiKey"
 get:
   tags:
-    - Business Name Lifecycle States
-  summary: Retrieve a list of business name lifecycle states
+    - License Lifecycle States
+  summary: Retrieve a list of license lifecycle states
   responses:
     200:
-      description: Business name lifecycle states were retrieved successfully
+      description: License lifecycle states were retrieved successfully
       headers:
         Link:
           $ref: "#/headers/Link"
       schema:
         type: array
         items:
-          $ref: "#/definitions/business-name-lifecycle-state"
+          $ref: "#/definitions/license-lifecycle-state"
         example:
           - id: "123e4567-e89b-12d3-a456-426655440001"
             name: "Approved"
-            description: "The Business Name has been approved."
+            description: "The License has been approved."
           - id: "123e4567-e89b-12d3-a456-426655440002"
             name: "Expired"
-            description: "The Business Name has expired."
+            description: "The License has expired."
           - id: "123e4567-e89b-12d3-a456-426655440003"
             name: "Issued"
-            description: "The Business Name has been issued."
+            description: "The License has been issued."
           - id: "123e4567-e89b-12d3-a456-426655440004"
             name: "Pending Approval"
-            description: "The Business Name is pending approval."
+            description: "The License is pending approval."
           - id: "123e4567-e89b-12d3-a456-426655440005"
             name: "Suspended"
-            description: "The Business Name has been suspended."
+            description: "The License has been suspended."
     401:
       $ref: "#/responses/Unauthenticated"
     404:

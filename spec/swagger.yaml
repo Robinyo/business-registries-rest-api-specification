@@ -292,6 +292,14 @@ tags:
     description: |
       A classification scheme for parties (individuals and organisations).
 
+  - name: License Lifecycle States
+    description: |
+      A classification scheme for licenses.
+
+  - name: License Types
+    description: |
+      A classification scheme for licenses.
+
   - name: Registered Identifier Types
     description: |
       A classification scheme for registered identifiers.
@@ -342,6 +350,8 @@ x-tagGroups:
       - Electronic Address Types
       - Genders
       - Legal Entity Types
+      - License Lifecycle States
+      - License Types
       - Registered Identifier Types
       - Roles
 

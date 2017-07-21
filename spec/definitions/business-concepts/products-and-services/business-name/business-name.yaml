@@ -10,16 +10,16 @@ properties:
     description: The business name.
     type: string
     example: "XYZ Technology Ventures"
-  status:
-    description: The business name's status.
+  lifecycleState:
+    description: The business name's lifecycle state.
     type: string
     default: "Pending Approval"
     enum:
       - "Approved"
+      - "Expired"
       - "Issued"
       - "Pending Approval"
       - "Suspended"
-      - "Expired"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     readOnly: true

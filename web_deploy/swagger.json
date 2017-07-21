@@ -125,6 +125,14 @@
       "description": "A classification scheme for parties (individuals and organisations).\n"
     },
     {
+      "name": "License Lifecycle States",
+      "description": "A classification scheme for licenses.\n"
+    },
+    {
+      "name": "License Types",
+      "description": "A classification scheme for licenses.\n"
+    },
+    {
       "name": "Registered Identifier Types",
       "description": "A classification scheme for registered identifiers.\n"
     },
@@ -194,6 +202,8 @@
         "Electronic Address Types",
         "Genders",
         "Legal Entity Types",
+        "License Lifecycle States",
+        "License Types",
         "Registered Identifier Types",
         "Roles"
       ]
@@ -415,13 +425,23 @@
                 },
                 {
                   "id": "123e4567-e89b-12d3-a456-426655440002",
+                  "name": "Expired",
+                  "description": "The Business Name has expired."
+                },
+                {
+                  "id": "123e4567-e89b-12d3-a456-426655440003",
                   "name": "Issued",
                   "description": "The Business Name has been issued."
                 },
                 {
-                  "id": "123e4567-e89b-12d3-a456-426655440002",
+                  "id": "123e4567-e89b-12d3-a456-426655440004",
                   "name": "Pending Approval",
                   "description": "The Business Name is pending approval."
+                },
+                {
+                  "id": "123e4567-e89b-12d3-a456-426655440005",
+                  "name": "Suspended",
+                  "description": "The Business Name has been suspended."
                 }
               ]
             }
@@ -572,6 +592,117 @@
                   "id": "123e4567-e89b-12d3-a456-426655440002",
                   "name": "Principal Name",
                   "description": "The primary name used by a party."
+                }
+              ]
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/classifications/license-lifecycle-states": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/apiKey"
+        }
+      ],
+      "get": {
+        "tags": [
+          "License Lifecycle States"
+        ],
+        "summary": "Retrieve a list of license lifecycle states",
+        "responses": {
+          "200": {
+            "description": "License lifecycle states were retrieved successfully",
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/license-lifecycle-state"
+              },
+              "example": [
+                {
+                  "id": "123e4567-e89b-12d3-a456-426655440001",
+                  "name": "Approved",
+                  "description": "The License has been approved."
+                },
+                {
+                  "id": "123e4567-e89b-12d3-a456-426655440002",
+                  "name": "Expired",
+                  "description": "The License has expired."
+                },
+                {
+                  "id": "123e4567-e89b-12d3-a456-426655440003",
+                  "name": "Issued",
+                  "description": "The License has been issued."
+                },
+                {
+                  "id": "123e4567-e89b-12d3-a456-426655440004",
+                  "name": "Pending Approval",
+                  "description": "The License is pending approval."
+                },
+                {
+                  "id": "123e4567-e89b-12d3-a456-426655440005",
+                  "name": "Suspended",
+                  "description": "The License has been suspended."
+                }
+              ]
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Unauthenticated"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/classifications/license-types": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/apiKey"
+        }
+      ],
+      "get": {
+        "tags": [
+          "License Types"
+        ],
+        "summary": "Retrieve a list of license types",
+        "responses": {
+          "200": {
+            "description": "License types were retrieved successfully",
+            "headers": {
+              "Link": {
+                "description": "Information about pagination is provided in the [Link](https://tools.ietf.org/html/rfc5988#page-6) header.\nFor example:\n\n    Link: <https://api.abr.ato.gov.au/individuals?page=2>; rel=\"next\",\n          <https://api.abr.ato.gov.au/individuals?page=34>; rel=\"last\"\n\n`rel=\"next\"` states that the next page is `page=2`. This makes sense, since by default, all paginated queries start at page `1`. `rel=\"last\"` provides some more information, stating that the last page of results is on `page 34`. Accordingly, we have 33 more pages of information that we can consume.\n",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/license-type"
+              },
+              "example": [
+                {
+                  "id": "123e4567-e89b-12d3-a456-426655440001",
+                  "name": "Australian Financial Services License",
+                  "description": "To conduct a financial services business in Australia, you must have an Australian Financial Services (AFS) licence."
+                },
+                {
+                  "id": "123e4567-e89b-12d3-a456-426655440002",
+                  "name": "2B License",
+                  "description": "To conduct a <insert-name-here> business you must have a 2B licence."
                 }
               ]
             }
@@ -2913,6 +3044,26 @@
         }
       ]
     },
+    "license-lifecycle-state": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/type"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "license-type": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/type"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
     "name-direction": {
       "allOf": [
         {
@@ -3601,16 +3752,16 @@
           "type": "string",
           "example": "XYZ Technology Ventures"
         },
-        "status": {
-          "description": "The business name's status.",
+        "lifecycleState": {
+          "description": "The business name's lifecycle state.",
           "type": "string",
           "default": "Pending Approval",
           "enum": [
             "Approved",
+            "Expired",
             "Issued",
             "Pending Approval",
-            "Suspended",
-            "Expired"
+            "Suspended"
           ]
         },
         "fromDate": {
@@ -3643,22 +3794,22 @@
         "licenseType": {
           "description": "The license type.",
           "type": "string",
-          "default": "Australian Financial Services",
+          "default": "Australian Financial Services License",
           "enum": [
-            "Australian Financial Services",
+            "Australian Financial Services License",
             "License 2B"
           ]
         },
-        "status": {
-          "description": "The business name's status.",
+        "lifecycleState": {
+          "description": "The business name's lifecycle state.",
           "type": "string",
           "default": "Pending Approval",
           "enum": [
             "Approved",
+            "Expired",
             "Issued",
             "Pending Approval",
-            "Suspended",
-            "Expired"
+            "Suspended"
           ]
         },
         "fromDate": {

@@ -1,0 +1,27 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+get:
+  tags:
+    - License Types
+  summary: Retrieve a list of license types
+  responses:
+    200:
+      description: License types were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/license-type"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426655440001"
+            name: "Australian Financial Services License"
+            description: "To conduct a financial services business in Australia, you must have an Australian Financial Services (AFS) licence."
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            name: "2B License"
+            description: "To conduct a <insert-name-here> business you must have a 2B licence."
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
