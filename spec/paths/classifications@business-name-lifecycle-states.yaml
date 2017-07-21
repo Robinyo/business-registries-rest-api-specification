@@ -1,0 +1,30 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+get:
+  tags:
+    - Business Name Lifecycle States
+  summary: Retrieve a list of business name lifecycle states
+  responses:
+    200:
+      description: Business name lifecycle states were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/business-name-lifecycle-state"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426655440001"
+            name: "Approved"
+            description: "The Business Name has been approved."
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            name: "Issued"
+            description: "The Business Name has been issued."
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            name: "Pending Approval"
+            description: "The Business Name is pending approval."
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

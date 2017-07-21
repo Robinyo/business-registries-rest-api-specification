@@ -1,0 +1,27 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+get:
+  tags:
+    - Registered Identifier Types
+  summary: Retrieve a list of registered identifier types
+  responses:
+    200:
+      description: Registered identifier types were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/registered-identifier-type"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426655440001"
+            name: "ABN"
+            description: "An Australian Business Number (ABN) is a unique eleven-character number issued by the Australian Business Register (ABR)."
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            name: "ACN"
+            description: "An Australian Company Number (ACN) is a unique nine-character number issued by the Australian Securities and Investments Commission (ASIC)."
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

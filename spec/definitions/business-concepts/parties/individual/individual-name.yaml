@@ -32,10 +32,10 @@ properties:
   direction:
     description: The direction used to render the individual's name.
     type: string
-    default: "right-to-left"
+    default: "left-to-right"
     enum:
-      - "right-to-left"
       - "left-to-right"
+      - "right-to-left"
   formalSalutation:
     description: The individual's formal salutation, for example, "Mr William Smith".
     type: string
@@ -51,7 +51,6 @@ properties:
     enum:
       - "Alias"
       - "Principal Name"
-      - "Stage Name"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     readOnly: true

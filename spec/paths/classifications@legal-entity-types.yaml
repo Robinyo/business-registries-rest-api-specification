@@ -1,0 +1,27 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+get:
+  tags:
+    - Legal Entity Types
+  summary: Retrieve a list of legal entity types
+  responses:
+    200:
+      description: Legal entity types were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/legal-entity-type"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426655440001"
+            name: "Alias"
+            description: "An alternate name used by a party."
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            name: "Principal Name"
+            description: "The primary name used by a party."
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

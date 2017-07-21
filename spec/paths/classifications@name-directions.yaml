@@ -1,0 +1,27 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+get:
+  tags:
+    - Name Directions
+  summary: Retrieve a list of name directions
+  responses:
+    200:
+      description: Name directions were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/name-direction"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426655440001"
+            name: "left-to-right"
+            description: "The full name or formal salutation is rendered left to right."
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            name: "right-to-left"
+            description: "The full name or formal salutation is rendered right to left."
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"

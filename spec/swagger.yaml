@@ -260,6 +260,22 @@ tags:
 
 # Metadata
 
+  - name: Business Name Lifecycle States
+    description: |
+      A classification scheme for business names.
+
+  - name: Name Directions
+    description: |
+      A classification scheme for names.
+
+  - name: Name Prefixes
+    description: |
+      A classification scheme for names.
+
+  - name: Name Types
+    description: |
+      A classification scheme for names.
+
   - name: Address Types
     description: |
       A classification scheme for addresses.
@@ -272,9 +288,17 @@ tags:
     description: |
       A classification scheme for the representation of human sexes.
 
+  - name: Legal Entity Types
+    description: |
+      A classification scheme for parties (individuals and organisations).
+
+  - name: Registered Identifier Types
+    description: |
+      A classification scheme for registered identifiers.
+
   - name: Roles
     description: |
-      A classification scheme for the characteristics of relationships between parties.
+      A classification scheme for the characteristics of relationships between parties (individuals and organisations).
 
 x-tagGroups:
   - name: Individuals Details
@@ -310,9 +334,15 @@ x-tagGroups:
 
   - name: Metadata
     tags:
+      - Business Name Lifecycle States
+      - Name Directions
+      - Name Prefixes
+      - Name Types
       - Address Types
       - Electronic Address Types
       - Genders
+      - Legal Entity Types
+      - Registered Identifier Types
       - Roles
 
 headers:
@@ -401,14 +431,6 @@ parameters:
     description: The individual's place of birth, for example, `Tamworth`.
     type: string
     required: false
-
-  classification:
-    name: classification
-    in: query
-    description: The classification, for example, `gender`.
-    type: string
-    required: true
-
   registeredIdentifier:
     name: registeredIdentifier
     in: query
@@ -447,5 +469,3 @@ responses:
     description: The specified resource was not found
     schema:
       $ref: '#/definitions/not-found'
-
-

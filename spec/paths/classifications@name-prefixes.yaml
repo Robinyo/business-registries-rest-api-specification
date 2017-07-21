@@ -1,0 +1,27 @@
+parameters:
+  - $ref: "#/parameters/apiKey"
+get:
+  tags:
+    - Name Prefixes
+  summary: Retrieve a list of name prefixes
+  responses:
+    200:
+      description: Name prefixes were retrieved successfully
+      headers:
+        Link:
+          $ref: "#/headers/Link"
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/name-prefix"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426655440001"
+            name: "Mr"
+            description: "A title used before a family name or formal salutation to address a man."
+          - id: "123e4567-e89b-12d3-a456-426655440002"
+            name: "Ms"
+            description: "A title used before a family name or formal salutation to address a woman."
+    401:
+      $ref: "#/responses/Unauthenticated"
+    404:
+      $ref: "#/responses/NotFound"
