@@ -59,7 +59,7 @@ this license, visit https://creativecommons.org/licenses/by/3.0/au/.
 **Note:** you can open `swagger-editor`, documentation and `swagger-ui` in parallel
 
 ## Additional Resources
-* [Digital Service Standard](https://www.dta.gov.au/standard/)
+* [Digital Transformation Agency Digital Service Standard](https://www.dta.gov.au/standard/)
 * [A Guide to Open Source Software for Australian Government Agencies](http://www.finance.gov.au/files/2012/04/AGuidetoOpenSourceSoftware.pdf)
 * [ATO RESTful API Design Guidelines](https://github.com/ato-team/restful-api-design-guidelines)
 * [ReDoc](https://github.com/Rebilly/ReDoc)
