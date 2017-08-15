@@ -155,7 +155,7 @@ tags:
   - name: Individuals Roles
     description: |
       A role defines the characteristics of a relationship between parties.
-      An Indiviual can participate in a relationship with other individuals and organisations.
+      An Individual can participate in a relationship with other individuals and organisations.
 
       For example:
 

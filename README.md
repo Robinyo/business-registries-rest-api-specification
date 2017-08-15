@@ -20,9 +20,6 @@ This is the repository for the Business Registries REST API.
 This work is licensed under the Creative Commons Attribution 3.0 Australia (CC BY 3.0 AU) License. To view a copy of 
 this license, visit https://creativecommons.org/licenses/by/3.0/au/.
 
-See: The Digital Transformation Agency's [Digital Service Standard](https://www.dta.gov.au/standard/) and the Australian 
-Government Information Management Office's [A Guide to Open Source Software for Australian Government Agencies](http://www.finance.gov.au/files/2012/04/AGuidetoOpenSourceSoftware.pdf).
-
 ## Links
 
 - Documentation: https://ato-team.github.io/business-registries-rest-api-specification/
@@ -62,6 +59,8 @@ Government Information Management Office's [A Guide to Open Source Software for 
 **Note:** you can open `swagger-editor`, documentation and `swagger-ui` in parallel
 
 ## Additional Resources
+* [Digital Service Standard](https://www.dta.gov.au/standard/)
+* [A Guide to Open Source Software for Australian Government Agencies](http://www.finance.gov.au/files/2012/04/AGuidetoOpenSourceSoftware.pdf)
 * [ATO RESTful API Design Guidelines](https://github.com/ato-team/restful-api-design-guidelines)
 * [ReDoc](https://github.com/Rebilly/ReDoc)
 * [json-server](https://github.com/typicode/json-server) - Get a full fake REST API with zero coding in less than 30 seconds (seriously).
