@@ -18,6 +18,7 @@ properties:
       - "Employee"
       - "Member"
       - "Partner"
+      - "Trustee"
   relatedPartyId:
     description: The related party's unique identifier.
 #   readOnly: true
@@ -28,25 +29,31 @@ properties:
     type: string
     default: "Employer"
     enum:
-      - "Accountant"
-      - "Auditor"
+      - "Association"
+      - "Company"
       - "Employer"
+      - "Organisation"
+      - "Partnership"
+      - "Trust"
   relationshipType:
     description: The relationship type.
     type: string
     default: "Employment"
     enum:
-      - "Commerce"
+      - "Directorship"
       - "Employment"
       - "Membership"
       - "Partnership"
+      - "Trusteeship"
   fromDate:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     readOnly: true
     type: string
+    format: date-time
     example: "2016-01-13T09:05:06+10:00"
   toDate:
     description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     readOnly: true
     type: string
+    format: date-time
     example: ""

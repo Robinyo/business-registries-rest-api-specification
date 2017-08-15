@@ -21,6 +21,7 @@ properties:
   establishmentDate:
     description: The organisation's establishment date, for example, `1928-03-03` (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format).
     type: string
+    format: date
     example: "1928-03-03"
   registeredIdentifiers:
     type: array
@@ -42,9 +43,11 @@ properties:
     description: The date and time the resource became active in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     readOnly: true
     type: string
+    format: date-time
     example: "1979-01-13T09:05:06+10:00"
   toDate:
     description: The date and time the resource became inactive in the format defined by [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
     readOnly: true
     type: string
+    format: date-time
     example: ""

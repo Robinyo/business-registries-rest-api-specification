@@ -397,12 +397,15 @@ headers:
     type: string
 
 parameters:
+  # Header parameters
   apiKey:
     name: apiKey
     in: header
     description: The API key.
     type: string
     required: true
+
+  # Path parameters
   partyId:
     name: partyId
     in: path
@@ -428,7 +431,7 @@ parameters:
     type: string
     required: true
 
-# Query parameters, include examples in the description
+  # Query parameters, include examples in the description
   dateOfBirth:
     name: dateOfBirth
     in: query
