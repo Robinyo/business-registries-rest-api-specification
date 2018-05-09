@@ -13,7 +13,7 @@
 
 This is the repository for the Business Registries REST API.
 
-![screenshot](https://github.com/ato-team/business-registries-rest-api-specification/blob/master/registry-rest-api.png)
+![screenshot](https://github.com/Robinyo/business-registries-rest-api-specification/blob/master/registry-rest-api.png)
 
 ## License
 
